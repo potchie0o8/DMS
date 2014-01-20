@@ -5,6 +5,18 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
+    <style type="text/css">
+        .style2
+        {
+            text-decoration: none;
+            width: 180px;
+        }
+        .style3
+        {
+            text-decoration: none;
+            width: 120px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
 
@@ -16,34 +28,43 @@
             </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 First Name</td>
             <td class="style2">
                 <asp:TextBox ID="txtFName" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                    ControlToValidate="txtFName" ErrorMessage="Please indicate First Name!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Middle Name</td>
             <td class="style2">
                 <asp:TextBox ID="txtMName" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                    ControlToValidate="txtMName" ErrorMessage="Please indicate Middle Name!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Last Name</td>
             <td class="style2">
                 <asp:TextBox ID="txtLName" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                    ControlToValidate="txtLName" ErrorMessage="Please indicate Last Name!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Gender</td>
             <td class="style2">
                 <asp:DropDownList ID="ddlGender" runat="server">
@@ -53,10 +74,13 @@
                 </asp:DropDownList>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                    ControlToValidate="ddlGender" ErrorMessage="Please select Gender!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Birthday</td>
             <td class="style2">
                
@@ -69,28 +93,37 @@
 
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+                    ControlToValidate="txtBDay" ErrorMessage="Please indicate Birthdate!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Contact No</td>
             <td class="style2">
                 <asp:TextBox ID="txtContact" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" 
+                    ControlToValidate="txtContact" ErrorMessage="Please indicate Contact No.!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Email</td>
             <td class="style2">
                 <asp:TextBox ID="txtEmail" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
+                    ControlToValidate="txtEmail" ErrorMessage="Please indicate Email!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Admin Level</td>
             <td class="style2">
                 <asp:DropDownList ID="ddlAdminLevel" runat="server">
@@ -100,28 +133,37 @@
                 </asp:DropDownList>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
+                    ControlToValidate="ddlAdminLevel" ErrorMessage="Please select Admin Level!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Username</td>
             <td class="style2">
                 <asp:TextBox ID="txtUN" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" 
+                    ControlToValidate="txtUN" ErrorMessage="Please indicate Username!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Password</td>
             <td class="style2">
                 <asp:TextBox ID="txtPwd1" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" 
+                    ControlToValidate="txtPwd1" ErrorMessage="Please indicate Password!" 
+                    ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Repeat Password</td>
             <td class="style2">
                 <asp:TextBox ID="txtPwd2" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
@@ -129,11 +171,12 @@
             <td>
                 <asp:CompareValidator ID="CompareValidator1" runat="server" 
                     ControlToCompare="txtPwd1" ControlToValidate="txtPwd2" 
-                    ErrorMessage="Password not match"></asp:CompareValidator>
+                    ErrorMessage="Password do not match!" ForeColor="Red" 
+                    ValidationGroup="RegEmployee">*</asp:CompareValidator>
             </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 Date of Employment</td>
             <td class="style2">
                 <asp:TextBox ID="txtDateEmployeed" runat="server" Width="180px" Placeholder="-Click to Pick Date-"></asp:TextBox>
@@ -145,14 +188,17 @@
 
             </td>
             <td>
-                &nbsp;</td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" 
+                    ControlToValidate="txtDateEmployeed" 
+                    ErrorMessage="Please indicate Date of Employment!" ForeColor="Red">*</asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
-            <td class="style1">
+            <td class="style3">
                 &nbsp;</td>
             <td class="style2">
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-                    onclick="btnSubmit_Click" />
+                    onclick="btnSubmit_Click" ValidationGroup="RegEmployee" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
             </td>
