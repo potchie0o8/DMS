@@ -70,6 +70,38 @@
                     &nbsp;</td>
             </tr>
             <tr>
+                <td class="style2">
+                    Street Address</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style2">
+                    City/Province</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style2">
+                    Region</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style2">
+                    Country</td>
+                <td>
+                    &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
                 <td class="style3">
                     Username</td>
                 <td class="style4">
@@ -90,6 +122,17 @@
                     Repeat Password</td>
                 <td>
                     &nbsp;</td>
+                <td>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style2">
+                    &nbsp;</td>
+                <td>
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+                </td>
                 <td>
                     &nbsp;</td>
             </tr>
