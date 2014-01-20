@@ -100,7 +100,7 @@
         </tr>
         <tr>
             <td class="style1">
-                City</td>
+                City/Province</td>
             <td class="style2">
                 <asp:TextBox ID="txtCity" runat="server" Width="180px"></asp:TextBox>
             </td>
