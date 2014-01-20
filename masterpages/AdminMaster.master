@@ -1,0 +1,84 @@
+﻿<%@ Master Language="C#" CodeFile="AdminMaster.master.cs" Inherits="MasterPage" EnableViewState="true" %>
+<%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>EGI Dormitory Management System</title>
+    <link rel="stylesheet" href="../Styles/style.css" />
+    <asp:ContentPlaceHolder id="Head" runat="server" />
+    <style type="text/css">
+        .style1
+        {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<form runat=server>
+<%--<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>--%>
+<asp:ToolkitScriptManager runat="Server" />
+    <div class="BackgroundGradient"></div>
+    <div class="BodyContent">
+
+    <div class="BorderBorder"><div class="BorderBL"><div></div></div><div class="BorderBR"><div></div></div><div class="BorderTL"></div><div class="BorderTR"><div></div></div><div class="BorderT"></div><div class="BorderR"><div></div></div><div class="BorderB"><div></div></div><div class="BorderL"></div><div class="BorderC"></div><div class="Border">
+
+        <div class="Header">
+        
+          <div class="HeaderTitle">
+            <img class="float-right" src="../images/Logo.png"/>
+            <center><h1>E.G.I. <a href="#">Dormitory Management System</a></h1></center>
+              <h2>
+                  &nbsp;</h2>
+              <h2>
+                  <asp:Label ID="Label1" runat="server" Text="Hi, "></asp:Label>
+                  <asp:Label ID="lblUsername" runat="server"></asp:Label>
+            </h2>
+              <h2><asp:Label ID="lblDate" runat="server"></asp:Label>
+            </h2>
+          </div>
+        </div><div class="Menu">
+             <ul>
+                 <%--<%= RenderMenu() %>--%>
+             <li><asp:LinkButton ID="LinkButton2" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
+             </ul>
+        </div><div class="Columns"><div class="Column1">
+        
+        <div class="BlockBorder"><div class="BlockBL"><div></div></div><div class="BlockBR"><div></div></div><div class="BlockTL"></div><div class="BlockTR"><div></div></div><div class="BlockT"></div><div class="BlockR"><div></div></div><div class="BlockB"><div></div></div><div class="BlockL"></div><div class="BlockC"></div><div class="Block">
+
+            <span class="BlockHeader"><span>Links</span></span>
+            <div class="BlockContentBorder">
+
+                <ul>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkAddEmployee" runat="server" PostBackUrl="~/Admin/EmployeeReg.aspx">Add Employee</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkAddAnnouncement" runat="server" PostBackUrl="~/Admin/Announcement.aspx">Create an Announcement</asp:LinkButton></li>
+
+                   <%-- <li><a href="" class="style1"><strong>Tenant Management</strong></a></li>
+                    <li><a href="" class="style1"><strong>Asset Management</strong></a></li>
+                    <li><a href="" class="style1"><strong>Employee Management</strong></a></li>
+                    <li><a href="" class="style1"><strong>Announcements</strong></a></li>
+                    <li><a href="" class="style1"><strong>Reports</strong></a></li>
+                    <li><a href="" class="style1"><strong>Complaints</strong></a></li>--%>
+                </ul>
+
+            </div>
+
+        </div></div>
+
+        </div><div class="MainColumn">
+        <div class="ArticleBorder"><div class="ArticleBL"><div></div></div><div class="ArticleBR"><div></div></div><div class="ArticleTL"></div><div class="ArticleTR"><div></div></div><div class="ArticleT"></div><div class="ArticleR"><div></div></div><div class="ArticleB"><div></div></div><div class="ArticleL"></div><div class="ArticleC"></div><div class="Article">
+
+            <asp:ContentPlaceHolder id="Content" runat="server" />
+        </div></div></div></div>
+        <div class="Footer">
+            <asp:ContentPlaceHolder id="Footer" runat="server" />
+            <center>Powered by <a href="#">Team Rocket</a></center>
+        </div>                
+
+    </div></div>
+    </div>
+    <asp:ContentPlaceHolder id="AfterBody" runat="server" />
+    </form>
+</body>
+</html>
