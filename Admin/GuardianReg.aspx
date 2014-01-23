@@ -171,11 +171,11 @@
                 <td class="style2">
                     Password</td>
                 <td class="style5">
-                    <asp:TextBox ID="textPassord" runat="server" Width="180px"></asp:TextBox>
+                    <asp:TextBox ID="textPassword" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
                 </td>
                 <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" 
-                        ControlToValidate="textPassord" ErrorMessage="Please indicate Password!" 
+                        ControlToValidate="textPassword" ErrorMessage="Please indicate Password!" 
                         ForeColor="Red" ValidationGroup="RegGuardian">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -183,12 +183,13 @@
                 <td class="style2">
                     Repeat Password</td>
                 <td class="style5">
-                    <asp:TextBox ID="textRPassword" runat="server" Width="180px"></asp:TextBox>
+                    <asp:TextBox ID="textRPassword" runat="server" Width="180px" 
+                        TextMode="Password"></asp:TextBox>
                 </td>
                 <td>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" 
                         ControlToValidate="textRPassword" ErrorMessage="Password do not match!" 
-                        ForeColor="Red" ValidationGroup="RegGuardian">*</asp:CompareValidator>
+                        ForeColor="Red" ValidationGroup="RegGuardian">*Password do no match!</asp:CompareValidator>
                 </td>
             </tr>
             <tr>
