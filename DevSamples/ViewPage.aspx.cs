@@ -11,8 +11,8 @@ public partial class DevSamples_ViewPage : System.Web.UI.Page
     {
         try
         {
-            string FName = Request.QueryString["FName"];
-            string LName = Request.QueryString["LName"];
+            string FName = Server.UrlDecode(Request.QueryString["FName"]);
+            string LName = Server.UrlDecode(Request.QueryString["LName"]);
 
             Response.Write(FName + " " + LName);
         }
