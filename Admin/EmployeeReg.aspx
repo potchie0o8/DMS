@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="EmployeeReg.aspx.cs" Inherits="Admin_EmployeeReg" %>
-
-
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
@@ -160,6 +159,7 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" 
                     ControlToValidate="txtPwd1" ErrorMessage="Please indicate Password!" 
                     ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
+                <%--<asp:CompareValidator ForeColor="Red" ControlToValidate="txtPwd2" ControlToCompare="txtPwd1" ValidationGroup="RegEmployee" ID="CompareValidator2" runat="server" ErrorMessage="Passwords don't match!">*</asp:CompareValidator>--%>
             </td>
         </tr>
         <tr>
@@ -195,15 +195,29 @@
         </tr>
         <tr>
             <td class="style3">
+                Photo: (..JPG, MAX 1MB)</td>
+            <td class="style2">
+                <asp:FileUpload ID="FileUpload1" runat="server" />
+
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style3">
                 &nbsp;</td>
             <td class="style2">
+
+                <asp:ValidationSummary ID="ValidationSummary2" runat="server" HeaderText="Add employee cannot be completed. Please check below:" style="color: #FF0000" ValidationGroup="RegEmployee" />
+
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
                     onclick="btnSubmit_Click" ValidationGroup="RegEmployee" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
             </td>
             <td>
-                &nbsp;</td>
+                
+            </td>
         </tr>
     </table>
     <div>
