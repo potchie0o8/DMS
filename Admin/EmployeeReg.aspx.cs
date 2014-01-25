@@ -21,6 +21,7 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
     }
 
 
+<<<<<<< HEAD
     public string UploadPhoto()
     {
         string result;
@@ -71,6 +72,8 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
         return result;
     }
 
+=======
+>>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
 
     private bool checkInputs()
     {
@@ -150,6 +153,7 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
 
+<<<<<<< HEAD
         string strImageFile = UploadPhoto();
 
         if ((strImageFile == "nofile") || (strImageFile !="large" && strImageFile !="invalid"))
@@ -172,6 +176,20 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                 {
                     string strInsert = "INSERT INTO Employees (FName, MName, LName, Gender, BDate, ContactNo, Email, AdminLevel, UN, PWD, DateOfEmployment, PhotoFile) VALUES (@fname, @mname, @lname, @gender, @bdate, @contact, @email, @adminlevel, @un, @pwd, @doe, @photofile)";
                     SqlParameter[] insrtParam = {
+=======
+        if (checkInputs())
+        {
+
+            SqlParameter[] checkUNParam = {
+                                          new SqlParameter("@un", txtUN.Text)
+                                      };
+
+            bool isExisting = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam, conString);
+            if (isExisting != true)
+            {
+                string strInsert = "INSERT INTO Employees (FName, MName, LName, Gender, BDate, ContactNo, Email, AdminLevel, UN, PWD, DateOfEmployment) VALUES (@fname, @mname, @lname, @gender, @bdate, @contact, @email, @adminlevel, @un, @pwd, @doe)";
+                SqlParameter[] insrtParam = {
+>>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
                                             new SqlParameter("@fname",  AntiXSSMethods.CleanString(txtFName.Text)),
                                             new SqlParameter("@mname", AntiXSSMethods.CleanString(txtMName.Text)),
                                             new SqlParameter("@lname", AntiXSSMethods.CleanString(txtLName.Text)),
@@ -185,6 +203,7 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                                             new SqlParameter("@doe", Convert.ToDateTime(txtDateEmployeed.Text)),
                                             new SqlParameter("@photofile", strImageFile)
                                         };
+<<<<<<< HEAD
                     DataAccess.DataProcessExecuteNonQuery(strInsert, insrtParam, conString);
                     //Response.Write("<script>alert('Success!');</script>");
                     Response.Redirect("ManageEmployees.aspx");
@@ -197,17 +216,31 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                 }
 
 
+=======
+                DataAccess.DataProcessExecuteNonQuery(strInsert, insrtParam, conString);
+                //Response.Write("<script>alert('Success!');</script>");
+                Response.Redirect("ManageEmployees.aspx");
+>>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
 
             }
             else
             {
+<<<<<<< HEAD
                 lblAlert.Text = "Some fields are either have invalid entries or left blank.";
                 //Response.Write("Some fields are either have invalid entries or left blank.");
             }
  
+=======
+                Response.Write("<script>alert('Username already taken!');</script>");
+            }
+
+
+           
+>>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
         }
         else if (strImageFile == "large")
         {
+<<<<<<< HEAD
             lblAlert.Text = "Photo File exceeds 1MB!";
             //Response.Write("<script>alert('Photo File exceeds 1MB!');</script>");
         }
@@ -215,6 +248,9 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
         {
             lblAlert.Text = "Photo File is not valid!";
             //Response.Write("<script>alert('Photo File is not valid!');</script>");
+=======
+            Response.Write("Some fields are either have invalid entries or left blank.");
+>>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
         }
 
 
