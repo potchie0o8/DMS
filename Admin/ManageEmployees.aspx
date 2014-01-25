@@ -4,24 +4,54 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Manage Employees</h1>
+<p>
+    <asp:Button ID="btnAddEmployee" runat="server" PostBackUrl="EmployeeReg.aspx" 
+        Text="Add Employee" />
+</p>
     <p>
-        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDS_Employees" ForeColor="#333333" GridLines="None">
+        Select Category:
+        <asp:DropDownList ID="DropDownList1" runat="server">
+            <asp:ListItem>--Select Search Category--</asp:ListItem>
+        </asp:DropDownList>
+&nbsp;Search Field:
+        <asp:TextBox ID="TextBox1" runat="server" Width="293px"></asp:TextBox>
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+</p>
+    <p>
+        <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+            AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDS_Employees" 
+            ForeColor="#333333" GridLines="None" 
+            onselectedindexchanged="GridView1_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:CommandField ShowSelectButton="True" />
-                <asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID" InsertVisible="False" ReadOnly="True" SortExpression="EmployeeID" />
-                <asp:BoundField DataField="FName" HeaderText="FName" SortExpression="FName" />
-                <asp:BoundField DataField="MName" HeaderText="MName" SortExpression="MName" />
-                <asp:BoundField DataField="LName" HeaderText="LName" SortExpression="LName" />
-                <asp:BoundField DataField="Gender" HeaderText="Gender" SortExpression="Gender" />
-                <asp:BoundField DataField="BDate" HeaderText="BDate" SortExpression="BDate" />
-                <asp:BoundField DataField="ContactNo" HeaderText="ContactNo" SortExpression="ContactNo" />
-                <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
-                <asp:BoundField DataField="AdminLevel" HeaderText="AdminLevel" SortExpression="AdminLevel" />
+                <asp:BoundField DataField="EmployeeID" HeaderText="Employee No." 
+                    InsertVisible="False" ReadOnly="True" SortExpression="EmployeeID" />
+                <asp:BoundField DataField="FName" HeaderText="First Name" 
+                    SortExpression="FName" />
+                <asp:BoundField DataField="MName" HeaderText="Middle Name" 
+                    SortExpression="MName" />
+                <asp:BoundField DataField="LName" HeaderText="Last Name" 
+                    SortExpression="LName" />
+                <asp:TemplateField HeaderText="Gender">
+                    <ItemTemplate>
+                    <%# getGender(int.Parse(Eval("Gender").ToString())) %>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Admin Access">
+                    <ItemTemplate>
+                    <p align="center"><%# getAdminAccess(int.Parse(Eval("AdminLevel").ToString()))%></p>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+
+
+
+
                 <asp:BoundField DataField="UN" HeaderText="UN" SortExpression="UN" />
-                <asp:BoundField DataField="Pwd" HeaderText="Pwd" SortExpression="Pwd" />
-                <asp:BoundField DataField="DateOfEmployment" HeaderText="DateOfEmployment" SortExpression="DateOfEmployment" />
-                <asp:BoundField DataField="PhotoFile" HeaderText="PhotoFile" SortExpression="PhotoFile" />
+                <asp:BoundField DataField="DateOfEmployment" HeaderText="DateOfEmployment" 
+                    SortExpression="DateOfEmployment" />
+                <asp:CommandField ShowSelectButton="True" ButtonType="Button" 
+                    SelectText="View/Edit" />
             </Columns>
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

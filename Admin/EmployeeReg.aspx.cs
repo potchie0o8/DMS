@@ -9,6 +9,8 @@ using System.Text;
 using System.Data.SqlClient;
 using DBHelpers;
 using CustomStrings;
+using ImageProcessor;
+using System.IO;
 
 public partial class Admin_EmployeeReg : System.Web.UI.Page
 {
@@ -18,6 +20,56 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
 
     }
 
+
+    public string UploadPhoto()
+    {
+        string result;
+
+        try
+        {
+
+            if (FupPhoto.HasFile)
+            {
+
+                ImageProcess img = new ImageProcess();
+                Stream imgStream = FupPhoto.FileContent;
+
+                //validates if file is a valid JPG/PNG image
+                bool isValidType = img.ValidateImageFileType(imgStream);
+                //validates if file meets valid size;
+                bool isValidSize = img.ValidateImageFileSize(imgStream, 1048576);
+
+                
+                if (isValidType == false)
+                {
+                    return "invalid";
+                }
+                if (isValidSize == false)
+                {
+                    return "large";
+                }
+
+                string FileExtension = Path.GetExtension(FupPhoto.FileName).ToLower();
+                string NewFileName = "Employee_" + StringCustomizers.dateStampNoID + FileExtension;
+
+                FupPhoto.SaveAs(Server.MapPath(@"~/uploads/" + NewFileName));
+                result = NewFileName;
+            }
+            else
+            {
+                result = "nofile";
+            }
+        }
+        catch (Exception ex)
+        {
+            result = "error: " + ex.Message;
+        }
+        finally
+        {
+            FupPhoto.Dispose();
+        }
+        return result;
+    }
 
 
     private bool checkInputs()
@@ -98,18 +150,28 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
 
-        if (checkInputs())
+        string strImageFile = UploadPhoto();
+
+        if ((strImageFile == "nofile") || (strImageFile !="large" && strImageFile !="invalid"))
         {
 
-            SqlParameter[] checkUNParam = {
+            if (strImageFile == "nofile")
+            {
+                strImageFile = "";
+            }
+
+            if (checkInputs())
+            {
+
+                SqlParameter[] checkUNParam = {
                                           new SqlParameter("@un", txtUN.Text)
                                       };
 
-            bool isExisting = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam, conString);
-            if (isExisting != true)
-            {
-                string strInsert = "INSERT INTO Employees (FName, MName, LName, Gender, BDate, ContactNo, Email, AdminLevel, UN, PWD, DateOfEmployment) VALUES (@fname, @mname, @lname, @gender, @bdate, @contact, @email, @adminlevel, @un, @pwd, @doe)";
-                SqlParameter[] insrtParam = {
+                bool isExisting = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam, conString);
+                if (isExisting != true)
+                {
+                    string strInsert = "INSERT INTO Employees (FName, MName, LName, Gender, BDate, ContactNo, Email, AdminLevel, UN, PWD, DateOfEmployment, PhotoFile) VALUES (@fname, @mname, @lname, @gender, @bdate, @contact, @email, @adminlevel, @un, @pwd, @doe, @photofile)";
+                    SqlParameter[] insrtParam = {
                                             new SqlParameter("@fname",  AntiXSSMethods.CleanString(txtFName.Text)),
                                             new SqlParameter("@mname", AntiXSSMethods.CleanString(txtMName.Text)),
                                             new SqlParameter("@lname", AntiXSSMethods.CleanString(txtLName.Text)),
@@ -120,25 +182,43 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                                             new SqlParameter("@adminlevel", ddlAdminLevel.SelectedValue),
                                             new SqlParameter("@un", AntiXSSMethods.CleanString(txtUN.Text)),
                                             new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString((txtPwd2.Text)))),
-                                            new SqlParameter("@doe", Convert.ToDateTime(txtDateEmployeed.Text))
+                                            new SqlParameter("@doe", Convert.ToDateTime(txtDateEmployeed.Text)),
+                                            new SqlParameter("@photofile", strImageFile)
                                         };
-                DataAccess.DataProcessExecuteNonQuery(strInsert, insrtParam, conString);
-                //Response.Write("<script>alert('Success!');</script>");
-                Response.Redirect("ManageEmployees.aspx");
+                    DataAccess.DataProcessExecuteNonQuery(strInsert, insrtParam, conString);
+                    //Response.Write("<script>alert('Success!');</script>");
+                    Response.Redirect("ManageEmployees.aspx");
+
+                }
+                else
+                {
+                    lblAlert.Text = "Username already taken!";
+                    //Response.Write("<script>alert('Username already taken!');</script>");
+                }
+
+
 
             }
             else
             {
-                Response.Write("<script>alert('Username already taken!');</script>");
+                lblAlert.Text = "Some fields are either have invalid entries or left blank.";
+                //Response.Write("Some fields are either have invalid entries or left blank.");
             }
-
-
-           
+ 
         }
-        else
+        else if (strImageFile == "large")
         {
-            Response.Write("Some fields are either have invalid entries or left blank.");
+            lblAlert.Text = "Photo File exceeds 1MB!";
+            //Response.Write("<script>alert('Photo File exceeds 1MB!');</script>");
         }
+        else if (strImageFile == "invalid")
+        {
+            lblAlert.Text = "Photo File is not valid!";
+            //Response.Write("<script>alert('Photo File is not valid!');</script>");
+        }
+
+
+        
     }
 
 }

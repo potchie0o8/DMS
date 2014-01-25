@@ -51,7 +51,7 @@
             <div class="BlockContentBorder">
 
                 <ul>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkAddEmployee" runat="server" PostBackUrl="~/Admin/EmployeeReg.aspx">Add Employee</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkAddAnnouncement" runat="server" PostBackUrl="~/Admin/Announcement.aspx">Create an Announcement</asp:LinkButton></li>
 
                    <%-- <li><a href="" class="style1"><strong>Tenant Management</strong></a></li>

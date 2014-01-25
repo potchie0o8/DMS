@@ -28,6 +28,24 @@
         </tr>
         <tr>
             <td class="style3">
+                Date of Employment</td>
+            <td class="style2">
+                <asp:TextBox ID="txtDateEmployeed" runat="server" Width="180px" Placeholder="-Click to Pick Date-"></asp:TextBox>
+
+                 <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateEmployeed">
+                </asp:CalendarExtender>
+                <asp:MaskedEditExtender Mask="99/99/9999" TargetControlID="txtDateEmployeed" MaskType="Date" ID="MaskedEditExtender2" runat="server">
+                </asp:MaskedEditExtender>
+
+            </td>
+            <td>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" 
+                    ControlToValidate="txtDateEmployeed" 
+                    ErrorMessage="Please indicate Date of Employment!" ForeColor="Red">*</asp:RequiredFieldValidator>
+            </td>
+        </tr>
+        <tr>
+            <td class="style3">
                 First Name</td>
             <td class="style2">
                 <asp:TextBox ID="txtFName" runat="server" Width="180px"></asp:TextBox>
@@ -175,29 +193,12 @@
                     ValidationGroup="RegEmployee">*</asp:CompareValidator>
             </td>
         </tr>
-        <tr>
-            <td class="style3">
-                Date of Employment</td>
-            <td class="style2">
-                <asp:TextBox ID="txtDateEmployeed" runat="server" Width="180px" Placeholder="-Click to Pick Date-"></asp:TextBox>
-
-                 <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtDateEmployeed">
-                </asp:CalendarExtender>
-                <asp:MaskedEditExtender Mask="99/99/9999" TargetControlID="txtDateEmployeed" MaskType="Date" ID="MaskedEditExtender2" runat="server">
-                </asp:MaskedEditExtender>
-
-            </td>
-            <td>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" 
-                    ControlToValidate="txtDateEmployeed" 
-                    ErrorMessage="Please indicate Date of Employment!" ForeColor="Red">*</asp:RequiredFieldValidator>
-            </td>
-        </tr>
+        
         <tr>
             <td class="style3">
                 Photo: (..JPG, MAX 1MB)</td>
             <td class="style2">
-                <asp:FileUpload ID="FileUpload1" runat="server" />
+                <asp:FileUpload ID="FupPhoto" runat="server" />
 
             </td>
             <td>
@@ -209,7 +210,9 @@
             <td class="style2">
 
                 <asp:ValidationSummary ID="ValidationSummary2" runat="server" HeaderText="Add employee cannot be completed. Please check below:" style="color: #FF0000" ValidationGroup="RegEmployee" />
-
+                
+                <asp:Label ForeColor="Red" ID="lblAlert" runat="server" Text=""></asp:Label>
+                <br />
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
                     onclick="btnSubmit_Click" ValidationGroup="RegEmployee" />
 &nbsp;&nbsp;&nbsp;&nbsp;
