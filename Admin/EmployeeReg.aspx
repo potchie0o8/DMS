@@ -41,7 +41,7 @@
             <td>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" 
                     ControlToValidate="txtDateEmployeed" 
-                    ErrorMessage="Please indicate Date of Employment!" ForeColor="Red">*</asp:RequiredFieldValidator>
+                    ErrorMessage="Please indicate Date of Employment!" ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -206,27 +206,11 @@
         </tr>
         <tr>
             <td class="style3">
-                Photo: (..JPG, MAX 1MB)</td>
-            <td class="style2">
-                <asp:FileUpload ID="FileUpload1" runat="server" />
-
-            </td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style3">
                 &nbsp;</td>
             <td class="style2">
-
-                <asp:ValidationSummary ID="ValidationSummary2" runat="server" HeaderText="Add employee cannot be completed. Please check below:" style="color: #FF0000" ValidationGroup="RegEmployee" />
-<<<<<<< HEAD
-                
+                <asp:ValidationSummary ID="ValidationSummary2" runat="server" HeaderText="Add employee cannot be completed. Please check below:" style="color: #FF0000" ValidationGroup="RegEmployee" />           
                 <asp:Label ForeColor="Red" ID="lblAlert" runat="server" Text=""></asp:Label>
                 <br />
-=======
-
->>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
                     onclick="btnSubmit_Click" ValidationGroup="RegEmployee" />
 &nbsp;&nbsp;&nbsp;&nbsp;

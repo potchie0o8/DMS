@@ -11,7 +11,7 @@ public partial class Admin_Default2 : System.Web.UI.Page
     {
 
     }
-<<<<<<< HEAD
+
 
 
     public string getGender(int _genderID)
@@ -48,6 +48,4 @@ public partial class Admin_Default2 : System.Web.UI.Page
     {
 
     }
-=======
->>>>>>> e8541358c2c7a1a6c94024264f9d9ef3d352362c
 }
