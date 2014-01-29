@@ -108,6 +108,18 @@
             </tr>
             <tr>
                 <td class="style2">
+                    Email Address</td>
+                <td class="style5">
+                    <asp:TextBox ID="textEmail" runat="server" Width="180px"></asp:TextBox>
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" 
+                        ControlToValidate="textEmail" ErrorMessage="Please indicate Email Address!" 
+                        ForeColor="Red" ValidationGroup="RegGuardian">*</asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="style2">
                     Street Address</td>
                 <td class="style5">
                     <asp:TextBox ID="textSaddress" runat="server" Width="180px"></asp:TextBox>
