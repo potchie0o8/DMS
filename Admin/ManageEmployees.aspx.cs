@@ -44,8 +44,10 @@ public partial class Admin_Default2 : System.Web.UI.Page
         return AccessLevel;
     }
 
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-    {
 
+
+    protected void GrdEmployees_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("ViewEmployee.aspx?ID=" + GrdEmployees.SelectedDataKey["EmployeeID"].ToString());
     }
 }

@@ -160,13 +160,8 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
 
             if (checkInputs())
             {
-
-                SqlParameter[] checkUNParam = {
-                                          new SqlParameter("@un", txtUN.Text)
-                                      };
-
-                bool isExisting = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam, conString);
-                if (isExisting != true)
+                bool UsernameExists = UserManagement.General.CheckIfExisting(txtUN.Text);
+                if (UsernameExists != true)
                 {
                     string strInsert = "INSERT INTO Employees (FName, MName, LName, Gender, BDate, ContactNo, Email, AdminLevel, UN, PWD, DateOfEmployment, PhotoFile) VALUES (@fname, @mname, @lname, @gender, @bdate, @contact, @email, @adminlevel, @un, @pwd, @doe, @photofile)";
                     SqlParameter[] insrtParam = {
@@ -184,14 +179,12 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                                             new SqlParameter("@photofile", strImageFile)
                                         };
                     DataAccess.DataProcessExecuteNonQuery(strInsert, insrtParam, conString);
-                    //Response.Write("<script>alert('Success!');</script>");
                     Response.Redirect("ManageEmployees.aspx");
 
                 }
                 else
                 {
                     lblAlert.Text = "Username already taken!";
-                    //Response.Write("<script>alert('Username already taken!');</script>");
                 }
 
             }
@@ -203,7 +196,6 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
         else if (strImageFile == "large")
         {
             lblAlert.Text = "Photo File exceeds 1MB!";
-            //Response.Write("<script>alert('Photo File exceeds 1MB!');</script>");
         }
         else if (strImageFile == "invalid")
         {

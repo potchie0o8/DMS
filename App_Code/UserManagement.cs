@@ -19,6 +19,41 @@ namespace UserManagement
     public static class General
     {
 
+        private static string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+
+        //checks if user is existing in three tables
+        public static bool CheckIfExisting(string _input)
+        {
+
+            string input = AntiXSSMethods.CleanString(_input);
+            SqlParameter[] checkUNParam1 = {
+                                          new SqlParameter("@un", input)
+                                      };
+            SqlParameter[] checkUNParam2 = {
+                                          new SqlParameter("@un", input)
+                                      };
+            //SqlParameter[] checkUNParam3 = {
+            //                              new SqlParameter("@un", input)
+            //                          };
+
+
+            bool isEmployee = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam1, ConnString);
+            bool isTenant = DataAccess.DetermineIfExisting("SELECT * FROM Tenants WHERE UN=@un", checkUNParam2, ConnString);
+            //bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam, ConnString);
+
+            //if (isEmployee == false && isTenant == false && isGuardian == false)
+            if (isEmployee == false && isTenant == false)
+            {
+                return false;
+            }
+            else
+            {
+                //Username already exists in all three tables
+                return true;
+            }
+
+
+        }
     }
 
     public static class Employees
