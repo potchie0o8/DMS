@@ -134,6 +134,7 @@
                 <asp:TextBox ID="txtEmail" runat="server" Width="180px"></asp:TextBox>
             </td>
             <td>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail" Text="*" Display="Dynamic" runat="server" ForeColor="Red" ErrorMessage="Please enter a valid email address!" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"  ValidationGroup="RegEmployee"></asp:RegularExpressionValidator>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
                     ControlToValidate="txtEmail" ErrorMessage="Please indicate Email!" 
                     ForeColor="Red" ValidationGroup="RegEmployee">*</asp:RequiredFieldValidator>

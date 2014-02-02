@@ -19,7 +19,7 @@
 &nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
     <br />
         <br />
-        <asp:GridView ID="GridView1" runat="server" CellPadding="4" DataSourceID="SqlDS_Employees" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False">
+        <asp:GridView ID="GrdEmployees" runat="server" CellPadding="4" DataSourceID="SqlDS_Employees" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" DataKeyNames="EmployeeID" OnSelectedIndexChanged="GrdEmployees_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
