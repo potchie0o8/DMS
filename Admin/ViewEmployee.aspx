@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="ViewEmployee.aspx.cs" Inherits="Admin_ViewEmployee" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
     <style type="text/css">
