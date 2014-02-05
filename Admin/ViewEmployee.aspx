@@ -28,11 +28,11 @@
     <table class="auto-style1" border="1">
         <tr>
             <td class="auto-style2">
-                <asp:Image ID="ImgPhoto" runat="server" />
+                <asp:Image ID="ImgPhoto" runat="server" Width="200px" />
             </td>
             <td>
                 Upload New Photo:<br>
-                <asp:FileUpload ID="fupPhoto" runat="server" />
+                <asp:FileUpload ID="FupPhoto" runat="server" />
             </td>
         </tr>
         <tr>

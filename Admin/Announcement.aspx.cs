@@ -24,6 +24,7 @@ public partial class Admin_Announcement : System.Web.UI.Page
                                          new SqlParameter("@message", AntiXSSMethods.CleanString(txtMsg.Text))
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        Response.Write("<script>alert('Success!');</script>");
+        //Response.Write("<script>alert('Success!');</script>");
+        Response.Redirect("ManageAnnouncements.aspx");
     }
 }

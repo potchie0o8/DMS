@@ -50,7 +50,7 @@
                 <ul>
                     <%--<li><a href="google.com">test</a></li>--%>
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkAddAnnouncement" runat="server" PostBackUrl="~/Admin/Announcement.aspx">Create an Announcement</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkAddAnnouncement" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
 
                    <%-- <li><a href="" class="style1"><strong>Tenant Management</strong></a></li>
                     <li><a href="" class="style1"><strong>Asset Management</strong></a></li>

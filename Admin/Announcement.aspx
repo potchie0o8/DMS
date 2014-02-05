@@ -4,7 +4,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-
+<h1>Add an Announcement</h1>
     <div>
     
         <table style="width:100%;">
