@@ -12,18 +12,29 @@ using CustomStrings;
 public partial class Admin_Announcement : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    int EmployeeID;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        try
+        {
+            EmployeeID = int.Parse(Session["EmployeeID"].ToString());
+        }
+        catch (Exception ex)
+        {
+            Response.Write(ex.Message);
+        }
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        string strInsert = "INSERT INTO Announcement (Subject, Message) VALUES (@subject, @message)";
+        string strInsert = "INSERT INTO Announcement (Subject, Message, EmployeeID) VALUES (@subject, @message, @eid)";
         SqlParameter[] insertParam = {
                                          new SqlParameter("@subject", AntiXSSMethods.CleanString(txtSubject.Text)),
-                                         new SqlParameter("@message", AntiXSSMethods.CleanString(txtMsg.Text))
+                                         new SqlParameter("@message", AntiXSSMethods.CleanString(txtMsg.Text)),
+                                         new SqlParameter("@eid", EmployeeID)
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        Response.Write("<script>alert('Success!');</script>");
+        //Response.Write("<script>alert('Success!');</script>");
+        Response.Redirect("ManageAnnouncements.aspx");
     }
 }

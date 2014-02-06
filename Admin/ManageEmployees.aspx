@@ -11,12 +11,18 @@
     <br />
 
         Select Category:
-        <asp:DropDownList ID="DropDownList1" runat="server">
-            <asp:ListItem>--Select Search Category--</asp:ListItem>
+        <asp:DropDownList ID="ddlSearch" runat="server">
+            <asp:ListItem Value="">--Select Search Category--</asp:ListItem>
+            <asp:ListItem Value="UN">Username</asp:ListItem>
+            <asp:ListItem Value="EmployeeID">Employee No.</asp:ListItem>
+            <asp:ListItem Value="FName">First Name</asp:ListItem>
+            <asp:ListItem Value="MName">Middle Name</asp:ListItem>
+            <asp:ListItem Value="LName">Last Name</asp:ListItem>
         </asp:DropDownList>
 &nbsp;Search Field:
-        <asp:TextBox ID="TextBox1" runat="server" Width="236px"></asp:TextBox>
-&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+        <asp:TextBox ID="txtSearch" runat="server" Width="236px" placeholder="Leave blank to filter entries."></asp:TextBox>
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
+        onclick="btnSearch_Click" />
     <br />
         <br />
         <asp:GridView ID="GrdEmployees" runat="server" CellPadding="4" DataSourceID="SqlDS_Employees" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" DataKeyNames="EmployeeID" OnSelectedIndexChanged="GrdEmployees_SelectedIndexChanged">
