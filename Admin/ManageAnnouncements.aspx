@@ -20,8 +20,13 @@
                 SortExpression="Message" />
             <asp:BoundField DataField="DateCreated" HeaderText="DateCreated" 
                 SortExpression="DateCreated" />
-            <asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID" 
-                SortExpression="EmployeeID" />
+            <%--<asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID" 
+                SortExpression="EmployeeID" />--%>
+                <asp:TemplateField HeaderText="Posted by:">
+                    <ItemTemplate>
+                    <%# GetUsername(int.Parse(Eval("EmployeeID").ToString()))%>
+                    </ItemTemplate>
+                </asp:TemplateField>
         </Columns>
         <EditRowStyle BackColor="#999999" />
         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
