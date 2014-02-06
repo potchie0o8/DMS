@@ -70,7 +70,7 @@ namespace UserManagement
                                          };
                 string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
 
-                if (PasswordToCompare ==  Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
+                if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
                 {
                     string strGetID = "SELECT EmployeeID FROM Employees WHERE UN=@UN";
                     SqlParameter[] GetIDParams = {

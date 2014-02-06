@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UserManagement;
 
 public partial class Admin_ManageAnnouncements : System.Web.UI.Page
 {
@@ -11,4 +12,10 @@ public partial class Admin_ManageAnnouncements : System.Web.UI.Page
     {
 
     }
+
+    public string GetUsername(int _EID)
+    {
+        return Employees.ReturnUserName(_EID);
+    }
+
 }

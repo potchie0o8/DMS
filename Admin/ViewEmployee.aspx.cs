@@ -18,7 +18,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
 
     int EmployeeID;
 
-    string photofile;
+    string photofile, username;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,10 +29,20 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
             {
                 loaddata(EmployeeID);
                 ViewState.Add("photofile", photofile);
+                ViewState.Add("username", username);
+
+                if (int.Parse(Session["AccessLevel"].ToString()) != 1)
+                {
+                    btnResetPassword.Enabled = false;
+                    btnUpdate.Enabled = false;
+                    lblAlert.Text = "Your access level doesn't permit you to edit employee details";
+                }
+
             }
             else
             {
                 photofile = ViewState["photofile"].ToString();
+                username = ViewState["username"].ToString();
             }
         }
         catch (Exception ex)
@@ -70,7 +80,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
                 }
 
                 string FileExtension = Path.GetExtension(FupPhoto.FileName).ToLower();
-                string NewFileName = "Employee_" + StringCustomizers.dateStampNoID + FileExtension;
+                string NewFileName = NewFileName = "Employee_" + username + "_" + StringCustomizers.dateStampNoID + FileExtension;
 
                 FupPhoto.SaveAs(Server.MapPath(@"~/uploads/" + NewFileName));
                 result = NewFileName;
@@ -98,6 +108,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         dr.Read();
         lblEmpID.Text = EmployeeID.ToString();
         lblUN.Text = dr["UN"].ToString();
+        username = dr["UN"].ToString();
         ddlAdminAccess.SelectedValue = dr["AdminLevel"].ToString();
         ddlGender.SelectedValue = dr["Gender"].ToString();
         //for photo, if no photo then default nopic from FRIENDSTER will appear. haha.
@@ -116,8 +127,8 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         txtDOE.Text = dr["DateOfEmployment"].ToString();
         txtEmailAdd.Text = dr["Email"].ToString();
         txtFName.Text = dr["FName"].ToString();
-        txtLName.Text = dr["LName"].ToString();
         txtMName.Text = dr["MName"].ToString();
+        txtLName.Text = dr["LName"].ToString();
 
         DataAccess.ForceConnectionToClose();
 
@@ -128,7 +139,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         try
         {
 
-            string strUpdate = "UPDATE Employees SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, DateOfEmployment=@doe, Email=@email, FName=@fname, MName=@mname, @LName=@lname WHERE EmployeeID=@EID";
+            string strUpdate = "UPDATE Employees SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, DateOfEmployment=@doe, Email=@email, FName=@fname, MName=@mname, LName=@lname WHERE EmployeeID=@EID";
 
             photofile = UploadPhoto();
 
@@ -147,6 +158,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
                                        };
             DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, connString);
             loaddata(EmployeeID);
+            lblAlert.Text = "Employee information saved.";
         }
         catch (Exception ex)
         {
@@ -157,6 +169,22 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
     }
     protected void btnResetPassword_Click(object sender, EventArgs e)
     {
-
+        
+    }
+    protected void btnResetPass2_Click(object sender, EventArgs e)
+    {
+        if (Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)) == Session["KEY"].ToString())
+        {
+            string strResetPass = "UPDATE Employees SET PWD='" + Encryption.MD5("12345") + "' WHERE EmployeeID=@EID";
+            SqlParameter[] EID = { new SqlParameter("@EID", EmployeeID) };
+            DataAccess.DataProcessExecuteNonQuery(strResetPass, EID, connString);
+            MPEResetPass.Hide();
+            lblAlert.Text = "Password reset successful!";
+        }
+        else
+        {
+            lblAlert.Text = "Password reset not successful! You have entered your password incorrectly.";
+            MPEResetPass.Hide();
+        }
     }
 }

@@ -17,7 +17,10 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (int.Parse(Session["AccessLevel"].ToString()) != 1)
+        {
+            Response.Redirect("ManageEmployees.aspx");
+        }
     }
 
     public string UploadPhoto()
@@ -47,7 +50,7 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                 }
 
                 string FileExtension = Path.GetExtension(FupPhoto.FileName).ToLower();
-                string NewFileName = "Employee_" + StringCustomizers.dateStampNoID + FileExtension;
+                string NewFileName = "Employee_" + AntiXSSMethods.CleanString(txtUN.Text) + "_" + StringCustomizers.dateStampNoID + FileExtension;
 
                 FupPhoto.SaveAs(Server.MapPath(@"~/uploads/" + NewFileName));
                 result = NewFileName;
