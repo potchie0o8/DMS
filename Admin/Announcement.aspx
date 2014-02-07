@@ -23,14 +23,8 @@
             <tr>
                 <td class="style3">
                     Subject</td>
-                <td class="style2">
-<<<<<<< HEAD
-                    <asp:TextBox ID="txtSubject" runat="server" Width="180px"></asp:TextBox>
-                </td>
                 <td>
-=======
                     <asp:TextBox ID="txtSubject" runat="server" Width="421px"></asp:TextBox>
->>>>>>> 978abe23b39cebc74e087393c6f79121e56c4d3c
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                         ErrorMessage="Please indicate Subject!" ForeColor="Red" 
                         ControlToValidate="txtMsg" ValidationGroup="AddAnnouncement">*</asp:RequiredFieldValidator>
@@ -39,12 +33,7 @@
             <tr>
                 <td class="style3">
                     Message</td>
-                <td class="style2">
-<<<<<<< HEAD
-                    <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Width="180px"></asp:TextBox>
-                </td>
                 <td>
-=======
                     <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Columns="50" Rows="10"></asp:TextBox>
 
                     <asp:HtmlEditorExtender ID="HtmlEditorExtender1" 
@@ -85,8 +74,6 @@
                             <asp:InsertImage />
                         </Toolbar>
                     </asp:HtmlEditorExtender>
-
->>>>>>> 978abe23b39cebc74e087393c6f79121e56c4d3c
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                         ErrorMessage="Please indicate Message!" ForeColor="Red" 
                         ControlToValidate="txtSubject" ValidationGroup="AddAnnouncement">*</asp:RequiredFieldValidator>
