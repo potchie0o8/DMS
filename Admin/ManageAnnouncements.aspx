@@ -7,26 +7,28 @@
     <asp:Button ID="btnAddAnnouncement" runat="server" Text="Add Announcement" 
         PostBackUrl="~/Admin/Announcement.aspx" />
     <br />
-    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" 
+    <br />
+    <asp:GridView ID="GrdAnnouncements" runat="server" AllowPaging="True" 
         AutoGenerateColumns="False" CellPadding="4" DataKeyNames="AnnouncementID" 
-        DataSourceID="SqlDS_Announcements" ForeColor="#333333" GridLines="None">
+        DataSourceID="SqlDS_Announcements" ForeColor="#333333" GridLines="None" 
+        onselectedindexchanged="GridView1_SelectedIndexChanged">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>
-            <asp:BoundField DataField="AnnouncementID" HeaderText="AnnouncementID" 
+            <%--<asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID" 
+                SortExpression="EmployeeID" />--%>
+            <asp:BoundField DataField="AnnouncementID" HeaderText="Announcement No." 
                 InsertVisible="False" ReadOnly="True" SortExpression="AnnouncementID" />
             <asp:BoundField DataField="Subject" HeaderText="Subject" 
                 SortExpression="Subject" />
-            <asp:BoundField DataField="Message" HeaderText="Message" 
-                SortExpression="Message" />
-            <asp:BoundField DataField="DateCreated" HeaderText="DateCreated" 
+            <asp:BoundField DataField="DateCreated" HeaderText="Date Posted" 
                 SortExpression="DateCreated" />
-            <%--<asp:BoundField DataField="EmployeeID" HeaderText="EmployeeID" 
-                SortExpression="EmployeeID" />--%>
-                <asp:TemplateField HeaderText="Posted by:">
+                <asp:TemplateField HeaderText="Posted by">
                     <ItemTemplate>
                     <%# GetUsername(int.Parse(Eval("EmployeeID").ToString()))%>
                     </ItemTemplate>
                 </asp:TemplateField>
+            <asp:CommandField ButtonType="Button" SelectText="View/Edit" 
+                ShowSelectButton="True" />
         </Columns>
         <EditRowStyle BackColor="#999999" />
         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />

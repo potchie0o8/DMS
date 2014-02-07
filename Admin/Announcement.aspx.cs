@@ -30,11 +30,13 @@ public partial class Admin_Announcement : System.Web.UI.Page
         string strInsert = "INSERT INTO Announcement (Subject, Message, EmployeeID) VALUES (@subject, @message, @eid)";
         SqlParameter[] insertParam = {
                                          new SqlParameter("@subject", AntiXSSMethods.CleanString(txtSubject.Text)),
-                                         new SqlParameter("@message", AntiXSSMethods.CleanString(txtMsg.Text)),
+                                         new SqlParameter("@message", Server.HtmlEncode(txtMsg.Text.Trim())),
                                          new SqlParameter("@eid", EmployeeID)
                                      };
-        DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+        int newID = DataAccess.InsertAndGetIndex(strInsert, insertParam, conString);
+
+        //DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
         //Response.Write("<script>alert('Success!');</script>");
-        Response.Redirect("ManageAnnouncements.aspx");
+        Response.Redirect("ViewAnnouncement.aspx?ID=" + newID.ToString());
     }
 }
