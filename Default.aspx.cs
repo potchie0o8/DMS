@@ -8,16 +8,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-using System.Configuration;
 using System.Data.SqlClient;
 using UserManagement;
 using CustomStrings;
 using DBHelpers;
+using Globals;
 
 public partial class _Default : System.Web.UI.Page
 {
 
-    string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    string ConnString = StaticVariables.ConnectionString;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -29,8 +29,8 @@ public partial class _Default : System.Web.UI.Page
         
         // Checks if the credentials fit each table... there can only be one.
         int EmployeeID = Employees.CheckUser(txtUsername.Text, txtPassword.Text);
-        int GuardianID = 0;
-        int TenantID = 0;
+        int TenantID = Tenants.CheckUser(txtUsername.Text, txtPassword.Text);
+        int GuardianID = Guardians.CheckUser(txtUsername.Text, txtPassword.Text);
 
 
         if (EmployeeID + GuardianID + TenantID == 0)
@@ -39,12 +39,26 @@ public partial class _Default : System.Web.UI.Page
             Response.Write((EmployeeID + GuardianID + TenantID).ToString());
         }
 
-        if (EmployeeID != 0) 
+        if (EmployeeID != 0)
         {
             Session.Add("EmployeeID", EmployeeID);
             Session.Add("AccessLevel", Employees.GetAccessLevel(EmployeeID));
             Session.Add("KEY", Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)));
             Response.Redirect("~/Admin/Default.aspx");
+        }
+
+        else if (TenantID != 0)
+        {
+            Session.Add("TenantID", TenantID);
+            Session.Add("KEY", Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)));
+            Response.Redirect("~/Tenant/Default.aspx");
+        }
+
+        else if (GuardianID != 0)
+        {
+            Session.Add("GuardianID", GuardianID);
+            Session.Add("KEY", Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)));
+            Response.Redirect("~/Guardian/Default.aspx");
         }
 
 

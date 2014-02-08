@@ -7,9 +7,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using DBHelpers;
-using System.Configuration;
 using System.Data.SqlClient;
 using CustomStrings;
+using Globals;
 
 /// <summary>
 /// Usermanagement
@@ -19,7 +19,7 @@ namespace UserManagement
     public static class General
     {
 
-        private static string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+        private static string ConnString = StaticVariables.ConnectionString;
 
         //checks if user is existing in three tables
         public static bool CheckIfExisting(string _input)
@@ -58,7 +58,7 @@ namespace UserManagement
 
     public static class Employees
     {
-        private static string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+        private static string ConnString = StaticVariables.ConnectionString;
 
 
         public static int CheckUser(string _UN, string _PWD)
@@ -114,9 +114,89 @@ namespace UserManagement
     public static class Tenants 
     {
 
+        private static string ConnString = StaticVariables.ConnectionString;
+
+        public static int CheckUser(string _UN, string _PWD)
+        {
+            string strUsername = AntiXSSMethods.CleanString(_UN);
+            try
+            {
+                string strCheck = "SELECT Pwd FROM Tenants WHERE UN=@UN";
+                SqlParameter[] CheckParams = {
+                                             new SqlParameter("@UN", strUsername),
+                                         };
+                string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
+
+                if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
+                {
+                    string strGetID = "SELECT TenantID FROM Tenants WHERE UN=@UN";
+                    SqlParameter[] GetIDParams = {
+                                             new SqlParameter("@UN", strUsername),
+                                         };
+                    return int.Parse(DataAccess.ReturnData(strGetID, GetIDParams, ConnString, "TenantID"));
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public static string ReturnUserName(int _TenantID)
+        {
+            string strGetUN = "SELECT UN FROM Tenants WHERE TenantID=@EID";
+            SqlParameter[] GetUNParams = {
+                                             new SqlParameter("@EID", _TenantID),
+                                         };
+            return DataAccess.ReturnData(strGetUN, GetUNParams, ConnString, "UN");
+        }
+
     }
     public static class Guardians
     {
+        private static string ConnString = StaticVariables.ConnectionString;
 
+        public static int CheckUser(string _UN, string _PWD)
+        {
+            string strUsername = AntiXSSMethods.CleanString(_UN);
+            try
+            {
+                string strCheck = "SELECT Pwd FROM Guardians WHERE UN=@UN";
+                SqlParameter[] CheckParams = {
+                                             new SqlParameter("@UN", strUsername),
+                                         };
+                string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
+
+                if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
+                {
+                    string strGetID = "SELECT Guardians FROM Tenants WHERE UN=@UN";
+                    SqlParameter[] GetIDParams = {
+                                             new SqlParameter("@UN", strUsername),
+                                         };
+                    return int.Parse(DataAccess.ReturnData(strGetID, GetIDParams, ConnString, "GuardianID"));
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public static string ReturnUserName(int _GuardianID)
+        {
+            string strGetUN = "SELECT UN FROM Guardians WHERE TenantID=@EID";
+            SqlParameter[] GetUNParams = {
+                                             new SqlParameter("@EID", _GuardianID),
+                                         };
+            return DataAccess.ReturnData(strGetUN, GetUNParams, ConnString, "UN");
+        }
     }
 }

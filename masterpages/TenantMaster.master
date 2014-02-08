@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" CodeFile="AdminMaster.master.cs" Inherits="MasterPage" EnableViewState="true" %>
+﻿<%@ Master Language="C#" CodeFile="TenantMaster.master.cs" Inherits="MasterPage" EnableViewState="true" %>
 <%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
 
 <!DOCTYPE html>
@@ -50,19 +50,8 @@
             <div class="BlockContentBorder">
 
                 <ul>
-                    <%--<li><a href="google.com">test</a></li>--%>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkAddAnnouncement" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
-                     <li><asp:LinkButton CssClass="style1" ID="lnkManageTenants" runat="server" PostBackUrl="~/Admin/ManageTenants.aspx">Manage Tenants</asp:LinkButton></li>
-                     <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="~/Admin/ViolationMgt.aspx">Violations</asp:LinkButton></li>
-                     <li><asp:LinkButton CssClass="style1" ID="lnkStats" runat="server" PostBackUrl="~/Admin/Stats.aspx">Statistics</asp:LinkButton></li>
-                     <li><asp:LinkButton CssClass="style1" ID="lnkReports" runat="server" PostBackUrl="~/Admin/Reports.aspx">Reports</asp:LinkButton></li>
-                   <%-- <li><a href="" class="style1"><strong>Tenant Management</strong></a></li>
-                    <li><a href="" class="style1"><strong>Asset Management</strong></a></li>
-                    <li><a href="" class="style1"><strong>Employee Management</strong></a></li>
-                    <li><a href="" class="style1"><strong>Announcements</strong></a></li>
-                    <li><a href="" class="style1"><strong>Reports</strong></a></li>
-                    <li><a href="" class="style1"><strong>Complaints</strong></a></li>--%>
+                    <%--<li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>--%>
+
                 </ul>
 
             </div>
