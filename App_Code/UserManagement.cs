@@ -59,6 +59,8 @@ namespace UserManagement
     public static class Employees
     {
         private static string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+
+
         public static int CheckUser(string _UN, string _PWD)
         {
             string strUsername = AntiXSSMethods.CleanString(_UN);

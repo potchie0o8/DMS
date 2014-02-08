@@ -41,7 +41,7 @@ public partial class ViewTenants : System.Web.UI.Page
         catch (Exception ex)
         {
 
-            Response.Redirect("TenantReg.aspx");
+            //Response.Redirect("TenantReg.aspx");
             Response.Write(ex.Message);
         }
 
@@ -116,13 +116,13 @@ public partial class ViewTenants : System.Web.UI.Page
             ImgPhoto.ImageUrl = "~/uploads/" + photofile;
         }
 
-        lblContractID.Text = dr["ContractID"].ToString();
-        lblFingerprintID.Text = dr["FingerprintID"].ToString();
-        txtContactNo.Text = dr["ContactNo"].ToString();
+        //lblContractID.Text = dr["ContractID"].ToString();
+        //lblFingerprintID.Text = dr["FingerprintID"].ToString();
+        //txtContactNo.Text = dr["ContactNo"].ToString();
         txtDOB.Text = dr["BDate"].ToString();
         txtEmailAdd.Text = dr["Email"].ToString();
         txtStreet.Text = dr["Street"].ToString();
-        txtCityProvince.Text = dr["CityorProvince"].ToString();
+        //txtCityProvince.Text = dr["CityorProvince"].ToString();
         txtRegion.Text = dr["Region"].ToString();
         txtCountry.Text = dr["Country"].ToString();
         txtFName.Text = dr["FName"].ToString();

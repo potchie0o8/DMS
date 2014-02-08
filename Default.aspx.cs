@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using UserManagement;
 using CustomStrings;
+using DBHelpers;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -20,8 +21,9 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+       
     }
+
     protected void btnLogIn_Click(object sender, EventArgs e)
     {
         
@@ -34,6 +36,7 @@ public partial class _Default : System.Web.UI.Page
         if (EmployeeID + GuardianID + TenantID == 0)
         {
             lblAlert.Text = "Check your credentials!";
+            Response.Write((EmployeeID + GuardianID + TenantID).ToString());
         }
 
         if (EmployeeID != 0) 

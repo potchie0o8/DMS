@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-<h1>Announcements</h1>
+    <h1>Announcements</h1>
     <asp:Button ID="btnAddAnnouncement" runat="server" Text="Add Announcement" 
         PostBackUrl="~/Admin/Announcement.aspx" />
     <br />
