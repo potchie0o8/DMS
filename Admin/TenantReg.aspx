@@ -21,15 +21,6 @@
     <table style="width:100%;">
         <tr>
             <td class="style3">
-
-            </td>
-            <td class="style2">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style3">
                 First Name</td>
             <td class="style2">
                 <asp:TextBox ID="txtFName" runat="server" Width="180px"></asp:TextBox>
@@ -113,7 +104,7 @@
             <td class="style3">
                 Email</td>
             <td class="style2">
-                <asp:TextBox ID="txtEmail" runat="server" Width="180px"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" runat="server" Width="180px" TextMode="Email"></asp:TextBox>
             </td>
             <td>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
@@ -225,7 +216,7 @@
                     ValidationGroup="RegTenant" />
                 <asp:Label ID="lblAlert" runat="server" ForeColor="Red"></asp:Label>
                 <br />
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
+                <asp:Button ID="btnSubmit" runat="server" Text="Next" 
                     onclick="btnSubmit_Click" ValidationGroup="RegTenant" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel" Height="26px" 
