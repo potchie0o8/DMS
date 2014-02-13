@@ -10,9 +10,16 @@ using DBHelpers;
 using System.Data.SqlClient;
 using CustomStrings;
 using Globals;
+//modified this class to use BCRYPT instead of MD5
+using BCryptEncryption;
+
 
 /// <summary>
-/// Usermanagement
+/// Changelog:
+/// 2-13-2014: changed from MD5 to BCRYPT. To update all passwords to '12345' in BCRYPT,
+/// this SQL command will do. First change Pwd length in DB from 40 to 60 characters then
+/// Just change the table name of the query below accdg. to Employees, Tenants and Guardians
+/// UPDATE Employees SET Pwd='$2a$10$pGr0pdnzM2Cr2C519Vp2weifyEGKx1v8FLCWS.bT0UtMfFBXBqVOS'
 /// </summary>
 namespace UserManagement
 {
@@ -72,7 +79,8 @@ namespace UserManagement
                                          };
                 string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
 
-                if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
+                //if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))  -- This used MD5, code below uses BCRYPT NOWs
+                if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(_PWD), PasswordToCompare))
                 {
                     string strGetID = "SELECT EmployeeID FROM Employees WHERE UN=@UN";
                     SqlParameter[] GetIDParams = {
@@ -127,7 +135,8 @@ namespace UserManagement
                                          };
                 string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
 
-                if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
+                //if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))  -- This used MD5, code below uses BCRYPT NOWs
+                if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(_PWD), PasswordToCompare))
                 {
                     string strGetID = "SELECT TenantID FROM Tenants WHERE UN=@UN";
                     SqlParameter[] GetIDParams = {
@@ -171,7 +180,8 @@ namespace UserManagement
                                          };
                 string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
 
-                if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))
+                //if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))  -- This used MD5, code below uses BCRYPT NOWs
+                if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(_PWD), PasswordToCompare))
                 {
                     string strGetID = "SELECT Guardians FROM Tenants WHERE UN=@UN";
                     SqlParameter[] GetIDParams = {

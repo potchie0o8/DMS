@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,11 +9,13 @@ using DBHelpers;
 using CustomStrings;
 using ImageProcessor;
 using System.IO;
+using BCryptEncryption;
+using Globals;
 
 public partial class Admin_ViewEmployee : System.Web.UI.Page
 {
 
-    string connString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    string connString = StaticVariables.ConnectionString;
 
     int EmployeeID;
 
@@ -173,18 +174,28 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
     }
     protected void btnResetPass2_Click(object sender, EventArgs e)
     {
-        if (Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)) == Session["KEY"].ToString())
+        try
         {
-            string strResetPass = "UPDATE Employees SET PWD='" + Encryption.MD5("12345") + "' WHERE EmployeeID=@EID";
-            SqlParameter[] EID = { new SqlParameter("@EID", EmployeeID) };
-            DataAccess.DataProcessExecuteNonQuery(strResetPass, EID, connString);
-            MPEResetPass.Hide();
-            lblAlert.Text = "Password reset successful!";
+            string key = Session["KEY"].ToString();
+            //if (Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)) == Session["KEY"].ToString())
+            if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(txtPassword.Text), key))
+            {
+                //string strResetPass = "UPDATE Employees SET PWD='" + Encryption.MD5("12345") + "' WHERE EmployeeID=@EID";
+                string strResetPass = "UPDATE Employees SET PWD='" + Encryption.GenerateBCryptHash("12345") + "' WHERE EmployeeID=@EID";
+                SqlParameter[] EID = { new SqlParameter("@EID", EmployeeID) };
+                DataAccess.DataProcessExecuteNonQuery(strResetPass, EID, connString);
+                MPEResetPass.Hide();
+                lblAlert.Text = "Password reset successful!";
+            }
+            else
+            {
+                lblAlert.Text = "Password reset not successful! You have entered your password incorrectly.";
+                MPEResetPass.Hide();
+            }
         }
-        else
+        catch
         {
-            lblAlert.Text = "Password reset not successful! You have entered your password incorrectly.";
-            MPEResetPass.Hide();
+
         }
     }
 }

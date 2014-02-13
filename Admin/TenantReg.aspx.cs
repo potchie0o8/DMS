@@ -181,7 +181,8 @@ public partial class Admin_TenantReg : System.Web.UI.Page
                                                          new SqlParameter("@country", AntiXSSMethods.CleanString(txtCountry.Text)),
                                                          new SqlParameter("@mobileNo", AntiXSSMethods.CleanString(txtContact.Text)),
                                                          new SqlParameter("@un", AntiXSSMethods.CleanString(txtUN.Text)),
-                                                         new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString(txtPwd2.Text)))
+                                                         //new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString(txtPwd2.Text)))
+                                                         new SqlParameter("@pwd", Encryption.GenerateBCryptHash(txtPwd1.Text))
                                                      };
                     //DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
                     //Response.Write("<script>alert('Success!');</script>");

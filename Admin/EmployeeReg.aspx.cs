@@ -177,7 +177,8 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                                             new SqlParameter("@email", AntiXSSMethods.CleanString(txtEmail.Text)),
                                             new SqlParameter("@adminlevel", ddlAdminLevel.SelectedValue),
                                             new SqlParameter("@un", AntiXSSMethods.CleanString(txtUN.Text)),
-                                            new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString((txtPwd2.Text)))),
+                                            //new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString((txtPwd2.Text)))),
+                                            new SqlParameter("@pwd", Encryption.GenerateBCryptHash(txtPwd1.Text)),
                                             new SqlParameter("@doe", Convert.ToDateTime(txtDateEmployeed.Text)),
                                             new SqlParameter("@photofile", strImageFile)
                                         };
