@@ -26,6 +26,22 @@ public partial class Admin_RoomMgt : System.Web.UI.Page
         }
         return bedspace;
     }
+
+    public string getGender(int _genderID)
+    {
+        string gender = "";
+        switch (_genderID)
+        {
+            case 1:
+                gender = "Male";
+                break;
+            case 2:
+                gender = "Female";
+                break;
+        }
+        return gender;
+    }
+
     protected void btnAddRoom_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/Admin/AddRoom.aspx");
