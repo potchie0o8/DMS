@@ -167,11 +167,7 @@ public partial class Admin_TenantReg : System.Web.UI.Page
                 bool UsernameExists = UserManagement.General.CheckIfExisting(txtUN.Text);
                 if (UsernameExists != true)
                 {
-<<<<<<< HEAD
                     string strInsert = "INSERT INTO Tenants (FName, MName, LName, Gender, Email, BDate, Street, City, Region, Country, MobileNo, UN, Pwd) VALUES (@fname, @mname, @lname, @gender, @email, @bdate, @street, @city, @region, @country, @mobileNo, @un, @pwd)";
-=======
-                    string strInsert = "INSERT INTO Tenants WHERE (FName, MName, LName, Gender, Email, BDate, Street, City, Region, Country, MobileNo, UN, Pwd) VALUES (@fname, @mname, @lname, @gender, @email, @bdate, @street, @city, @region, @country, @mobileNo, @un, @pwd)";
->>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
                     SqlParameter[] insertParam = {
                                                          new SqlParameter("@fname", AntiXSSMethods.CleanString(txtFName.Text)),
                                                          new SqlParameter("@mname", AntiXSSMethods.CleanString(txtMName.Text)),
@@ -185,12 +181,7 @@ public partial class Admin_TenantReg : System.Web.UI.Page
                                                          new SqlParameter("@country", AntiXSSMethods.CleanString(txtCountry.Text)),
                                                          new SqlParameter("@mobileNo", AntiXSSMethods.CleanString(txtContact.Text)),
                                                          new SqlParameter("@un", AntiXSSMethods.CleanString(txtUN.Text)),
-<<<<<<< HEAD
-                                                         new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString(txtPwd2.Text)))
-=======
-                                                         //new SqlParameter("@pwd", Encryption.MD5(AntiXSSMethods.CleanString(txtPwd2.Text)))
                                                          new SqlParameter("@pwd", Encryption.GenerateBCryptHash(txtPwd1.Text))
->>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
                                                      };
                     //DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
                     //Response.Write("<script>alert('Success!');</script>");
