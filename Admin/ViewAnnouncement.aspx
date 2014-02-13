@@ -10,6 +10,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>View Announcement</h1>
+    <p>
+        <asp:Label ID="lblAlert" runat="server" ForeColor="#CC0000"></asp:Label>
+    </p>
     <div>
     
         <table style="width:100%;">
@@ -90,7 +93,8 @@
                 <td class="style1">
                     &nbsp;</td>
                 <td class="style2">
-                    <asp:Button ID="btnUpdate" runat="server" Text="Update Announcement" ValidationGroup="AddAnnouncement" />
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update Announcement" 
+                        ValidationGroup="AddAnnouncement" onclick="btnUpdate_Click" />
 
                     &nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete Announcement" />
                     <asp:ConfirmButtonExtender ID="btnDelete_ConfirmButtonExtender" runat="server" 
@@ -98,7 +102,9 @@
                         TargetControlID="btnDelete">
                     </asp:ConfirmButtonExtender>
 &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="txtCancel" runat="server" Text="Cancel" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" 
+                        PostBackUrl="~/Admin/ManageAnnouncements.aspx" />
+                    <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                 </td>
                 <td>
                     &nbsp;</td>

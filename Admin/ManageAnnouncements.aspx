@@ -43,7 +43,7 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDS_Announcements" runat="server" 
         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
-        SelectCommand="SELECT * FROM [Announcement]"></asp:SqlDataSource>
+        SelectCommand="SELECT * FROM [Announcement] ORDER BY DateCreated DESC"></asp:SqlDataSource>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" Runat="Server">
 </asp:Content>

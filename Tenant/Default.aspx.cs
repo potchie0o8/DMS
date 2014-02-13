@@ -20,7 +20,7 @@ public partial class Tenant_Default : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
-                string strSelectTop1 = "SELECT TOP 1 * FROM Announcement ORDER BY DateCreated";
+                string strSelectTop1 = "SELECT TOP 1 * FROM Announcement ORDER BY DateCreated DESC";
                 SqlDataReader dr = DataAccess.ReturnReader(strSelectTop1, ConnString);
                 dr.Read();
                 lblDatePosted.Text = dr["DateCreated"].ToString();
