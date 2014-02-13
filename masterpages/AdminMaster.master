@@ -37,10 +37,10 @@
         </div><div class="Menu">
              <ul>
              <li><asp:LinkButton ID="lnkBtnHome" runat="server" class="MenuButton" PostBackUrl="~/Admin/Default.aspx"><span>Home</span></asp:LinkButton></li>
-                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Admin/ChangeMyPassword.aspx"><span>My Profile</span></asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Admin/MyProfile.aspx"><span>My Profile</span></asp:LinkButton></li>
                  <%--<%= RenderMenu() %>--%>
                  <li><asp:LinkButton ID="lnkBtnChangeMyPass" runat="server" class="MenuButton" PostBackUrl="~/Admin/ChangeMyPassword.aspx"><span>Change My Password</span></asp:LinkButton></li>
-             <li><asp:LinkButton ID="LinkButton2" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
+             <li><asp:LinkButton ID="lnkBtnLogOut" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
              </ul>
         </div><div class="Columns"><div class="Column1">
         

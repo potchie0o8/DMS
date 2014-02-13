@@ -18,16 +18,18 @@ public partial class Tenant_Default : System.Web.UI.Page
     {
         try
         {
-            string strSelectTop1 = "SELECT TOP 1 * FROM Announcement ORDER BY DateCreated";
-            SqlDataReader dr = DataAccess.ReturnReader(strSelectTop1, ConnString);
-            dr.Read();
-            lblDatePosted.Text = dr["DateCreated"].ToString();
-            lblMessage.Text = Server.HtmlDecode(dr["Message"].ToString());
-            lblSubject.Text = dr["Subject"].ToString();
-            lblPostedBy.Text = Employees.ReturnUserName(int.Parse(dr["EmployeeID"].ToString()));
-            
-            dr.Close();
-            DataAccess.ForceConnectionToClose();
+            if (!IsPostBack)
+            {
+                string strSelectTop1 = "SELECT TOP 1 * FROM Announcement ORDER BY DateCreated";
+                SqlDataReader dr = DataAccess.ReturnReader(strSelectTop1, ConnString);
+                dr.Read();
+                lblDatePosted.Text = dr["DateCreated"].ToString();
+                lblMessage.Text = Server.HtmlDecode(dr["Message"].ToString());
+                lblSubject.Text = dr["Subject"].ToString();
+                lblPostedBy.Text = Employees.ReturnUserName(int.Parse(dr["EmployeeID"].ToString()));
+                dr.Close();
+                DataAccess.ForceConnectionToClose();
+            }
         }
         catch (Exception ex)
         {
@@ -41,6 +43,9 @@ public partial class Tenant_Default : System.Web.UI.Page
     }
     protected void GRD_Announcements_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        lblDatePosted.Text = GRD_Announcements.SelectedDataKey["DateCreated"].ToString();
+        lblMessage.Text = Server.HtmlDecode(GRD_Announcements.SelectedDataKey["Message"].ToString());
+        lblSubject.Text = GRD_Announcements.SelectedDataKey["Subject"].ToString();
+        lblPostedBy.Text = Employees.ReturnUserName(int.Parse(GRD_Announcements.SelectedDataKey["EmployeeID"].ToString()));
     }
 }

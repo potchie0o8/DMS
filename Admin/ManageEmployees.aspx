@@ -63,7 +63,7 @@
                     SelectText="View/Edit" />
             </Columns>
     </asp:GridView>
-        <asp:SqlDataSource ID="SqlDS_Employees" runat="server" ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" SelectCommand="SELECT * FROM [Employees] ORDER BY EmployeeID DESC"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDS_Employees" runat="server" ConnectionString="<%$ ConnectionStrings:CONNSTRING %>"></asp:SqlDataSource>
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" Runat="Server">
