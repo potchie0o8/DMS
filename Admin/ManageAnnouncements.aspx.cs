@@ -18,4 +18,8 @@ public partial class Admin_ManageAnnouncements : System.Web.UI.Page
         return Employees.ReturnUserName(_EID);
     }
 
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("ViewAnnouncement.aspx?ID=" + GrdAnnouncements.SelectedDataKey["AnnouncementID"].ToString());
+    }
 }

@@ -208,8 +208,7 @@
                 <td class="style2">
                     &nbsp;</td>
                 <td class="style5">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-                        onclick="btnSubmit_Click" ValidationGroup="RegGuardian" />
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="RegGuardian" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                 </td>

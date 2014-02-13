@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,14 +11,12 @@ using CustomStrings;
 using ImageProcessor;
 using System.IO;
 using BCryptEncryption;
-using Globals;
 
-public partial class Admin_ViewEmployee : System.Web.UI.Page
+public partial class ViewTenants : System.Web.UI.Page
 {
+    string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
 
-    string connString = StaticVariables.ConnectionString;
-
-    int EmployeeID;
+    int TenantID;
 
     string photofile, username;
 
@@ -25,20 +24,14 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
     {
         try
         {
-            EmployeeID = int.Parse(Request.QueryString["ID"]);
+            TenantID = int.Parse(Request.QueryString["ID"]);
             if (!IsPostBack)
             {
-                loaddata(EmployeeID);
+                loaddata(TenantID);
                 ViewState.Add("photofile", photofile);
                 ViewState.Add("username", username);
 
-                if (int.Parse(Session["AccessLevel"].ToString()) != 1)
-                {
-                    btnResetPassword.Enabled = false;
-                    btnUpdate.Enabled = false;
-                    lblAlert.Text = "Your access level doesn't permit you to edit employee details";
-                }
-
+                
             }
             else
             {
@@ -49,9 +42,10 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         catch (Exception ex)
         {
 
-            Response.Redirect("ManageEmployees.aspx");
+            //Response.Redirect("TenantReg.aspx");
             Response.Write(ex.Message);
         }
+
     }
 
     public string UploadPhoto()
@@ -81,7 +75,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
                 }
 
                 string FileExtension = Path.GetExtension(FupPhoto.FileName).ToLower();
-                string NewFileName = NewFileName = "Employee_" + username + "_" + StringCustomizers.dateStampNoID + FileExtension;
+                string NewFileName = NewFileName = "Tenant_" + username + "_" + StringCustomizers.dateStampNoID + FileExtension;
 
                 FupPhoto.SaveAs(Server.MapPath(@"~/uploads/" + NewFileName));
                 result = NewFileName;
@@ -102,18 +96,18 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         return result;
     }
 
-    private void loaddata(int _EID)
+    private void loaddata(int _TID)
     {
-        SqlParameter [] EID = { new SqlParameter("@EID", _EID) };
-        SqlDataReader dr = DataAccess.ReturnReader("SELECT * FROM Employees WHERE EmployeeID=@EID", EID, connString);
+        SqlParameter[] TID = { new SqlParameter("@TID", _TID) };
+        SqlDataReader dr = DataAccess.ReturnReader("SELECT * FROM Tenants WHERE TenantID=@TID", TID, conString);
         dr.Read();
-        lblEmpID.Text = EmployeeID.ToString();
+        lblTenantID.Text = TenantID.ToString();
         lblUN.Text = dr["UN"].ToString();
         username = dr["UN"].ToString();
-        ddlAdminAccess.SelectedValue = dr["AdminLevel"].ToString();
         ddlGender.SelectedValue = dr["Gender"].ToString();
-        //for photo, if no photo then default nopic from FRIENDSTER will appear. haha.
-        photofile = dr["PhotoFile"].ToString();
+
+        //for photo, if no photo then no image will appear...
+        string photofile = dr["PhotoFile"].ToString();
         if (photofile.Trim() == "" || photofile == null)
         {
             ImgPhoto.ImageUrl = "~/images/nophoto.jpg";
@@ -123,67 +117,76 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
             ImgPhoto.ImageUrl = "~/uploads/" + photofile;
         }
 
-        txtContactNo.Text = dr["ContactNo"].ToString();
+        //lblContractID.Text = dr["ContractID"].ToString();
+        //lblFingerprintID.Text = dr["FingerprintID"].ToString();
+        //txtContactNo.Text = dr["ContactNo"].ToString();
         txtDOB.Text = dr["BDate"].ToString();
-        txtDOE.Text = dr["DateOfEmployment"].ToString();
         txtEmailAdd.Text = dr["Email"].ToString();
+        txtStreet.Text = dr["Street"].ToString();
+        //txtCityProvince.Text = dr["CityorProvince"].ToString();
+        txtRegion.Text = dr["Region"].ToString();
+        txtCountry.Text = dr["Country"].ToString();
         txtFName.Text = dr["FName"].ToString();
-        txtMName.Text = dr["MName"].ToString();
         txtLName.Text = dr["LName"].ToString();
+        txtMName.Text = dr["MName"].ToString();
 
         DataAccess.ForceConnectionToClose();
 
     }
-
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
         try
         {
 
-            string strUpdate = "UPDATE Employees SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, DateOfEmployment=@doe, Email=@email, FName=@fname, MName=@mname, LName=@lname WHERE EmployeeID=@EID";
+            string strUpdate = "UPDATE Tenants SET Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, Email=@email, FName=@fname, MName=@mname, LName=@lname, Street=@street, CityorProvince=@cityorprovince, Region=@region, Country=@country WHERE TenantID=@TID";
 
             photofile = UploadPhoto();
 
             SqlParameter[] UpdateParams = {
-                                          new SqlParameter("@adminlevel", AntiXSSMethods.CleanString(ddlAdminAccess.SelectedValue)),
+                                          
                                           new SqlParameter("@gender", AntiXSSMethods.CleanString(ddlGender.SelectedValue)),
                                           new SqlParameter("@photofile", photofile),
                                           new SqlParameter("@contactno", AntiXSSMethods.CleanString(txtContactNo.Text)),
                                           new SqlParameter("@bdate", Convert.ToDateTime(txtDOB.Text)),
-                                          new SqlParameter("@doe", Convert.ToDateTime(txtDOE.Text)),
                                           new SqlParameter("@email", AntiXSSMethods.CleanString(txtEmailAdd.Text)),
                                           new SqlParameter("@fname", AntiXSSMethods.CleanString(txtFName.Text)),
                                           new SqlParameter("@mname", AntiXSSMethods.CleanString(txtMName.Text)),
                                           new SqlParameter("@lname", AntiXSSMethods.CleanString(txtLName.Text)),
-                                          new SqlParameter("@EID", EmployeeID)
+                                          new SqlParameter("@street", AntiXSSMethods.CleanString(txtStreet.Text)),
+                                          new SqlParameter("@cityorprovince", AntiXSSMethods.CleanString(txtCityProvince.Text)),
+                                          new SqlParameter("@region", AntiXSSMethods.CleanString(txtRegion.Text)),
+                                          new SqlParameter("@country", AntiXSSMethods.CleanString(txtCountry.Text)),
+                                          new SqlParameter("@TID", TenantID)
                                        };
-            DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, connString);
-            loaddata(EmployeeID);
-            lblAlert.Text = "Employee information saved.";
+            DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, conString);
+            loaddata(TenantID);
+            lblAlert.Text = "Tenant information saved.";
         }
         catch (Exception ex)
         {
             Response.Write(ex.Message);
         }
-
+        
 
     }
     protected void btnResetPassword_Click(object sender, EventArgs e)
     {
         
     }
+
     protected void btnResetPass2_Click(object sender, EventArgs e)
     {
         try
         {
             string key = Session["KEY"].ToString();
             //if (Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)) == Session["KEY"].ToString())
-            if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(txtPassword.Text), key))
+
+            if(BCrypt.CheckPassword(AntiXSSMethods.CleanString(txtPassword.Text), key))
             {
-                //string strResetPass = "UPDATE Employees SET PWD='" + Encryption.MD5("12345") + "' WHERE EmployeeID=@EID";
-                string strResetPass = "UPDATE Employees SET PWD='" + Encryption.GenerateBCryptHash("12345") + "' WHERE EmployeeID=@EID";
-                SqlParameter[] EID = { new SqlParameter("@EID", EmployeeID) };
-                DataAccess.DataProcessExecuteNonQuery(strResetPass, EID, connString);
+                //string strResetPass = "UPDATE Tenants SET PWD='" + Encryption.MD5("12345") + "' WHERE TenantID=@TID";
+                string strResetPass = "UPDATE Tenants SET PWD='" + Encryption.GenerateBCryptHash("12345") + "' WHERE TenantID=@TID";
+                SqlParameter[] TID = { new SqlParameter("@TID", TenantID) };
+                DataAccess.DataProcessExecuteNonQuery(strResetPass, TID, conString);
                 MPEResetPass.Hide();
                 lblAlert.Text = "Password reset successful!";
             }
@@ -195,7 +198,11 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         }
         catch
         {
-
+ 
         }
+
+
     }
 }
+
+

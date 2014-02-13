@@ -8,20 +8,38 @@ using System.Data.SqlClient;
 using DBHelpers;
 using CustomStrings;
 using System.Data;
-using System.Configuration;
+using Globals;
 
 public partial class Admin_Default2 : System.Web.UI.Page
 {
 
-    string connString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    string connString = StaticVariables.ConnectionString;
+    int CurrentUserID;
+
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (int.Parse(Session["AccessLevel"].ToString()) != 1)
+        try
         {
-            btnAddEmployee.Enabled = false;
-            btnAddEmployee.Text = "Add Employee (Disabled due limited account.)";
+            CurrentUserID = int.Parse(Session["EmployeeID"].ToString());
+
+            if (int.Parse(Session["AccessLevel"].ToString()) != 1)
+            {
+                btnAddEmployee.Enabled = false;
+                btnAddEmployee.Text = "Add Employee (Disabled due limited account.)";
+            }
+
+            if (!IsPostBack)
+            {
+                SqlDS_Employees.SelectCommand = "SELECT * FROM [Employees] WHERE EmployeeID !='" + CurrentUserID.ToString() + "'  ORDER BY EmployeeID DESC";
+            }
+
         }
+        catch(Exception ex)
+        {
+            Response.Write(ex.Message);
+        }
+
     }
 
 
@@ -67,7 +85,7 @@ public partial class Admin_Default2 : System.Web.UI.Page
 
         if (ddlSearch.SelectedValue != "")
         {
-            string strSelect = "SELECT * FROM Employees WHERE " + ddlSearch.SelectedValue + " LIKE @entry";
+            string strSelect = "SELECT * FROM Employees WHERE " + ddlSearch.SelectedValue + " LIKE @entry AND EmployeeID !='" + CurrentUserID.ToString() + "'  ORDER BY EmployeeID DESC";
             SqlParameter[] SearchVal = { new SqlParameter("@entry", "%" + AntiXSSMethods.CleanString(txtSearch.Text) + "%") };
             DataSet ds = DataAccess.DataProcessReturnData(strSelect, SearchVal, connString);
 

@@ -8,7 +8,8 @@ using UserManagement;
 using CustomStrings;
 using System.Data.SqlClient;
 using DBHelpers;
-using System.Configuration;
+using Globals;
+using BCryptEncryption;
 
 public partial class Admin_Default2 : System.Web.UI.Page
 {
@@ -16,7 +17,7 @@ public partial class Admin_Default2 : System.Web.UI.Page
     string oldpass, newpass;
     int EmployeeID;
 
-    private string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    private string ConnString = StaticVariables.ConnectionString;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -43,7 +44,8 @@ public partial class Admin_Default2 : System.Web.UI.Page
 
         if (AntiXSSMethods.CleanString(txtNewPass.Text) == AntiXSSMethods.CleanString(txtRetypeNewPass.Text))
         {
-            newpass = AntiXSSMethods.CleanString(txtNewPass.Text);
+            //newpass = AntiXSSMethods.CleanString(txtNewPass.Text);
+            newpass = Encryption.GenerateBCryptHash(txtNewPass.Text);
         }
         else
         {
@@ -62,11 +64,13 @@ public partial class Admin_Default2 : System.Web.UI.Page
             {
                 string strUpdateQuery = "UPDATE Employees SET PWD=@PWD WHERE EmployeeID=@EID";
                 SqlParameter[] UpdateParams = {
-                                              new SqlParameter("@PWD", Encryption.MD5(newpass)),
+                                              //new SqlParameter("@PWD", Encryption.MD5(newpass)),
+                                             new SqlParameter("@PWD", newpass),
                                              new SqlParameter("@EID", EmployeeID)
                               };
                 DataAccess.DataProcessExecuteNonQuery(strUpdateQuery, UpdateParams, ConnString);
-                Session.Add("KEY", Encryption.MD5(newpass));
+                //Session.Add("KEY", Encryption.MD5(newpass));
+                Session.Add("KEY", newpass);
                 lblAlert.Text = "Change password succeeded!";
             }
             catch

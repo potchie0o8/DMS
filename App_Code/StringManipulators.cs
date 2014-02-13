@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using BCryptEncryption;
 
 /// <summary>
 /// For Use in various applications regarding string manipulation
@@ -66,14 +67,22 @@ namespace CustomStrings
     public static class Encryption
     {
         //for generating hashcode equivalent
-        public static string MD5(string input)
+        public static string MD5(string _input)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
 
-            byte[] originalBytes = ASCIIEncoding.Default.GetBytes(input);
+            byte[] originalBytes = ASCIIEncoding.Default.GetBytes(_input);
             byte[] encodedBytes = md5.ComputeHash(originalBytes);
 
             return BitConverter.ToString(encodedBytes).Replace("-", "");
+        }
+
+        public static string GenerateBCryptHash(string _input)
+        {
+            //adjust salt level here below"
+            string salt = BCrypt.GenerateSalt();
+
+            return BCrypt.HashPassword(AntiXSSMethods.CleanString(_input), salt);
         }
 
     }
