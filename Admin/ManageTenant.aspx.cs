@@ -30,4 +30,9 @@ public partial class Admin_ManageTenant : System.Web.UI.Page
     {
         Response.Redirect("~/Admin/TenantReg.aspx");
     }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //Response.Redirect("ViewEmployee.aspx?ID=" + GrdEmployees.SelectedDataKey["EmployeeID"].ToString());
+        Response.Redirect("ViewTenant.aspx?ID=" + GridView1.SelectedDataKey["TenantID"].ToString());
+    }
 }
