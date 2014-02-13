@@ -36,18 +36,12 @@
           </div>
         </div><div class="Menu">
              <ul>
-<<<<<<< HEAD
-             <li><asp:LinkButton ID="lnkBtnHome" runat="server" class="MenuButton" PostBackUrl="~/Admin/Default.aspx"><span>Home</span></asp:LinkButton></li>
-                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Admin/ChangeMyPassword.aspx"><span>My Profile</span></asp:LinkButton></li>
-                 <%--<%= RenderMenu() %>--%>
-                 <li><asp:LinkButton ID="lnkBtnChangeMyPass" runat="server" class="MenuButton" PostBackUrl="~/Admin/ChangeMyPassword.aspx"><span>Change My Password</span></asp:LinkButton></li>
-=======
+
              <li><asp:LinkButton ID="lnkBtnHome" runat="server" class="MenuButton" PostBackUrl="~/Tenant/Default.aspx"><span>Home</span></asp:LinkButton></li>
                 <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Tenant/ChangeMyPassword.aspx"><span>My Profile</span></asp:LinkButton></li>
                  <%--<%= RenderMenu() %>--%>
                  <li><asp:LinkButton ID="lnkBtnChangeMyPass" runat="server" class="MenuButton" PostBackUrl="~/Tenant/ChangeMyPassword.aspx"><span>Change My Password</span></asp:LinkButton></li>
->>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
-             <li><asp:LinkButton ID="LinkButton2" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
+                 <li><asp:LinkButton ID="lnkBtnLogOut" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
              </ul>
         </div><div class="Columns"><div class="Column1">
         
@@ -58,11 +52,7 @@
 
                 <ul>
                     <%--<li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>--%>
-<<<<<<< HEAD
-
-=======
                      <li><asp:LinkButton CssClass="style1" ID="lnkViewViolations" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">My Violations</asp:LinkButton></li>
->>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
                 </ul>
 
             </div>
