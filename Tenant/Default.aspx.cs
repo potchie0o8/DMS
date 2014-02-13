@@ -4,6 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+<<<<<<< HEAD
+
+public partial class Tenant_Default : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+=======
 using UserManagement;
 using Globals;
 using DBHelpers;
@@ -47,5 +55,6 @@ public partial class Tenant_Default : System.Web.UI.Page
         lblMessage.Text = Server.HtmlDecode(GRD_Announcements.SelectedDataKey["Message"].ToString());
         lblSubject.Text = GRD_Announcements.SelectedDataKey["Subject"].ToString();
         lblPostedBy.Text = Employees.ReturnUserName(int.Parse(GRD_Announcements.SelectedDataKey["EmployeeID"].ToString()));
+>>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
     }
 }

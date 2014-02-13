@@ -2,6 +2,18 @@
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
+    <style type="text/css">
+        .style2
+        {
+            text-decoration: none;
+            width: 180px;
+        }
+        .style3
+        {
+            text-decoration: none;
+            width: 66px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
 <h1>Add an Announcement</h1>
@@ -9,21 +21,19 @@
     
         <table style="width:100%;">
             <tr>
-                <td class="style1">
+                <td class="style3">
                     Subject</td>
-                <td class="style2">
+                <td>
                     <asp:TextBox ID="txtSubject" runat="server" Width="421px"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                         ErrorMessage="Please indicate Subject!" ForeColor="Red" 
                         ControlToValidate="txtMsg" ValidationGroup="AddAnnouncement">*</asp:RequiredFieldValidator>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
-                <td class="style1">
+                <td class="style3">
                     Message</td>
-                <td class="style2">
+                <td>
                     <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Columns="50" Rows="10"></asp:TextBox>
 
                     <asp:HtmlEditorExtender ID="HtmlEditorExtender1" 
@@ -64,16 +74,13 @@
                             <asp:InsertImage />
                         </Toolbar>
                     </asp:HtmlEditorExtender>
-
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                         ErrorMessage="Please indicate Message!" ForeColor="Red" 
                         ControlToValidate="txtSubject" ValidationGroup="AddAnnouncement">*</asp:RequiredFieldValidator>
                 </td>
-                <td>
-                    &nbsp;</td>
             </tr>
             <tr>
-                <td class="style1">
+                <td class="style3">
                     &nbsp;</td>
                 <td class="style2">
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" 

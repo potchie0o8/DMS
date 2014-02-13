@@ -21,6 +21,8 @@
     <table style="width:100%;">
         <tr>
             <td class="style3">
+<<<<<<< HEAD
+=======
 
             </td>
             <td class="style2">
@@ -30,6 +32,7 @@
         </tr>
         <tr>
             <td class="style3">
+>>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
                 First Name</td>
             <td class="style2">
                 <asp:TextBox ID="txtFName" runat="server" Width="180px"></asp:TextBox>
@@ -113,7 +116,7 @@
             <td class="style3">
                 Email</td>
             <td class="style2">
-                <asp:TextBox ID="txtEmail" runat="server" Width="180px"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" runat="server" Width="180px" TextMode="Email"></asp:TextBox>
             </td>
             <td>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
@@ -204,10 +207,25 @@
                     ControlToCompare="txtPwd1" ControlToValidate="txtPwd2" 
                     ErrorMessage="Password not match!" ForeColor="Red" 
                     ValidationGroup="RegTenant">*</asp:CompareValidator>
+<<<<<<< HEAD
             </td>
         </tr>
         <tr>
             <td class="style3">
+                Photo: (..JPG, MAX 1MB)</td>
+            <td class="style2">
+                <asp:FileUpload ID="FupPhoto" runat="server" />
+
+=======
+>>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="style3">
+<<<<<<< HEAD
+=======
                 Photo: (..JPG, MAX 1MB)</td>
             <td class="style2">
                 <asp:FileUpload ID="FupPhoto" runat="server" />
@@ -218,6 +236,7 @@
         </tr>
         <tr>
             <td class="style3">
+>>>>>>> e8060fa0922a338a5a04d191cf2815e3db08c899
                 &nbsp;</td>
             <td class="style2">
                 <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" 
