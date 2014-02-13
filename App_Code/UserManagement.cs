@@ -123,6 +123,7 @@ namespace UserManagement
     {
 
         private static string ConnString = StaticVariables.ConnectionString;
+        private static object _TenantID;
 
         public static int CheckUser(string _UN, string _PWD)
         {
@@ -163,6 +164,19 @@ namespace UserManagement
                                          };
             return DataAccess.ReturnData(strGetUN, GetUNParams, ConnString, "UN");
         }
+
+        public static string ReturnFullName(int _TenantID)
+        {
+
+            string strGetFullName = "SELECT FName + ' ' + MName + ' ' + LName AS 'FullName' FROM Tenants WHERE TenantID=@TID";
+
+            SqlParameter[] GetFullNameParams = {
+                                             new SqlParameter("@TID", _TenantID),
+                                         };
+
+            return DataAccess.ReturnData(strGetFullName, GetFullNameParams, ConnString, "FullName");
+        }
+
 
     }
     public static class Guardians

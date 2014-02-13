@@ -42,6 +42,18 @@ namespace CustomStrings
             }
         }
 
+        public static double CheckMoney(double _input)
+        {
+            if (_input >= 0)
+            {
+                return _input;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public static string dateStampNoID = DateTime.Now.Year.ToString() + DateTime.Now.Month + DateTime.Now.Day + "_" + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString();
 
     }
