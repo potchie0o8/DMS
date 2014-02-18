@@ -11,4 +11,20 @@ public partial class Admin_MyProfile : System.Web.UI.Page
     {
 
     }
+
+  //  SELECT TOP 1000 [EmployeeID]
+  //    ,[FName]
+  //    ,[MName]
+  //    ,[LName]
+  //    ,[Gender]
+  //    ,[BDate]
+  //    ,[ContactNo]
+  //    ,[Email]
+  //    ,[AdminLevel]
+  //    ,[UN]
+  //    ,[Pwd]
+  //    ,[DateOfEmployment]
+  //    ,[PhotoFile]
+  //FROM [DMS_3].[dbo].[Employees]
+
 }
