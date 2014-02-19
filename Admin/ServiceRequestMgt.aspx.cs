@@ -11,4 +11,9 @@ public partial class Admin_ServiceRequestMgt : System.Web.UI.Page
     {
 
     }
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //Response.Redirect("ViewTenant.aspx?ID=" + GridView1.SelectedDataKey["TenantID"].ToString());
+        Response.Redirect("ViewServiceRequest.aspx?ID=" + GridView1.SelectedDataKey["ServiceRequestID"].ToString());
+    }
 }
