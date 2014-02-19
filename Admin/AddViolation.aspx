@@ -22,7 +22,7 @@
                 <td class="style3">
                     <asp:DropDownList ID="ddlTenant" runat="server" 
                         DataSourceID="SqlDataSource1" DataTextField="Name" 
-                        DataValueField="TenantID">
+                        DataValueField="TenantID" AppendDataBoundItems="True">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
                     </asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
