@@ -19,8 +19,13 @@
                         SortExpression="MonthlyRate" DataFormatString="{0:n}" />
                     <asp:BoundField DataField="YearlyRate" HeaderText="Yearly Rate" 
                         SortExpression="YearlyRate" DataFormatString="{0:n}" />
-                    <asp:BoundField DataField="Gender" HeaderText="Gender" 
-                        SortExpression="Gender" />
+                    <%--<asp:BoundField DataField="Gender" HeaderText="Gender" 
+                        SortExpression="Gender" />--%>
+                    <asp:TemplateField HeaderText="Gender">
+                    <ItemTemplate>
+                    <%# getGender(int.Parse(Eval("Gender").ToString())) %>
+                    </ItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

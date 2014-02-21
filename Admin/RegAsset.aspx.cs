@@ -44,21 +44,37 @@ public partial class Admin_RegAsset : System.Web.UI.Page
             return false;
         }
 
+        try
+        {
+            Convert.ToDouble(txtAmount.Text.Trim());
+        }
+        catch
+        {
+            return false;
+        }
+
         return true;
     }
 
     protected void btnReg_Click(object sender, EventArgs e)
     {
-        string strInsert = "INSERT INTO Assets (TenantID, AssetType, ModelName, BrandName,SerialNo, Amount) VALUES (@tid, @type, @model, @brand, @serial, @amount)";
-        SqlParameter[] insertParam = {
+        if (checkInputs())
+        {
+            string strInsert = "INSERT INTO Assets (TenantID, AssetType, ModelName, BrandName,SerialNo, Amount) VALUES (@tid, @type, @model, @brand, @serial, @amount)";
+            SqlParameter[] insertParam = {
                                          new SqlParameter("@tid", AntiXSSMethods.CleanString(ddlTenant.SelectedValue)),
                                          new SqlParameter("@type", AntiXSSMethods.CleanString(ddlType.SelectedValue)),
                                          new SqlParameter("@model", AntiXSSMethods.CleanString(txtModel.Text)),
                                          new SqlParameter("@brand", AntiXSSMethods.CleanString(txtBrand.Text)),
                                          new SqlParameter("@serial", AntiXSSMethods.CleanString(txtSerial.Text)),
-                                         new SqlParameter("@amount", AntiXSSMethods.CleanString(txtAmount.Text))
+                                         new SqlParameter("@amount", StringCustomizers.CheckMoney(Convert.ToDouble(AntiXSSMethods.CleanString(txtAmount.Text))))
                                      };
-        DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        Response.Redirect("~/Admin/AssetMgt.aspx");
+            DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+            Response.Redirect("~/Admin/ManageAssets.aspx");
+        }
+        else
+        {
+            lblAlert.Text = "Please check your input fields for invalid entries";
+        }
     }
 }

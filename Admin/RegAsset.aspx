@@ -20,6 +20,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Register New Asset</h1>
     <p>
+        <asp:Label ID="lblAlert" runat="server" style="color: #FF3300"></asp:Label>
+    </p>
+    <p>
         <table style="width:100%;">
             <tr>
                 <td class="style2">
