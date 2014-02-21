@@ -12,16 +12,44 @@
         {
             width: 168px;
         }
+        .style4
+        {
+            width: 110px;
+            height: 59px;
+        }
+        .style5
+        {
+            width: 168px;
+            height: 59px;
+        }
+        .style6
+        {
+            height: 59px;
+        }
+        .style7
+        {
+            width: 110px;
+            height: 26px;
+        }
+        .style8
+        {
+            width: 168px;
+            height: 26px;
+        }
+        .style9
+        {
+            height: 26px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-    <h1>Contract</h1>
+    <h1>Create Contract</h1>
     <p>
         <table style="width:100%;">
             <tr>
-                <td class="style2">
+                <td class="style7">
                     Date of Start</td>
-                <td class="style3">
+                <td class="style8">
                     <asp:TextBox ID="txtDateStart" runat="server" Width="180px"></asp:TextBox>
                     <asp:MaskedEditExtender ID="txtDateStart_MaskedEditExtender" runat="server" Mask="99/99/9999" MaskType="Date" TargetControlID="txtDateStart">
                     </asp:MaskedEditExtender>
@@ -29,17 +57,35 @@
                         TargetControlID="txtDateStart">
                     </asp:CalendarExtender>
                 </td>
-                <td>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
+                <td class="style9">
+                    <asp:RequiredFieldValidator ID="RegularExpressionValidator1" runat="server" 
                         ErrorMessage="Select date of start!" ForeColor="Red" 
-                        ValidationGroup="Contract" ControlToValidate="txtDateStart">*</asp:RegularExpressionValidator>
+                        ValidationGroup="Contract" ControlToValidate="txtDateStart">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td class="style2">
-                    End Date</td>
+                    Period of Payment</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtEndDate" runat="server" Width="180px"></asp:TextBox>
+                    <asp:DropDownList ID="ddlPeriod" runat="server" AutoPostBack="True" 
+                        onselectedindexchanged="ddlPeriod_SelectedIndexChanged">
+                        <asp:ListItem Value="">- Select -</asp:ListItem>
+                        <asp:ListItem>Daily</asp:ListItem>
+                        <asp:ListItem>Monthly</asp:ListItem>
+                        <asp:ListItem>Annually</asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+                <td>
+                    <asp:RequiredFieldValidator ID="RegularExpressionValidator6" runat="server" 
+                        ErrorMessage="Select period of payment!" ValidationGroup="Contract" 
+                        ForeColor="Red" ControlToValidate="ddlRoom">*</asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="style7">
+                    End Date</td>
+                <td class="style8">
+                    <asp:TextBox placeholder="-Select period of payment first.-" ID="txtEndDate" runat="server" Width="180px" Enabled="False"></asp:TextBox>
                     <asp:MaskedEditExtender ID="txtEndDate_MaskedEditExtender" runat="server" 
                         Mask="99/99/9999" MaskType="Date" TargetControlID="txtEndDate">
                     </asp:MaskedEditExtender>
@@ -47,30 +93,31 @@
                         TargetControlID="txtEndDate">
                     </asp:CalendarExtender>
                 </td>
-                <td>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" 
+                <td class="style9">
+                    <asp:RequiredFieldValidator ID="RegularExpressionValidator2" runat="server" 
                         ErrorMessage="Select end of contract date!" ValidationGroup="Contract" 
-                        ForeColor="Red" ControlToValidate="txtEndDate">*</asp:RegularExpressionValidator>
+                        ForeColor="Red" ControlToValidate="txtEndDate">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
-                <td class="style2">
+                <td class="style4">
                     Select Unit Type</td>
-                <td class="style3">
+                <td class="style5">
                     <asp:DropDownList ID="ddlUnit" runat="server" 
-                        DataSourceID="SqlDataSource1" DataTextField="Name" 
-                        DataValueField="UnitTypeID" AppendDataBoundItems="True">
+                        DataSourceID="SqlDS_UnitType" DataTextField="Name" 
+                        DataValueField="UnitTypeID" AppendDataBoundItems="True" 
+                        AutoPostBack="True" onselectedindexchanged="ddlUnit_SelectedIndexChanged">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                    <asp:SqlDataSource ID="SqlDS_UnitType" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
                         SelectCommand="SELECT UnitTypeID, UnitTypeName + ' for ' + CASE WHEN Gender=1 THEN 'Male' ELSE 'Female' END AS 'Name' FROM UnitType">
                     </asp:SqlDataSource>
                 </td>
-                <td>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" 
+                <td class="style6">
+                    <asp:RequiredFieldValidator ID="RegularExpressionValidator3" runat="server" 
                         ErrorMessage="Select unit type!" ValidationGroup="Contract" 
-                        ForeColor="Red" ControlToValidate="ddlUnit">*</asp:RegularExpressionValidator>
+                        ForeColor="Red" ControlToValidate="ddlUnit">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -78,19 +125,20 @@
                     Choose Room No</td>
                 <td class="style3">
                     <asp:DropDownList ID="ddlRoom" runat="server" 
-                        DataSourceID="SqlDataSource2" DataTextField="RoomNo" 
-                        DataValueField="RoomID" AppendDataBoundItems="True">
+                        DataSourceID="SqlDS_Rooms" DataTextField="Name" 
+                        DataValueField="RoomID" AppendDataBoundItems="True" AutoPostBack="True" 
+                        onselectedindexchanged="ddlRoom_SelectedIndexChanged">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                    <asp:SqlDataSource ID="SqlDS_Rooms" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
                         
                         SelectCommand="SELECT Rooms.RoomID, Rooms.RoomNo + ' ' + UnitType.UnitTypeName AS 'Name' FROM Rooms INNER JOIN UnitType ON Rooms.UnitTypeID = UnitType.UnitTypeID"></asp:SqlDataSource>
                 </td>
                 <td>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" 
+                    <asp:RequiredFieldValidator ID="RegularExpressionValidator4" runat="server" 
                         ErrorMessage="Select a room!" ValidationGroup="Contract" ForeColor="Red" 
-                        ControlToValidate="ddlRoom">*</asp:RegularExpressionValidator>
+                        ControlToValidate="ddlRoom">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -98,37 +146,21 @@
                     Choose Bedside</td>
                 <td class="style3">
                     <asp:DropDownList ID="ddlBedside" runat="server" 
-                        DataSourceID="SqlDataSource3" DataTextField="Name" 
+                        DataSourceID="SqlDS_BedSide" DataTextField="Name" 
                         DataValueField="BedSpaceID" AppendDataBoundItems="True">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
+
+                    <asp:SqlDataSource ID="SqlDS_BedSide" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
                         
-                        SelectCommand="SELECT BedSpaces.BedSpaceID, Rooms.RoomNo + '  ' + UnitType.UnitTypeName + '  ' + CASE WHEN BedSide = 1 THEN 'Left/Top' ELSE 'Right/Bottom' END AS 'Name' FROM BedSpaces INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID INNER JOIN UnitType ON Rooms.UnitTypeID = UnitType.UnitTypeID WHERE (BedSpaces.ContractID IS NULL)">
+                        SelectCommand="SELECT BedSpaces.BedSpaceID, Rooms.RoomNo + '  ' + UnitType.UnitTypeName + '  ' + CASE WHEN BedSide = 1 THEN 'Left/Top' ELSE 'Right/Bottom' END AS 'Name' FROM BedSpaces INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID INNER JOIN UnitType ON Rooms.UnitTypeID = UnitType.UnitTypeID">
                     </asp:SqlDataSource>
                 </td>
                 <td>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" 
+                    <asp:RequiredFieldValidator ID="RegularExpressionValidator5" runat="server" 
                         ErrorMessage="Select bedside!" ValidationGroup="Contract" ForeColor="Red" 
-                        ControlToValidate="ddlBedside">*</asp:RegularExpressionValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    Period of Payment</td>
-                <td class="style3">
-                    <asp:DropDownList ID="ddlPeriod" runat="server">
-                        <asp:ListItem Value="">- Select -</asp:ListItem>
-                        <asp:ListItem>Daily</asp:ListItem>
-                        <asp:ListItem>Monthly</asp:ListItem>
-                        <asp:ListItem>Semi Annually</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-                <td>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" 
-                        ErrorMessage="Select period of payment!" ValidationGroup="Contract" 
-                        ForeColor="Red" ControlToValidate="ddlRoom">*</asp:RegularExpressionValidator>
+                        ControlToValidate="ddlBedside">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>

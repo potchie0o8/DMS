@@ -4,9 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using DBHelpers;
+using Globals;
 
 public partial class Admin_RoomMgt : System.Web.UI.Page
 {
+    string conString = StaticVariables.ConnectionString;
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -50,4 +55,27 @@ public partial class Admin_RoomMgt : System.Web.UI.Page
     {
         Response.Redirect("~/Admin/AddBedspace.aspx");
     }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        string strInsert = "INSERT INTO Rooms (RoomNo, UnitTypeID) VALUES (@roomNo, @unitType)";
+        SqlParameter[] insertParam = {
+                                         new SqlParameter("@roomNo", txtRoomNo.Text),
+                                         new SqlParameter("@unitType", ddlUnitType.SelectedValue)
+                                     };
+        DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+        Response.Redirect("~/Admin/RoomMgt.aspx");
+    }
+
+    protected void btnSubmitBedSpace_Click(object sender, EventArgs e)
+    {
+        string strInsert = "INSERT INTO BedSpaces (RoomID, BedSide) VALUES (@roomID, @side)";
+        SqlParameter[] insertParam = {
+                                         new SqlParameter("@roomID", ddlRoomNo.SelectedValue),
+                                         new SqlParameter("@side", ddlSide.SelectedValue)
+                                     };
+        DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+        Response.Redirect("~/Admin/RoomMgt.aspx");
+    }
+
 }

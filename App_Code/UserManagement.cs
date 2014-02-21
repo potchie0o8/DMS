@@ -156,6 +156,15 @@ namespace UserManagement
             }
         }
 
+        public static int GetTenantGender(int _TenantID)
+        {
+            string strGetGender = "SELECT Gender FROM Tenants WHERE TenantID=@EID";
+            SqlParameter[] GetGenderParams = {
+                                             new SqlParameter("@EID", _TenantID),
+                                         };
+            return int.Parse(DataAccess.ReturnData(strGetGender, GetGenderParams, ConnString, "Gender"));
+        }
+
         public static string ReturnUserName(int _TenantID)
         {
             string strGetUN = "SELECT UN FROM Tenants WHERE TenantID=@EID";
