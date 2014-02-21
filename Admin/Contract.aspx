@@ -31,7 +31,8 @@
                 </td>
                 <td>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" 
-                        ErrorMessage="Select date of start!" ForeColor="Red" ValidationGroup="Contract">*</asp:RegularExpressionValidator>
+                        ErrorMessage="Select date of start!" ForeColor="Red" 
+                        ValidationGroup="Contract" ControlToValidate="txtDateStart">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -49,7 +50,7 @@
                 <td>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" 
                         ErrorMessage="Select end of contract date!" ValidationGroup="Contract" 
-                        ForeColor="Red">*</asp:RegularExpressionValidator>
+                        ForeColor="Red" ControlToValidate="txtEndDate">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -69,7 +70,7 @@
                 <td>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" 
                         ErrorMessage="Select unit type!" ValidationGroup="Contract" 
-                        ForeColor="Red">*</asp:RegularExpressionValidator>
+                        ForeColor="Red" ControlToValidate="ddlUnit">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -88,7 +89,8 @@
                 </td>
                 <td>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" 
-                        ErrorMessage="Select a room!" ValidationGroup="Contract" ForeColor="Red">*</asp:RegularExpressionValidator>
+                        ErrorMessage="Select a room!" ValidationGroup="Contract" ForeColor="Red" 
+                        ControlToValidate="ddlRoom">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -108,7 +110,8 @@
                 </td>
                 <td>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" runat="server" 
-                        ErrorMessage="Select bedside!" ValidationGroup="Contract" ForeColor="Red">*</asp:RegularExpressionValidator>
+                        ErrorMessage="Select bedside!" ValidationGroup="Contract" ForeColor="Red" 
+                        ControlToValidate="ddlBedside">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>
@@ -125,7 +128,7 @@
                 <td>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator6" runat="server" 
                         ErrorMessage="Select period of payment!" ValidationGroup="Contract" 
-                        ForeColor="Red">*</asp:RegularExpressionValidator>
+                        ForeColor="Red" ControlToValidate="ddlRoom">*</asp:RegularExpressionValidator>
                 </td>
             </tr>
             <tr>

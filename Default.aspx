@@ -20,7 +20,12 @@
       
             
       <p class="submit"><asp:Button ID="btnLogIn" ValidationGroup="login" runat="server" Text="Log - In" OnClick="btnLogIn_Click" />
+
+      </p>
+        <p class="submit">
           <br />
+            <asp:LinkButton ID="lnkForgotPass" runat="server" 
+                PostBackUrl="~/shared/ResetPass.aspx">Forgot your password?</asp:LinkButton>
           <br />
           <asp:Label ID="lblAlert" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
 
