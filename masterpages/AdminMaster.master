@@ -50,11 +50,13 @@
             <div class="BlockContentBorder">
 
                 <ul>
-                    <%--<li><a href="google.com">test</a></li>--%>
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkManageTenant" runat="server" PostBackUrl="~/Admin/ManageTenant.aspx">Manage Tenants</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkManageTenant" runat="server" PostBackUrl="~/Admin/ManageTenants.aspx">Manage Tenants</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkRoomMgt" runat="server" PostBackUrl="~/Admin/RoomMgt.aspx">Room Management</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkManageTenants" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkContractMgt" runat="server" PostBackUrl="~/Admin/ContractMgt.aspx">Contracts</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkGenBills" runat="server" PostBackUrl="~/Admin/GenerateBilling.aspx">Generate Bills</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkManageAnnouncements" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkManageAssets" runat="server" PostBackUrl="~/Admin/ManageAssets.aspx">Manage Tenant Assets</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="~/Admin/ViolationMgt.aspx">Violations</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="LinkButton1" runat="server" PostBackUrl="~/Admin/ServiceRequestMgt.aspx">Service Request</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkStats" runat="server" PostBackUrl="~/Admin/Stats.aspx">Statistics</asp:LinkButton></li>
