@@ -19,13 +19,31 @@ namespace Auditor
     {
         private static string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
  
+        //ganito siya pag gagamitin
+        //AuditTrailFunctions.UpdateAuditTrail("Updated UserID No. 117", EmployeeID, 1);
 
-        public static void UpdateAuditTrail(string _Action, int _UserID)
+        public static void UpdateAuditTrail(string _Action, int _UserID, int _UserType)
         {
-            //string strInsert = "INSERT INTO tb_AuditTrail (UserID, Action) VALUES (@UserID, @Action)";
+            //string UserType;
+
+            //if (_UserType == 1)
+            //{
+            //    UserType = "Employee";
+            //}
+            //else if (_UserType == 2)
+            //{
+            //    UserType = "Tenant";
+            //}
+            //else if (_UserType == 3)
+            //{
+            //    UserType = "Guardian";
+            //}
+
+            //string strInsert = "INSERT INTO tb_AuditTrail (UserID, Action, UserType) VALUES (@UserID, @Action, @UserType)";
             //SqlParameter[] InsertParams = {
             //                                   new SqlParameter("@UserID", _UserID),
-            //                                   new SqlParameter("@Action", _Action)
+            //                                   new SqlParameter("@Action", _Action),
+            //                                   new SqlParameter("@UserType", UserType)
             //                               };
             //DataAccess.DataProcessExecuteNonQuery(strInsert, InsertParams, ConnString);
         }

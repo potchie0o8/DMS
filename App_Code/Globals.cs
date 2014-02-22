@@ -13,4 +13,56 @@ namespace Globals
     {
         public static string ConnectionString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
     }
+
+    public static class IntToWords
+    {
+        public static string getGender(int _genderID)
+        {
+            string gender = "";
+            switch (_genderID)
+            {
+                case 1:
+                    gender = "Male";
+                    break;
+                case 2:
+                    gender = "Female";
+                    break;
+            }
+            return gender;
+        }
+
+
+        public static string getAdminAccess(int _AccessLevel)
+        {
+            string AccessLevel = "";
+            switch (_AccessLevel)
+            {
+                case 1:
+                    AccessLevel = "<font color='green'>Full</font>";
+                    break;
+                case 2:
+                    AccessLevel = "<font color='red'>Limited</font>";
+                    break;
+            }
+            return AccessLevel;
+        }
+
+
+        public static string getBedside(int _bedspaceID)
+        {
+            string bedspace = "";
+            switch (_bedspaceID)
+            {
+                case 1:
+                    bedspace = "Left/Top";
+                    break;
+                case 2:
+                    bedspace = "Right/Bottom";
+                    break;
+            }
+            return bedspace;
+        }
+
+    }
+
 }
