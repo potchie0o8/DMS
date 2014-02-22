@@ -47,6 +47,22 @@ namespace Globals
             return AccessLevel;
         }
 
+
+        public static string getBedside(int _bedspaceID)
+        {
+            string bedspace = "";
+            switch (_bedspaceID)
+            {
+                case 1:
+                    bedspace = "Left/Top";
+                    break;
+                case 2:
+                    bedspace = "Right/Bottom";
+                    break;
+            }
+            return bedspace;
+        }
+
     }
 
 }

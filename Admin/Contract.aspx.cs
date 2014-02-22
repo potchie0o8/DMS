@@ -54,7 +54,7 @@ public partial class Admin_Contract : System.Web.UI.Page
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         //string strInsert = "INSERT INTO Contracts (TenantID, UnitTypeID, RoomID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @utid, @rid, @bsid, @period, @startDate, @eid, @endDate)";
-        string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate)";
+        string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate, IsValid) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate, @IsValid)";
         SqlParameter[] insertParam = {
                                          new SqlParameter("@tid", TenantID),
                                          //new SqlParameter("@utid", AntiXSSMethods.CleanString(ddlUnit.SelectedValue)),
@@ -63,10 +63,12 @@ public partial class Admin_Contract : System.Web.UI.Page
                                          new SqlParameter("@period", AntiXSSMethods.CleanString(ddlPeriod.SelectedValue)),
                                          new SqlParameter("@startDate", AntiXSSMethods.CleanString(txtDateStart.Text)),
                                          new SqlParameter("@eid", EmployeeID),
-                                         new SqlParameter("@endDate", AntiXSSMethods.CleanString(txtEndDate.Text))
+                                         new SqlParameter("@endDate", AntiXSSMethods.CleanString(txtEndDate.Text)),
+                                         new SqlParameter("@IsValid", true)
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        Response.Redirect("~/Admin/ManageTenant.aspx");
+        //Response.Redirect("~/Admin/ManageTenant.aspx");
+        Response.Redirect("~/Admin/ContractMgt.aspx");
     }
     protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
     {
