@@ -56,9 +56,10 @@
                     <li><asp:LinkButton CssClass="style1" ID="lnkContractMgt" runat="server" PostBackUrl="~/Admin/ContractMgt.aspx">Contracts</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkGenBills" runat="server" PostBackUrl="~/Admin/GenerateBilling.aspx">Generate Bills</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageAnnouncements" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="LinkButton1" runat="server" PostBackUrl="~/Admin/MessageMgt.aspx">Messages</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageAssets" runat="server" PostBackUrl="~/Admin/ManageAssets.aspx">Manage Tenant Assets</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="~/Admin/ViolationMgt.aspx">Violations</asp:LinkButton></li>
-                     <li><asp:LinkButton CssClass="style1" ID="LinkButton1" runat="server" PostBackUrl="~/Admin/ServiceRequestMgt.aspx">Service Request</asp:LinkButton></li>
+                     <li><asp:LinkButton CssClass="style1" ID="lnkServiceRqst" runat="server" PostBackUrl="~/Admin/ServiceRequestMgt.aspx">Service Request</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkStats" runat="server" PostBackUrl="~/Admin/Stats.aspx">Statistics</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkReports" runat="server" PostBackUrl="~/Admin/Reports.aspx">Reports</asp:LinkButton></li>
                 </ul>

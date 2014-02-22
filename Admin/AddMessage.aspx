@@ -1,40 +1,59 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="Announcement.aspx.cs" Inherits="Admin_Announcement" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="AddMessage.aspx.cs" Inherits="Admin_AddMessage" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
     <style type="text/css">
         .style2
         {
-            text-decoration: none;
-            width: 180px;
+            width: 105px;
         }
-        .style3
-        {
-            text-decoration: none;
-            width: 66px;
-        }
+    .style3
+    {
+        width: 414px;
+    }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-<h1>Add an Announcement</h1>
-    <div>
-    
+    <h1>Create Message</h1>
+    <p>
         <table style="width:100%;">
             <tr>
+                <td class="style2">
+                    Select Tenant</td>
                 <td class="style3">
-                    Subject</td>
-                <td>
-                    <asp:TextBox ID="txtSubject" runat="server" Width="421px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                        ErrorMessage="Please indicate Subject!" ForeColor="Red" 
-                        ControlToValidate="txtMsg" ValidationGroup="AddAnnouncement">*</asp:RequiredFieldValidator>
+                    <asp:DropDownList ID="ddlTenant" runat="server" DataSourceID="SqlDataSource1" 
+                        DataTextField="TenantName" DataValueField="TenantID" 
+                        AppendDataBoundItems="True">
+                        <asp:ListItem Value="">- Select -</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+                        ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
+                        SelectCommand="SELECT TenantID, LName + ', ' + FName + '  ' + MName AS 'TenantName' FROM Tenants ORDER BY 'TenantName'">
+                    </asp:SqlDataSource>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                        ControlToValidate="ddlTenant" ErrorMessage="Please Select a Tenant!" 
+                        ForeColor="Red" ValidationGroup="Message"></asp:RequiredFieldValidator>
                 </td>
+                <td>
+                    &nbsp;</td>
             </tr>
             <tr>
+                <td class="style2">
+                    Subject</td>
                 <td class="style3">
-                    Message</td>
+                    <asp:TextBox ID="txtSubject" runat="server" Width="180px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                        ControlToValidate="txtSubject" ErrorMessage="Please enter subject!" 
+                        ForeColor="Red" ValidationGroup="Message"></asp:RequiredFieldValidator>
+                </td>
                 <td>
-                    <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Columns="50" Rows="10"></asp:TextBox>
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="style2">
+                    Message</td>
+                <td class="style3">
+                   <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Columns="50" Rows="10"></asp:TextBox>
 
                     <asp:HtmlEditorExtender ID="HtmlEditorExtender1" 
                         TargetControlID="txtMsg" DisplaySourceTab="true" 
@@ -74,29 +93,30 @@
                             <asp:InsertImage />
                         </Toolbar>
                     </asp:HtmlEditorExtender>
+                        </td>
+                <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                         ErrorMessage="Please indicate Message!" ForeColor="Red" 
-                        ControlToValidate="txtSubject" ValidationGroup="AddAnnouncement">*</asp:RequiredFieldValidator>
-                </td>
+                        ControlToValidate="txtMsg" ValidationGroup="Message"></asp:RequiredFieldValidator>
+                        </td>
             </tr>
             <tr>
-                <td class="style3">
-                    &nbsp;</td>
                 <td class="style2">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-                        onclick="btnSubmit_Click" ValidationGroup="AddAnnouncement" />
-&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="txtCancel" runat="server" Text="Cancel" PostBackUrl="~/Admin/ManageAnnouncements.aspx" />
+                    &nbsp;</td>
+                <td class="style3">
+                    <asp:Button ID="btnSubmit" runat="server" Text="Send" onclick="Button1_Click" 
+                        ValidationGroup="Message" />
+                &nbsp;
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" PostBackUrl="~/Admin/MessageMgt.aspx" />
                 </td>
                 <td>
                     &nbsp;</td>
             </tr>
         </table>
-    
-    </div>
-
+    </p>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="AfterBody" Runat="Server">
 </asp:Content>
+

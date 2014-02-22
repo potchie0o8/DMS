@@ -13,7 +13,7 @@
             <Columns>
                 <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                 <asp:BoundField DataField="Fine" HeaderText="Fine" 
-                    SortExpression="Fine" />
+                    SortExpression="Fine" DataFormatString="{0: 0.00}" />
                 <asp:BoundField DataField="DateTime" 
                     DataFormatString="{0:MMMM dd,yyyy}" HeaderText="Date" 
                     SortExpression="DateTime" />

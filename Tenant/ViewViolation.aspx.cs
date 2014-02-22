@@ -30,13 +30,13 @@ public partial class Tenant_ViewViolation : System.Web.UI.Page
         SqlParameter[] VID = {
                                  new SqlParameter("@VID", _VID)
                              };
-        SqlDataReader dr = DataAccess.ReturnReader("SELECT * FROM Violations",VID,conString);
+        SqlDataReader dr = DataAccess.ReturnReader("SELECT Violations.Title, Violations.Description, Violations.Fine, Violations.DateTime, Violations.EmployeeID, Employees.LName + ', ' + Employees.FName + '  ' + Employees.MName AS 'FullName' FROM Violations, Employees WHERE Violations.EmployeeID=Employees.EmployeeID", VID, conString);
         dr.Read();
         lblTitle.Text = dr["Title"].ToString();
         lblDetails.Text = dr["Description"].ToString();
-        lblFine.Text = dr["Fine"].ToString();
-        lblDate.Text = dr["DateTime"].ToString();
-        lblEmp.Text = dr["EmployeeID"].ToString();
+        lblFine.Text = Convert.ToDouble(dr["Fine"].ToString()).ToString();
+        lblDate.Text = Convert.ToDateTime(dr["DateTime"].ToString()).ToShortDateString();
+        lblEmp.Text = dr["FullName"].ToString();
         DataAccess.ForceConnectionToClose();
     }
 }
