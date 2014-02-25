@@ -34,7 +34,10 @@
                         <asp:Label ID="DateRegisteredLabel" runat="server" Text='<%# Convert.ToDateTime(Eval("DateRegistered").ToString()).ToShortDateString() %>' />
                     </td>
                      <td>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Convert.ToDateTime(Eval("DateRegistered").ToString()).ToShortDateString() %>' />
+                        <%# GetBalance(int.Parse(Eval("TenantID").ToString())) %>
+                    </td>
+                    <td>
+                        <a href='<%# "GenerateBilling2.aspx?ID=" + Eval("TenantID").ToString() %>'>Manage Tenant Account</a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -57,6 +60,7 @@
                                         Date Registered</th>
                                     <th id="Th1" runat="server">
                                         Pending Balance</th>
+                                    <th id="Th2" runat="server"></th>
                                 </tr>
                                 <tr ID="itemPlaceholder" runat="server">
                                 </tr>

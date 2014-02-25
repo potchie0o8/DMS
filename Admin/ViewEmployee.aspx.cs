@@ -130,6 +130,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
         txtFName.Text = dr["FName"].ToString();
         txtMName.Text = dr["MName"].ToString();
         txtLName.Text = dr["LName"].ToString();
+        txtFPID.Text = dr["FingerprintID"].ToString();
 
         DataAccess.ForceConnectionToClose();
 
@@ -137,10 +138,20 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
 
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
+        int fpid;
+        try
+        {
+            fpid = int.Parse(AntiXSSMethods.CleanString(txtFPID.Text));
+        }
+        catch
+        {
+            fpid = 0;
+        }
+
         try
         {
 
-            string strUpdate = "UPDATE Employees SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, DateOfEmployment=@doe, Email=@email, FName=@fname, MName=@mname, LName=@lname WHERE EmployeeID=@EID";
+            string strUpdate = "UPDATE Employees SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, DateOfEmployment=@doe, Email=@email, FName=@fname, MName=@mname, LName=@lname, FingerprintID=@fpid WHERE EmployeeID=@EID";
 
             photofile = UploadPhoto();
 
@@ -155,7 +166,8 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
                                           new SqlParameter("@fname", AntiXSSMethods.CleanString(txtFName.Text)),
                                           new SqlParameter("@mname", AntiXSSMethods.CleanString(txtMName.Text)),
                                           new SqlParameter("@lname", AntiXSSMethods.CleanString(txtLName.Text)),
-                                          new SqlParameter("@EID", EmployeeID)
+                                          new SqlParameter("@EID", EmployeeID),
+                                          new SqlParameter("@fpid", fpid)
                                        };
             DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, connString);
             loaddata(EmployeeID);

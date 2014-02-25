@@ -4,7 +4,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-<h1>Contract Management</h1>
+<h1>Tenant Contract Information Management</h1>
 
     <p>Select a Tenant:
         <asp:DropDownList ID="ddlSelectTenant" runat="server" 
@@ -33,7 +33,9 @@
             </EmptyDataTemplate>
 
             <ItemTemplate>
+            <%--<a href='<%# "ViewContract.aspx?ID=" + Eval("ContractID").ToString() %>'>--%>
                 <tr style="background-color: #FFFBD6;color: #333333;">
+                    <a href='<%# "ViewContract.aspx?ID=" + Eval("ContractID").ToString() %>'>
                     <td>
                         <a href='<%# "ViewContract.aspx?ID=" + Eval("ContractID").ToString() %>'><asp:Label ID="ContractIDLabel" runat="server" Text='<%# Eval("ContractID") %>' /></a>
                     </td>
@@ -66,7 +68,9 @@
                         <asp:CheckBox ID="IsValidCheckBox" runat="server" 
                             Checked='<%# Eval("IsValid") %>' Enabled="false" />
                     </td>
+                    </a>
                 </tr>
+                <%--</a>--%>
             </ItemTemplate>
             <LayoutTemplate>
                 <table runat="server">

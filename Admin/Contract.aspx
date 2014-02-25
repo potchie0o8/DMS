@@ -44,6 +44,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Create Contract</h1>
+<p>
+    <asp:Label ID="lblAlert" runat="server" style="color: #FF0000"></asp:Label>
+</p>
     <p>
         <table style="width:100%;">
             <tr>
