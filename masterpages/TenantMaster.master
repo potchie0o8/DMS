@@ -38,7 +38,7 @@
              <ul>
 
              <li><asp:LinkButton ID="lnkBtnHome" runat="server" class="MenuButton" PostBackUrl="~/Tenant/Default.aspx"><span>Home</span></asp:LinkButton></li>
-                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Tenant/ChangeMyPassword.aspx"><span>My Profile</span></asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Tenant/MyProfile.aspx"><span>My Profile</span></asp:LinkButton></li>
                  <%--<%= RenderMenu() %>--%>
                  <li><asp:LinkButton ID="lnkBtnChangeMyPass" runat="server" class="MenuButton" PostBackUrl="~/Tenant/ChangeMyPassword.aspx"><span>Change My Password</span></asp:LinkButton></li>
                  <li><asp:LinkButton ID="lnkBtnLogOut" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
@@ -52,9 +52,11 @@
 
                 <ul>
                     <%--<li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>--%>
-                     <li><asp:LinkButton CssClass="style1" ID="LinkButton1" runat="server" PostBackUrl="~/Tenant/Messages.aspx">Messages</asp:LinkButton></li>
+                     <li><asp:LinkButton CssClass="style1" ID="lnkMessage" runat="server" PostBackUrl="~/Tenant/Messages.aspx">Messages</asp:LinkButton></li>
+                     <li><asp:LinkButton CssClass="style1" ID="lnkComplaints" runat="server" PostBackUrl="~/Tenant/AddComplaint.aspx">Submit Complaint</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkViewViolations" runat="server" PostBackUrl="~/Tenant/Violations.aspx">My Violations</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkServiceRequest" runat="server" PostBackUrl="~/Tenant/ServiceRequest.aspx">Service Request</asp:LinkButton></li>
+                     <li><asp:LinkButton CssClass="style1" ID="LinkButton1" runat="server" PostBackUrl="">Bills</asp:LinkButton></li>
                 </ul>
 
             </div>

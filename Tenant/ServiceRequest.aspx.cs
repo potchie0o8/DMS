@@ -25,7 +25,7 @@ public partial class Tenant_ServiceRequest : System.Web.UI.Page
             Response.Write(ex.Message);
         }
 
-        remarks = "On Going";
+        remarks = "Pending";
         priority = "Average";
     }
     protected void btnSubmit_Click(object sender, EventArgs e)

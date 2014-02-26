@@ -28,4 +28,8 @@ public partial class Tenant_Messages : System.Web.UI.Page
             Response.Write(ex.Message);
         }
     }
+    protected void GrdMessages_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("ViewMessage.aspx?ID=" + GridView2.SelectedDataKey["MessageID"].ToString());
+    }
 }

@@ -5,9 +5,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Messages</h1>
     <p>
-        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" 
+        <asp:GridView ID="grd_Messages" runat="server" AutoGenerateColumns="False" 
             CellPadding="4" DataKeyNames="MessageID" DataSourceID="SqlDS_Messages" 
-            ForeColor="#333333" GridLines="None">
+            ForeColor="#333333" GridLines="None" 
+            onselectedindexchanged="GrdMessages_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="Subject" HeaderText="Subject" 

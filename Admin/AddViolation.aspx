@@ -8,7 +8,7 @@
         }
         .style3
         {
-            width: 181px;
+            width: 377px;
         }
     </style>
 </asp:Content>
@@ -29,6 +29,9 @@
                         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
                         SelectCommand="SELECT TenantID, LName + ', ' + FName + '  ' + MName AS 'Name' FROM Tenants">
                     </asp:SqlDataSource>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                        ControlToValidate="ddlTenant" ErrorMessage="Please select a Tenant!" 
+                        ForeColor="Red" ValidationGroup="Violation"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -38,6 +41,9 @@
                     Violation</td>
                 <td class="style3">
                     <asp:TextBox ID="txtTitle" runat="server" Width="180px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                        ControlToValidate="txtTitle" ErrorMessage="Please indicate violation!" 
+                        ForeColor="Red" ValidationGroup="Violation"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -47,6 +53,9 @@
                     Description</td>
                 <td class="style3">
                     <asp:TextBox ID="txtDesc" runat="server" Width="180px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                        ControlToValidate="txtDesc" ErrorMessage="Please enter description!" 
+                        ForeColor="Red" ValidationGroup="Violation"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -56,6 +65,9 @@
                     Fine</td>
                 <td class="style3">
                     <asp:TextBox ID="txtFine" runat="server" Width="180px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                        ControlToValidate="txtFine" ErrorMessage="Please input amount!" ForeColor="Red" 
+                        ValidationGroup="Violation"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -65,7 +77,9 @@
                     &nbsp;</td>
                 <td class="style3">
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
-                        onclick="btnSubmit_Click" />
+                        onclick="btnSubmit_Click" ValidationGroup="Violation" />
+                &nbsp;&nbsp;
+                    <asp:Button ID="btnCancel" runat="server" PostBackUrl="~/Admin/ViolationMgt.aspx" Text="Cancel" />
                 </td>
                 <td>
                     &nbsp;</td>
