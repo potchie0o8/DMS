@@ -54,6 +54,19 @@ namespace CustomStrings
             }
         }
 
+        public static bool checkDate(string _inDate)
+        {
+            try
+            {
+                DateTime.Parse(_inDate);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static string dateStampNoID = DateTime.Now.Year.ToString() + DateTime.Now.Month + DateTime.Now.Day + "_" + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString();
 
     }

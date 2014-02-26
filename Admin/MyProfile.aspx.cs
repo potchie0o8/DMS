@@ -36,7 +36,7 @@ public partial class Admin_MyProfile : System.Web.UI.Page
         lblAdminAccess.Text = IntToWords.getAdminAccess(int.Parse(dr["AdminLevel"].ToString()));
         lblContactNo.Text = dr["ContactNo"].ToString();
         lblDateOfBirth.Text = Convert.ToDateTime(dr["BDate"].ToString()).ToString("MMMM dd, yyyy");
-        lblDateOfEmployment.Text = dr["DateOfEmployment"].ToString();
+        lblDateOfEmployment.Text = DateTime.Parse(dr["DateOfEmployment"].ToString()).ToString("MMMM dd, yyyy");
         lblEmailAdd.Text = dr["Email"].ToString();
         lblFingerID.Text = dr["FingerprintID"].ToString();
         lblFName.Text = dr["FName"].ToString();
