@@ -1812,7 +1812,7 @@
               <TextRun>
                 <Value>=Fields!DateCreated.Value</Value>
                 <Style>
-                  <Format>MMM dd, yyyy</Format>
+                  <Format>MMMM dd, yyyy</Format>
                 </Style>
               </TextRun>
             </TextRuns>

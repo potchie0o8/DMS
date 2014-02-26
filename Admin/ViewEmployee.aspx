@@ -175,6 +175,12 @@
                     ValidationGroup="UpdateEmployee" Display="Dynamic">*</asp:RequiredFieldValidator>
             </td>
         </tr>
+        <tr>
+            <td class="auto-style2">Fingerprint ID:</td>
+            <td>
+                <asp:TextBox ID="txtFPID" runat="server"></asp:TextBox>
+            </td>
+        </tr>
         </table>
 
      <asp:ValidationSummary ID="ValidationSummary1" runat="server" 

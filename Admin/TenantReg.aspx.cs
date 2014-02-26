@@ -195,7 +195,7 @@ public partial class Admin_TenantReg : System.Web.UI.Page
             }
             else
             {
-                lblAlert.Text = "Invalid or Blank Inputs!";
+                lblAlert.Text = "Birth date is invalid!";
             }
         }
         else if (strImageFile == "large")

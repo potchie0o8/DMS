@@ -51,11 +51,65 @@ public partial class Admin_Contract : System.Web.UI.Page
             Response.Write(ex.Message);
         }
     }
+
+    private int checkInputs()
+    {
+        //0 - good
+        //1 - invalid start date
+        //2 - invalid end date
+        //3 - blank inputs
+        bool StartDateIsValid = StringCustomizers.checkDate(AntiXSSMethods.CleanString(txtDateStart.Text));
+        bool EndDateIsValid = StringCustomizers.checkDate(AntiXSSMethods.CleanString(txtEndDate.Text));
+
+        if (!StartDateIsValid) 
+        {
+            return 1;
+        }
+
+        if (!EndDateIsValid)
+        {
+            return 2;
+        }
+
+        if (txtDateStart.Text.Trim() == "")
+        {
+            return 3;
+        }
+        if (txtEndDate.Text.Trim() == "")
+        {
+            return 3;
+        }
+
+        if (ddlBedside.SelectedValue.Trim() == "")
+        {
+            return 3;
+        }
+        if (ddlPeriod.SelectedValue.Trim() == "")
+        {
+            return 3;
+        }
+        if (ddlRoom.SelectedValue.Trim() == "")
+        {
+            return 3;
+        }
+        if (ddlUnit.SelectedValue.Trim() == "")
+        {
+            return 3;
+        }
+
+        return 0;
+
+    }
+
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        //string strInsert = "INSERT INTO Contracts (TenantID, UnitTypeID, RoomID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @utid, @rid, @bsid, @period, @startDate, @eid, @endDate)";
-        string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate, IsValid) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate, @IsValid)";
-        SqlParameter[] insertParam = {
+
+        int validateInputs = checkInputs();
+        if (validateInputs == 0)
+        {
+            //string strInsert = "INSERT INTO Contracts (TenantID, UnitTypeID, RoomID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @utid, @rid, @bsid, @period, @startDate, @eid, @endDate)";
+            string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate, IsValid) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate, @IsValid)";
+            SqlParameter[] insertParam = {
                                          new SqlParameter("@tid", TenantID),
                                          //new SqlParameter("@utid", AntiXSSMethods.CleanString(ddlUnit.SelectedValue)),
                                          //new SqlParameter("@rid", AntiXSSMethods.CleanString(ddlRoom.SelectedValue)),
@@ -66,26 +120,46 @@ public partial class Admin_Contract : System.Web.UI.Page
                                          new SqlParameter("@endDate", AntiXSSMethods.CleanString(txtEndDate.Text)),
                                          new SqlParameter("@IsValid", true)
                                      };
-        DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        //Response.Redirect("~/Admin/ManageTenant.aspx");
-        Response.Redirect("~/Admin/ContractMgt.aspx");
+            DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+            //Response.Redirect("~/Admin/ManageTenant.aspx");
+            Response.Redirect("~/Admin/ContractMgt.aspx");
+        }
+        else if (validateInputs == 3)
+        {
+            lblAlert.Text = "Check fields for blank entries";
+        }
+        else if (validateInputs == 1)
+        {
+            lblAlert.Text = "Invalid start date!";
+        }
+        else if (validateInputs == 2)
+        {
+            lblAlert.Text = "Invalid end date";
+        }
     }
     protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (ddlPeriod.SelectedValue == "Annually")
+        if (StringCustomizers.checkDate(txtDateStart.Text))
         {
-            txtEndDate.Enabled = false;
-            txtEndDate.Text = Convert.ToDateTime(txtDateStart.Text).AddYears(1).ToShortDateString();
+            if (ddlPeriod.SelectedValue == "Annually")
+            {
+                txtEndDate.Enabled = false;
+                txtEndDate.Text = Convert.ToDateTime(txtDateStart.Text).AddYears(1).ToShortDateString();
+            }
+            else if (ddlPeriod.SelectedValue == "Monthly")
+            {
+                txtEndDate.Enabled = true;
+                txtEndDate.Text = Convert.ToDateTime(txtDateStart.Text).AddMonths(1).ToShortDateString();
+            }
+            else if (ddlPeriod.SelectedValue == "Daily")
+            {
+                txtEndDate.Enabled = true;
+                txtEndDate.Text = Convert.ToDateTime(txtDateStart.Text).AddDays(1).ToShortDateString();
+            }
         }
-        else if (ddlPeriod.SelectedValue == "Monthly")
+        else
         {
-            txtEndDate.Enabled = true;
-            txtEndDate.Text = Convert.ToDateTime(txtDateStart.Text).AddMonths(1).ToShortDateString();
-        }
-        else if (ddlPeriod.SelectedValue == "Daily")
-        {
-            txtEndDate.Enabled = true;
-            txtEndDate.Text = Convert.ToDateTime(txtDateStart.Text).AddDays(1).ToShortDateString();
+            lblAlert.Text = "Invalid end date!";
         }
     }
     protected void ddlUnit_SelectedIndexChanged(object sender, EventArgs e)
