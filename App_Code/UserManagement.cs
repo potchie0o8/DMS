@@ -39,17 +39,17 @@ namespace UserManagement
             SqlParameter[] checkUNParam2 = {
                                           new SqlParameter("@un", input)
                                       };
-            //SqlParameter[] checkUNParam3 = {
-            //                              new SqlParameter("@un", input)
-            //                          };
+            SqlParameter[] checkUNParam3 = {
+                                          new SqlParameter("@un", input)
+                                      };
 
 
             bool isEmployee = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam1, ConnString);
             bool isTenant = DataAccess.DetermineIfExisting("SELECT * FROM Tenants WHERE UN=@un", checkUNParam2, ConnString);
-            //bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam, ConnString);
+            bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam3, ConnString);
 
-            //if (isEmployee == false && isTenant == false && isGuardian == false)
-            if (isEmployee == false && isTenant == false)
+            if (isEmployee == false && isTenant == false && isGuardian == false)
+            //if (isEmployee == false && isTenant == false)
             {
                 return false;
             }
@@ -61,6 +61,45 @@ namespace UserManagement
 
 
         }
+
+
+        public static int CheckRole(string _input)
+        {
+            string input = AntiXSSMethods.CleanString(_input);
+            SqlParameter[] checkUNParam1 = {
+                                          new SqlParameter("@un", input)
+                                      };
+            SqlParameter[] checkUNParam2 = {
+                                          new SqlParameter("@un", input)
+                                      };
+            SqlParameter[] checkUNParam3 = {
+                                          new SqlParameter("@un", input)
+                                      };
+
+            bool isEmployee = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam1, ConnString);
+            bool isTenant = DataAccess.DetermineIfExisting("SELECT * FROM Tenants WHERE UN=@un", checkUNParam2, ConnString);
+            bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam3, ConnString);
+
+            if (isEmployee == true)
+            {
+                return 1;
+            }
+            else if (isGuardian == true)
+            {
+                return 3;
+            }
+            else if (isTenant == true)
+            {
+                return 2;
+            }
+            else
+            {
+                return 4;
+            }
+
+        }
+
+
     }
 
     public static class Employees

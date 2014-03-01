@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-<h1>Bills Generation Page</h1>
+    <h1>Tenants Accounts Page</h1>
     <p>
         <asp:ListView ID="ListView1" runat="server" DataKeyNames="TenantID" 
             DataSourceID="SqlDS_Tenants">          
