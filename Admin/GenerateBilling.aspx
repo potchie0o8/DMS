@@ -37,7 +37,7 @@
                         <%# GetBalance(int.Parse(Eval("TenantID").ToString())) %>
                     </td>
                     <td>
-                        <a href='<%# "GenerateBilling2.aspx?ID=" + Eval("TenantID").ToString() %>'>Manage Tenant Account</a>
+                        <a href='<%# "Accounts/ManageAccount.aspx?ID=" + Eval("TenantID").ToString() %>'>Manage Tenant Account</a>
                     </td>
                 </tr>
             </ItemTemplate>

@@ -25,7 +25,7 @@
         <div class="Header">
         
           <div class="HeaderTitle">
-            <img class="float-right" src="../images/Logo.png"/>
+              <asp:Image ID="ImgLogo" CssClass="float-right" ImageUrl="~/images/Logo.png" runat="server" />
             <center><h1>E.G.I. <a href="#">Dormitory Management System</a></h1></center>
               <h2>
                   <asp:Label ID="Label1" runat="server" Text="Hi, "></asp:Label>
