@@ -1,31 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="ManageAccount.aspx.cs" Inherits="Admin_GenerateBilling2" %>
 
+<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
-    <style type="text/css">
-        .style2
-        {
-            width: 44%;
-            height: 98px;
-        }
-        .style3
-        {
-            width: 110px;
-        }
-        .style4
-        {
-            height: 23px;
-        }
-        .style5
-        {}
-        .style6
-        {
-            text-decoration: underline;
-        }
-        .style7
-        {
-        }
-    </style>
-</asp:Content>
+    </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Manage Tenant Bills</h1>
     <p>
@@ -44,41 +22,28 @@
         </asp:DropDownList>
 &nbsp;<asp:Button ID="btnRetrieveBill" runat="server" Text="Retrieve Bill" />
     </p>
+<p>
+    </p>
+    <rsweb:ReportViewer ID="RV_Bill" runat="server" Font-Names="Verdana" 
+    Font-Size="8pt" InteractiveDeviceInfos="(Collection)" 
+    WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="548px">
+        <LocalReport ReportPath="Admin\Accounts\Bill.rdlc">
+            <DataSources>
+                <rsweb:ReportDataSource DataSourceId="SqlDS_GetBill" Name="DS_Bill" />
+            </DataSources>
+        </LocalReport>
+</rsweb:ReportViewer>
+<asp:SqlDataSource ID="SqlDS_GetBill" runat="server" 
+    ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
+    SelectCommand="RetrieveBill" SelectCommandType="StoredProcedure">
+    <SelectParameters>
+        <asp:Parameter DefaultValue="6" Name="BID" Type="Int32" />
+    </SelectParameters>
+</asp:SqlDataSource>
     <p><strong>Bill Period: </strong>
         <asp:Label ID="lblBillPeriod" runat="server"></asp:Label>
     </p>
-    <p>Bill Particulars:</p>
-    <p>
-        <asp:GridView ID="GrdOldBillView" runat="server" AutoGenerateColumns="False" 
-            DataKeyNames="ItemID" DataSourceID="SqlDS_OldBills" CellPadding="4" 
-            ForeColor="#333333" GridLines="None">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-            <Columns>
-                <asp:BoundField DataField="ItemID" HeaderText="ItemID" InsertVisible="False" 
-                    ReadOnly="True" SortExpression="ItemID" />
-                <asp:BoundField DataField="BillID" HeaderText="BillID" 
-                    SortExpression="BillID" />
-                <asp:BoundField DataField="Particular" HeaderText="Particular" 
-                    SortExpression="Particular" />
-                <asp:BoundField DataField="Amount" HeaderText="Amount" 
-                    SortExpression="Amount" />
-            </Columns>
-            <EditRowStyle BackColor="#999999" />
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-        </asp:GridView>
-        <asp:SqlDataSource ID="SqlDS_OldBills" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
-            SelectCommand="SELECT * FROM [BillI_Items]"></asp:SqlDataSource>
-    </p>
-    <p>
+
         <asp:Button ID="btnPrintBill" runat="server" Text="Print Bill" />
 &nbsp;<asp:Button ID="btnRecordPayment" runat="server" onclick="btnRecordPayment_Click" 
             Text="Record Payment for this Bill" />

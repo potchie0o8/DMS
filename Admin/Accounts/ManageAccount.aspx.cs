@@ -13,7 +13,7 @@ using System.Data.SqlClient;
 public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 {
     string ConnString = StaticVariables.ConnectionString;
-    int TenantID, ContractID;
+    int TenantID, ContractID, EmployeeID;
 
     int PeriodType; //1 - Annual, 2 - Monthly, 3 - Daily
     double Fee;
@@ -26,9 +26,13 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
         {
             //Gets Tenant and displays to lblTenant
             TenantID = int.Parse(Request.QueryString["ID"].ToString());
+            EmployeeID = int.Parse(Session["EmployeeID"].ToString());
+            
             string strGetTenant = "SELECT LName + ', ' + FName + ' ' + MName + ' (' + CONVERT(nvarchar(7), TenantID) + ')' AS 'FullName' FROM Tenants WHERE TenantID=@TID";
             SqlParameter[] TID = { new SqlParameter("@TID", TenantID) };
             lblTenant.Text = DataAccess.ReturnData(strGetTenant, TID, ConnString, "FullName");
+
+
 
 
         }
@@ -58,9 +62,10 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
         //Create new bill and get new PK first...
         SqlParameter[] NewParams = {
                                        new SqlParameter("@TID", TenantID),
+                                       new SqlParameter("@EID", EmployeeID),
                                        new SqlParameter("@IF", false)
                                    };
-        int NewBillPK = DataAccess.InsertAndGetIndex("INSERT INTO Bills (TenantID, IsFinalized) VALUES (@TID, @IF)", NewParams, ConnString);
+        int NewBillPK = DataAccess.InsertAndGetIndex("INSERT INTO Bills (TenantID, EmployeeID, IsFinalized) VALUES (@TID, @EID, @IF)", NewParams, ConnString);
 
         Response.Redirect("GenerateBill.aspx?BID=" + NewBillPK.ToString() + "&TID=" + TenantID.ToString());
 

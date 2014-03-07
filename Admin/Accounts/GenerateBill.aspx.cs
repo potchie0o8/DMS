@@ -21,6 +21,11 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        //sets Violations
+        SqlDS_Violations.SelectCommand = "SELECT Employees.UN, Violations.Title, Violations.Description, Violations.Fine, Violations.DateTime FROM Violations INNER JOIN Employees ON Violations.EmployeeID = Employees.EmployeeID WHERE (Violations.TenantID = @TID) AND (Violations.Fine!='' OR Violations.Fine!=0 OR Violations.Fine IS NOT NULL)";
+
+
         TenantID = int.Parse(Request.QueryString["TID"].ToString());
         BillID = int.Parse(Request.QueryString["BID"].ToString());
         //string strGetTenant = "SELECT LName + ', ' + FName + ' ' + MName + ' (' + CONVERT(nvarchar(7), TenantID) + ')' AS 'FullName' FROM Tenants WHERE TenantID=@TID";
@@ -28,6 +33,14 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         //lblTenant.Text = DataAccess.ReturnData(strGetTenant, TID, ConnString, "FullName");
         GetPeriodicalFee(TenantID);
     }
+
+
+    //private void GetPreviousBalance(int _TenantID)
+    //{
+
+
+    //}
+
 
     private void GetPeriodicalFee(int _TenantID)
     {
@@ -81,7 +94,53 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         {
             lblContract.Text = "This tenant currently has no contract information";
             lblPeriodFee.Text = "-";
+            lnkBtnAddRent.Enabled = false;
+            lnkBtnAddRent.Text = "No Rent Fee to Add";
         }
 
+    }
+    protected void lnkBtnAddRent_Click(object sender, EventArgs e)
+    {
+        string strInsert = "INSERT INTO Bill_Items (BillID, Particular, Amount) VALUES (@BID, @PAR, @AMT)";
+
+        SqlParameter[] BillItems = {
+                                       new SqlParameter("@BID", BillID),
+                                       new SqlParameter("@PAR", "RENT FEE"),
+                                       new SqlParameter("@AMT", Fee)
+                                   };
+        DataAccess.DataProcessExecuteNonQuery(strInsert, BillItems, ConnString);
+        GRD_BillItems.DataBind();
+    }
+    protected void btnCreateBill_Click(object sender, EventArgs e)
+    {
+        double totalAmt = 0;
+
+        //computes total amount from bill
+        string strGetTotalAmt = "SELECT Amount FROM Bill_Items WHERE BillID=@BID";
+        SqlParameter[] BIDParam = { new SqlParameter("@BID", BillID) };
+
+        SqlDataReader dr = DataAccess.ReturnReader(strGetTotalAmt, BIDParam, ConnString);
+        while (dr.Read())
+        {
+            double Total = Convert.ToDouble(dr["Amount"].ToString());
+            totalAmt = totalAmt + Total;
+        }
+        DataAccess.ForceConnectionToClose();
+
+
+        //insert items and mark things as paid
+        try
+        {
+            SqlParameter[] BillParams = { 
+                                            new SqlParameter("@BID", BillID),
+                                            new SqlParameter("@GenDate", DateTime.Now),
+                                            new SqlParameter("@Total", totalAmt)
+                                        };
+            DataAccess.DataProcessExecuteNonQuery("UPDATE Bills SET IsFinalized=1, DateGenerated=@GenDate, TotalAmount=@Total, IsPaid=0 WHERE BillID=@BID", BillParams, ConnString);
+        }
+        catch (Exception ex)
+        {
+            Response.Write(ex.Message);
+        }
     }
 }
