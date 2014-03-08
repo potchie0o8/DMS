@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using DBHelpers;
 using Globals;
+using Accounting;
 
 public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
 {
@@ -14,32 +15,108 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
     string ConnString = StaticVariables.ConnectionString;
     int TenantID, ContractID, BillID;
 
-    int PeriodType; //1 - Annual, 2 - Monthly, 3 - Daily
-    double Fee;
+    int PeriodType; //1 - Annual, 2 - Monthly, 3 - Daily, 4 - No Valid Contract
+    double Fee, UnpaidBal;
     string RateType;
+
+    DateTime ContractStart, ContractEnd;
+    DateTime Now = DateTime.Now;
 
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
-        //sets Violations
-        SqlDS_Violations.SelectCommand = "SELECT Employees.UN, Violations.Title, Violations.Description, Violations.Fine, Violations.DateTime FROM Violations INNER JOIN Employees ON Violations.EmployeeID = Employees.EmployeeID WHERE (Violations.TenantID = @TID) AND (Violations.Fine!='' OR Violations.Fine!=0 OR Violations.Fine IS NOT NULL)";
-
-
         TenantID = int.Parse(Request.QueryString["TID"].ToString());
         BillID = int.Parse(Request.QueryString["BID"].ToString());
-        //string strGetTenant = "SELECT LName + ', ' + FName + ' ' + MName + ' (' + CONVERT(nvarchar(7), TenantID) + ')' AS 'FullName' FROM Tenants WHERE TenantID=@TID";
-        //SqlParameter[] TID = { new SqlParameter("@TID", TenantID) };
-        //lblTenant.Text = DataAccess.ReturnData(strGetTenant, TID, ConnString, "FullName");
+        UnpaidBal = AcctFunctions.GetBalance(TenantID);
+        SetDefaultItems();
+    }
+
+    private void SetDefaultItems()
+    {
+
+        //for rent fees
         GetPeriodicalFee(TenantID);
+        if (PeriodType == 1 || PeriodType == 2)
+        {
+            //Adds Rent Fee To Bill if Not Existing
+            SqlParameter[] BIDParam = { new SqlParameter("@BID", BillID) };
+            bool RentIsAlreadyInBill = DataAccess.DetermineIfExisting("SELECT * FROM Bill_Items WHERE Particular='MONTHLY RENT FEE' AND BillID=@BID", BIDParam, ConnString);
+            if (!RentIsAlreadyInBill)
+            {
+                InsertItems(BillID, "MONTHLY RENT FEE", Fee);
+            }
+        }
+        else if (PeriodType == 3)
+        {
+            SqlParameter[] BIDParam = { new SqlParameter("@BID", BillID) };
+            bool RentIsAlreadyInBill = DataAccess.DetermineIfExisting("SELECT * FROM Bill_Items WHERE Particular='DAILY RENT FEES' AND BillID=@BID", BIDParam, ConnString);
+            if (!RentIsAlreadyInBill)
+            {
+                //Adds Rent Fee To Bill if Not Existing
+                int NoOfDays = (ContractEnd - ContractStart).Days;
+                double TotalFee = Convert.ToDouble(NoOfDays) * Fee;
+                InsertItems(BillID, "DAILY RENT FEES", TotalFee);
+            }
+        }
+
+        //SETS VIOLATIONS
+        SqlDS_Violations.SelectCommand = "SELECT Employees.UN, Violations.Title, Violations.Description, Violations.Fine, Violations.DateTime FROM Violations INNER JOIN Employees ON Violations.EmployeeID = Employees.EmployeeID WHERE (Violations.TenantID = @TID) AND (Violations.Fine!='' OR Violations.Fine!=0 OR Violations.Fine IS NOT NULL)";
+
+        //For Prev. Balances
+        if (UnpaidBal != 0)
+        {
+
+            //Adds Rent Fee To Bill if Not Existing
+            SqlParameter[] BIDParam = { new SqlParameter("@BID", BillID) };
+            bool BalIsAlreadyInBill = DataAccess.DetermineIfExisting("SELECT * FROM Bill_Items WHERE Particular='UNSETTLED BALANCE' AND BillID=@BID", BIDParam, ConnString);
+            if (!BalIsAlreadyInBill)
+            {
+                if (PeriodType == 1 || PeriodType == 2)
+                {
+                    InsertItems(BillID, "UNSETTLED BALANCE", UnpaidBal + (Fee * 0.15));
+                }
+                else
+                {
+                    InsertItems(BillID, "UNSETTLED BALANCE", UnpaidBal);
+                }
+            }
+
+            if (PeriodType == 1 || PeriodType == 2)
+            {
+                lblPrevBalance.Text = "Php " + UnpaidBal.ToString() + " + Penalty: Php " + (Fee * 0.15);
+            }
+            else
+            {
+                lblPrevBalance.Text = "Php " + UnpaidBal.ToString();
+            }
+        }
+        else
+        {
+            lblPrevBalance.Text = "No unsettled balance.";
+        }
+
+
+
+
+
+
+        GRD_BillItems.DataBind();
     }
 
 
-    //private void GetPreviousBalance(int _TenantID)
-    //{
+
+    private void InsertItems(int _BillID, string _Title, double _Amount)
+    {
+        string strInsert = "INSERT INTO Bill_Items (BillID, Particular, Amount) VALUES (@BID, @PAR, @AMT)";
+        SqlParameter[] BillItems = {
+                                    new SqlParameter("@BID", _BillID),
+                                    new SqlParameter("@PAR", _Title),
+                                    new SqlParameter("@AMT", _Amount)
+                                };
+        DataAccess.DataProcessExecuteNonQuery(strInsert, BillItems, ConnString);
+    }
 
 
-    //}
 
 
     private void GetPeriodicalFee(int _TenantID)
@@ -53,24 +130,28 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
             SqlDataReader dr = DataAccess.ReturnReader(strSelect, TID, ConnString);
             dr.Read();
             string Period = dr["Period"].ToString();
-            DateTime ContractStart = Convert.ToDateTime(dr["StartDate"].ToString());
-            DateTime ContractEnd = Convert.ToDateTime(dr["EndDate"].ToString());
+            ContractStart = Convert.ToDateTime(dr["StartDate"].ToString());
+            ContractEnd = Convert.ToDateTime(dr["EndDate"].ToString());
             ContractID = int.Parse(dr["ContractID"].ToString());
             DataAccess.ForceConnectionToClose();
 
             if (Period == "Annually")
             {
                 RateType = "YearlyRate";
+                PeriodType = 1;
                 lblContract.Text = "Yearly Scheme";
             }
             else if (Period == "Monthly")
             {
                 RateType = "MonthlyRate";
+                PeriodType = 2;
                 lblContract.Text = "Monthly Scheme";
+                
             }
             else if (Period == "Daily")
             {
                 RateType = "DailyRate";
+                PeriodType = 3;
                 lblContract.Text = "Daily Scheme";
             }
 
@@ -92,25 +173,16 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         }
         catch
         {
+            PeriodType = 4;
             lblContract.Text = "This tenant currently has no contract information";
             lblPeriodFee.Text = "-";
-            lnkBtnAddRent.Enabled = false;
-            lnkBtnAddRent.Text = "No Rent Fee to Add";
         }
-
     }
-    protected void lnkBtnAddRent_Click(object sender, EventArgs e)
-    {
-        string strInsert = "INSERT INTO Bill_Items (BillID, Particular, Amount) VALUES (@BID, @PAR, @AMT)";
 
-        SqlParameter[] BillItems = {
-                                       new SqlParameter("@BID", BillID),
-                                       new SqlParameter("@PAR", "RENT FEE"),
-                                       new SqlParameter("@AMT", Fee)
-                                   };
-        DataAccess.DataProcessExecuteNonQuery(strInsert, BillItems, ConnString);
-        GRD_BillItems.DataBind();
-    }
+
+
+
+
     protected void btnCreateBill_Click(object sender, EventArgs e)
     {
         double totalAmt = 0;
@@ -127,7 +199,6 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         }
         DataAccess.ForceConnectionToClose();
 
-
         //insert items and mark things as paid
         try
         {
@@ -142,5 +213,17 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         {
             Response.Write(ex.Message);
         }
+    }
+
+    protected void GRD_VIOLATIONS_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        InsertItems(BillID, GRD_VIOLATIONS.SelectedDataKey["Title"].ToString(), Convert.ToDouble(GRD_VIOLATIONS.SelectedDataKey["Fine"].ToString()));
+        GRD_BillItems.DataBind();
+    }
+
+    protected void GRD_ASSETS_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        InsertItems(BillID, "Asset Fee: " + GRD_ASSETS.SelectedDataKey["AssetType"].ToString(), Convert.ToDouble(GRD_ASSETS.SelectedDataKey["Amount"].ToString()));
+        GRD_BillItems.DataBind();
     }
 }

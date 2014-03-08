@@ -17,10 +17,21 @@
     <p><strong>Tenant: </strong>
         <asp:Label ID="lblTenant" runat="server"></asp:Label>
     </p>
-    <p>View Previous Bills:
-        <asp:DropDownList ID="DropDownList1" runat="server">
+    <p>Choose Bill Period:&nbsp;
+        <asp:DropDownList ID="DDLBillPeriod" runat="server" 
+            DataSourceID="SqlDS_ChooseBill" DataTextField="DateGenerated" 
+            DataValueField="BillID">
         </asp:DropDownList>
-&nbsp;<asp:Button ID="btnRetrieveBill" runat="server" Text="Retrieve Bill" />
+        <asp:SqlDataSource ID="SqlDS_ChooseBill" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
+            SelectCommand="SELECT [DateGenerated], [BillID] FROM [Bills] WHERE (([TenantID] = @TenantID) AND ([IsFinalized] = @IsFinalized)) ORDER BY DateGenerated DESC">
+            <SelectParameters>
+                <asp:QueryStringParameter Name="TenantID" QueryStringField="ID" Type="Int32" />
+                <asp:Parameter DefaultValue="True" Name="IsFinalized" Type="Boolean" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+        <asp:Button ID="Button1" runat="server" onclick="Button1_Click" 
+            Text="View Bill" />
     </p>
 <p>
     </p>
@@ -36,9 +47,9 @@
 <asp:SqlDataSource ID="SqlDS_GetBill" runat="server" 
     ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
     SelectCommand="RetrieveBill" SelectCommandType="StoredProcedure">
-    <SelectParameters>
+    <%--<SelectParameters>
         <asp:Parameter DefaultValue="6" Name="BID" Type="Int32" />
-    </SelectParameters>
+    </SelectParameters>--%>
 </asp:SqlDataSource>
     <p><strong>Bill Period: </strong>
         <asp:Label ID="lblBillPeriod" runat="server"></asp:Label>

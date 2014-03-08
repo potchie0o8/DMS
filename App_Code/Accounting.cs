@@ -18,6 +18,8 @@ namespace Accounting
 
         public static double GetBalance(int _TenantID)
         {
+            int count = 0;
+
             double UnpaidBalance = 0;
             string strGetBal = "SELECT TotalAmount FROM Bills WHERE ((IsPaid=0 OR IsPaid IS NULL) AND (IsFinalized=1)) AND (TenantID=@TID)";
             SqlParameter[] TID = { new SqlParameter("@TID", _TenantID) };
@@ -27,10 +29,25 @@ namespace Accounting
             {
                 double TotalBalPerBill = Convert.ToDouble(dr["TotalAmount"].ToString());
                 UnpaidBalance = UnpaidBalance + TotalBalPerBill;
+                count = count + 1;
             }
-
             DataAccess.ForceConnectionToClose();
-            return UnpaidBalance;
+
+            if (count == 1)
+            {
+                return UnpaidBalance;
+            }
+            else if (count > 1)
+            {
+                string strTopBal = "SELECT Top 1 TotalAmount FROM Bills WHERE ((IsPaid=0 OR IsPaid IS NULL) AND (IsFinalized=1)) AND (TenantID=@TID) ORDER BY DateGenerated DESC";
+                SqlParameter[] TID1 = { new SqlParameter("@TID", _TenantID) };
+                double TopBal = Convert.ToDouble(DataAccess.ReturnData(strTopBal, TID1, ConnString, "TotalAmount"));
+                return TopBal;
+            }
+            else
+            {
+                return 0;
+            }
         }
 	}
 }

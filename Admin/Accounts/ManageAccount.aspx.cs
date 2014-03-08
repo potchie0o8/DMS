@@ -9,6 +9,7 @@ using DBHelpers;
 using System.Data.Sql;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Reporting.WebForms;
 
 public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 {
@@ -18,6 +19,8 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
     int PeriodType; //1 - Annual, 2 - Monthly, 3 - Daily
     double Fee;
     string RateType;
+    string ChosenBillID;
+
 
 
     protected void Page_Load(object sender, EventArgs e)
@@ -33,7 +36,19 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
             lblTenant.Text = DataAccess.ReturnData(strGetTenant, TID, ConnString, "FullName");
 
 
+            if (!IsPostBack)
+            {
+                SqlParameter[] TIDParam = { new SqlParameter("@TenantID", TenantID) };
+                string strSelect = "SELECT TOP 1 BillID FROM Bills WHERE ((TenantID = @TenantID) AND (IsFinalized = 1)) ORDER BY DateGenerated DESC";
+                ChosenBillID = DataAccess.ReturnData(strSelect, TIDParam, ConnString, "BillID");
+                rebindReportViewer(ChosenBillID);
+            }
+            //else
+            //{
+            //    rebindReportViewer(ChosenBillID);
+            //}
 
+            
 
         }
         catch (Exception ex)
@@ -51,11 +66,6 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
         Response.Redirect("BillPayment.aspx?ID=");
     }
 
-    //get rent fee
-    
-
-
-    //
 
     protected void btnNewBill_Click(object sender, EventArgs e)
     {
@@ -71,4 +81,31 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 
 
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        rebindReportViewer(DDLBillPeriod.SelectedValue);
+    }
+
+    private void rebindReportViewer(string _BillID)
+    {
+
+
+        RV_Bill.LocalReport.DataSources.Clear();
+        ReportDataSource ds = new ReportDataSource();
+        ds.Name = "DS_Bill";
+        ds.DataSourceId = "SqlDS_GetBill";
+
+        SqlDS_GetBill.SelectParameters.Clear();
+        SqlDS_GetBill.SelectParameters.Add(new Parameter("BID", DbType.Int32, _BillID));
+        SqlDS_GetBill.DataBind();
+
+
+        RV_Bill.LocalReport.DataSources.Add(ds);
+        RV_Bill.DataBind();
+    }
+
+
+
+
 }
