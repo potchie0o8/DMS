@@ -1,8 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="ManageAccount.aspx.cs" Inherits="Admin_GenerateBilling2" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
+    <style type="text/css">
+        .style2
+        {
+            width: 29%;
+            height: 20px;
+        }
+    </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Manage Tenant Bills</h1>
@@ -32,9 +41,54 @@
         </asp:SqlDataSource>
         <asp:Button ID="Button1" runat="server" onclick="Button1_Click" 
             Text="View Bill" />
+    &nbsp;<asp:Button ID="btnRecordPayment" runat="server" onclick="btnRecordPayment_Click" 
+            Text="Record Payment for this Bill" />
     </p>
+
+
+    <asp:ModalPopupExtender ID="MDE_Payments" CancelControlID="btnCancelPay" TargetControlID="btnRecordPayment" PopupControlID="pnl_payment" runat="server">
+    </asp:ModalPopupExtender>
+
 <p>
-    </p>
+    &nbsp;<asp:Panel 
+        ID="pnl_payment" runat="server" BorderColor="Black" BorderStyle="Dotted" 
+        BackColor="White" Height="168px" Width="344px">
+        <h3>
+            Record Bill Payment:</h3>
+        <table class="style2">
+            <tr>
+                <td style="color: #000000">
+                    Amount:</td>
+                <td>
+                    <asp:Label ID="lblPayAmt" runat="server" style="color: #000000"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td style="color: #000000">
+                    Payment Mode:</td>
+                <td>
+                    <asp:DropDownList ID="DDLPaymode0" runat="server">
+                        <asp:ListItem>-Select-</asp:ListItem>
+                        <asp:ListItem>Cash</asp:ListItem>
+                        <asp:ListItem>Check</asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td style="color: #000000">
+                    Additional Remarks:</td>
+                <td>
+                    <asp:TextBox ID="txtPayRemarks" runat="server" TextMode="MultiLine"></asp:TextBox>
+                </td>
+            </tr>
+        </table>
+        &nbsp;<br />
+        <asp:Button ID="btnRecPayment" runat="server" Text="Record Payment" />
+        &nbsp;<asp:Button ID="btnCancelPay" runat="server" Height="26px" Text="Cancel" />
+        <br />
+
+    </asp:Panel>
+</p>
     <rsweb:ReportViewer ID="RV_Bill" runat="server" Font-Names="Verdana" 
     Font-Size="8pt" InteractiveDeviceInfos="(Collection)" 
     WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="548px">
@@ -55,13 +109,7 @@
         <asp:Label ID="lblBillPeriod" runat="server"></asp:Label>
     </p>
 
-        <asp:Button ID="btnPrintBill" runat="server" Text="Print Bill" />
-&nbsp;<asp:Button ID="btnRecordPayment" runat="server" onclick="btnRecordPayment_Click" 
-            Text="Record Payment for this Bill" />
-    </p>
-    <p><strong>Total Unpaid Balance of this Tenant: </strong>
-        <asp:Label ID="lblUnpaidBal" runat="server" Text="-"></asp:Label>
-    </p>
+&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
     <p>&nbsp;</p>

@@ -63,7 +63,7 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
     protected void btnRecordPayment_Click(object sender, EventArgs e)
     {
         //I need bill ID... to follow
-        Response.Redirect("BillPayment.aspx?ID=");
+        //Response.Redirect("BillPayment.aspx?ID=");
     }
 
 
