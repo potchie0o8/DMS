@@ -12,6 +12,8 @@ using UserManagement;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
+    int CurrentEmployeeID, AccessLevel;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         lblDate.Text = "Date: "+ DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString();
@@ -30,7 +32,16 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         try
         {
-            string Username = Employees.ReturnUserName(int.Parse(Session["EmployeeID"].ToString()));
+            //Get Current User from session
+            CurrentEmployeeID = int.Parse(Session["EmployeeID"].ToString());
+            string Username = Employees.ReturnUserName(CurrentEmployeeID);
+            AccessLevel = Employees.GetAccessLevel(CurrentEmployeeID);
+
+            //regenerate Sessions
+            Session.Add("EmployeeID", CurrentEmployeeID);
+            Session.Add("AccessLevel", AccessLevel);
+
+            //show username
             lblUsername.Text = Username;
         }
         catch

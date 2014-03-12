@@ -8,7 +8,7 @@ using System.Web;
 /// <summary>
 /// 
 /// 
-/// Developer: Tupaz, Reiner S.
+/// Developer: Tupaz, Reiner S., Vasay Brian
 /// Date Created: 06/28/2013
 /// 
 /// ***************************************************************************************

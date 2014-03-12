@@ -31,6 +31,15 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         SetDefaultItems();
     }
 
+
+    private void AdjustPrice()
+    {
+        //since there is a four-month advance rule...
+    }
+
+
+
+
     private void SetDefaultItems()
     {
 

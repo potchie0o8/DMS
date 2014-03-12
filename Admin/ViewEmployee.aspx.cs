@@ -11,6 +11,7 @@ using ImageProcessor;
 using System.IO;
 using BCryptEncryption;
 using Globals;
+using UserManagement;
 
 public partial class Admin_ViewEmployee : System.Web.UI.Page
 {
@@ -188,8 +189,9 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
     {
         try
         {
-            string key = Session["KEY"].ToString();
-            //if (Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)) == Session["KEY"].ToString())
+            //string key = Session["KEY"].ToString();
+            string key = Employees.GetKey(int.Parse(Session["EmployeeID"].ToString()));
+
             if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(txtPassword.Text), key))
             {
                 //string strResetPass = "UPDATE Employees SET PWD='" + Encryption.MD5("12345") + "' WHERE EmployeeID=@EID";

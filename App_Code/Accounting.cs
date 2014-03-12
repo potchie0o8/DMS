@@ -14,6 +14,12 @@ namespace Accounting
 	public static class AcctFunctions
 	{
 
+        /// <summary>
+        /// Reminders:
+        /// tenants with annual contract pay 4 months advance.
+        /// </summary>
+
+
         public static string ConnString = StaticVariables.ConnectionString;
 
         public static double GetBalance(int _TenantID)
