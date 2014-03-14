@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-<h1>Bills Generation Page</h1>
+    <h1>Tenants Accounts Page</h1>
     <p>
         <asp:ListView ID="ListView1" runat="server" DataKeyNames="TenantID" 
             DataSourceID="SqlDS_Tenants">          
@@ -37,7 +37,7 @@
                         <%# GetBalance(int.Parse(Eval("TenantID").ToString())) %>
                     </td>
                     <td>
-                        <a href='<%# "GenerateBilling2.aspx?ID=" + Eval("TenantID").ToString() %>'>Manage Tenant Account</a>
+                        <a href='<%# "Accounts/ManageAccount.aspx?ID=" + Eval("TenantID").ToString() %>'>Manage Tenant Account</a>
                     </td>
                 </tr>
             </ItemTemplate>
