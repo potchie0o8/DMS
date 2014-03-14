@@ -9,11 +9,10 @@ using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
 
-public partial class Tenant_ServiceRequest : System.Web.UI.Page
+public partial class Tenant_AddComplaint : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
-    int TenantID;
-    string remarks, priority;
+    int TenantID, status;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -25,21 +24,24 @@ public partial class Tenant_ServiceRequest : System.Web.UI.Page
             Response.Write(ex.Message);
         }
 
-        remarks = "Pending";
-        priority = "Average";
+        status = 1;
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        string strInsert = "INSERT INTO ServiceRequest (TenantID, Title, Details, Remarks, Priority) VALUES (@TID, @title, @details, @remarks, @priority)";
+        string strInsert = "INSERT INTO Complaints (TenantID, Subject, Details, Status) VALUES (@TID, @subj, @details, @status)";
         SqlParameter[] insertParam = {
                                          new SqlParameter("@TID", TenantID),
-                                         new SqlParameter("@title", AntiXSSMethods.CleanString(txtTitle.Text)),
-                                         new SqlParameter("@details", AntiXSSMethods.CleanString(txtDetails.Text)),
-                                         new SqlParameter("@remarks", remarks),
-                                         new SqlParameter("@priority", priority)
+                                         new SqlParameter("@subj", AntiXSSMethods.CleanString(txtSubject.Text)),
+                                         new SqlParameter("@details", AntiXSSMethods.CleanString(txtMsg.Text)),
+                                         new SqlParameter("@status", status)
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        //Response.Write("<script>alert('Success!');</script>");
-        Response.Redirect("~/Tenant/ServiceRequestMgt.aspx");
+        Response.Write("<script>alert('Success!');</script>");
+
+        if (IsPostBack)
+        {
+            txtSubject.Text = "";
+            txtMsg.Text = "";
+        }
     }
 }

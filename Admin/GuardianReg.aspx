@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="GuardianReg.aspx.cs" Inherits="Admin_GuardianReg" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
     <style type="text/css">
         .style2
@@ -72,8 +74,8 @@
                 <td class="style5">
                     <asp:DropDownList ID="ddlGender" runat="server">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
-                        <asp:ListItem>Male</asp:ListItem>
-                        <asp:ListItem>Female</asp:ListItem>
+                        <asp:ListItem Value="1">Male</asp:ListItem>
+                        <asp:ListItem Value="2">Female</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>
@@ -87,6 +89,12 @@
                     Birthday</td>
                 <td class="style5">
                     <asp:TextBox ID="textBirthday" runat="server" Width="180px"></asp:TextBox>
+                    <asp:MaskedEditExtender ID="textBirthday_MaskedEditExtender" runat="server"  
+                        Mask="99/99/9999" MaskType="Date" TargetControlID="textBirthday">
+                    </asp:MaskedEditExtender>
+                    <asp:CalendarExtender ID="textBirthday_CalendarExtender" runat="server" 
+                        TargetControlID="textBirthday">
+                    </asp:CalendarExtender>
                 </td>
                 <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
@@ -120,50 +128,14 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Street Address</td>
+                    Address</td>
                 <td class="style5">
-                    <asp:TextBox ID="textSaddress" runat="server" Width="180px"></asp:TextBox>
+                    <asp:TextBox ID="textSaddress" runat="server" Width="180px" 
+                        TextMode="MultiLine"></asp:TextBox>
                 </td>
                 <td>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 
                         ControlToValidate="textSaddress" ErrorMessage="Please indicate Street Address!" 
-                        ForeColor="Red" ValidationGroup="RegGuardian">*</asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    City/Province</td>
-                <td class="style5">
-                    <asp:TextBox ID="textCityProvince" runat="server" Width="180px"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" 
-                        ControlToValidate="textCityProvince" 
-                        ErrorMessage="Please indicate City/Province!" ForeColor="Red" 
-                        ValidationGroup="RegGuardian">*</asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    Region</td>
-                <td class="style5">
-                    <asp:TextBox ID="textRegion" runat="server" Width="180px"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" 
-                        ControlToValidate="textRegion" ErrorMessage="Please indicate Region!" 
-                        ForeColor="Red" ValidationGroup="RegGuardian">*</asp:RequiredFieldValidator>
-                </td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    Country</td>
-                <td class="style5">
-                    <asp:TextBox ID="textCountry" runat="server" Width="180px"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" 
-                        ControlToValidate="textCountry" ErrorMessage="Please indicate Country!" 
                         ForeColor="Red" ValidationGroup="RegGuardian">*</asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -201,16 +173,18 @@
                 <td>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" 
                         ControlToValidate="textRPassword" ErrorMessage="Password do not match!" 
-                        ForeColor="Red" ValidationGroup="RegGuardian">*Password do no match!</asp:CompareValidator>
+                        ForeColor="Red" ValidationGroup="RegGuardian" 
+                        ControlToCompare="textPassword">*Password do no match!</asp:CompareValidator>
                 </td>
             </tr>
             <tr>
                 <td class="style2">
                     &nbsp;</td>
                 <td class="style5">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" ValidationGroup="RegGuardian" />
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
+                        ValidationGroup="RegGuardian" onclick="btnSubmit_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" PostBackUrl="~/Admin/GuardianMgt.aspx" />
                 </td>
                 <td>
                     &nbsp;</td>

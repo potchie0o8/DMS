@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="ViewTenants.aspx.cs" Inherits="ViewTenants" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="ViewTenants.aspx.cs" Inherits="Admin_ViewTenants" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
@@ -28,7 +28,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-    <h3>View Employee</h3>
+    <h3>View Tenant</h3>
     <table class="auto-style1" border="1">
         <tr>
             <td class="auto-style2">
@@ -54,7 +54,7 @@
         <tr>
             <td class="auto-style2">Fingerprint ID:</td>
             <td>
-                <asp:Label ID="lblFingerprintID" runat="server"></asp:Label>
+                <asp:TextBox ID="txtFPID" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -90,7 +90,7 @@
         <tr>
             <td class="auto-style2">Gender</td>
             <td>
-                <asp:DropDownList ID="ddlGender" runat="server">
+                <asp:DropDownList ID="ddlGender" runat="server" Height="16px">
                     <asp:ListItem Value="">- Select -</asp:ListItem>
                     <asp:ListItem Value="1">Male</asp:ListItem>
                     <asp:ListItem Value="2">Female</asp:ListItem>
@@ -212,12 +212,19 @@
     OnClientClick="if(Page_ClientValidate()){ this.disabled = true; this.value = 'Loading...';}" 
     UseSubmitBehavior="false" />
 
+    &nbsp;&nbsp;&nbsp;
+
     <asp:ConfirmButtonExtender ID="btnUpdate_ConfirmButtonExtender" runat="server" 
-        ConfirmText="Are you sure you want to update this employee's information?" 
+        ConfirmText="Are you sure you want to update this tenant's information?" 
         TargetControlID="btnUpdate">
     </asp:ConfirmButtonExtender>
 
-    <p>&nbsp;</p>
+    <asp:Button ID="btnRegGuardian" runat="server" Text="Register Guardian" PostBackUrl="~/Admin/GuardianReg.aspx" />
+&nbsp;&nbsp;
+
+    <p>
+        <asp:Button ID="btnBack" runat="server" Text="Back" PostBackUrl="~/Admin/ManageTenants.aspx" />
+    </p>
 
     <asp:ModalPopupExtender ID="MPEResetPass" TargetControlID="btnResetPassword" PopupControlID="ResetPWDPanel" CancelControlID="btnCancel" runat="server">
     </asp:ModalPopupExtender>

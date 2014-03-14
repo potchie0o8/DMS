@@ -34,6 +34,7 @@ public partial class Admin_AddMessage : System.Web.UI.Page
                                          new SqlParameter("@message", AntiXSSMethods.CleanString(txtMsg.Text))
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        Response.Write("<script>alert('Message sent!');</script>");
+        //Response.Write("<script>alert('Message sent!');</script>");
+        Response.Redirect("~/Admin/MessageMgt.aspx");
     }
 }

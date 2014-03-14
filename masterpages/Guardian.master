@@ -51,6 +51,8 @@
 
                 <ul>
                     <%--<li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>--%>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkDTR" runat="server" PostBackUrl="~/Guardian/DTRMgt.aspx">Tenants DTR</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="">Violation</asp:LinkButton></li>
 
                 </ul>
 

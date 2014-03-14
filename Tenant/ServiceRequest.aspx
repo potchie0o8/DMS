@@ -4,8 +4,21 @@
     <style type="text/css">
         .style2
         {
-            width: 73px;
-        }
+        width: 52px;
+    }
+    .style3
+    {
+        width: 586px;
+    }
+    .style4
+    {
+        color: #000000;
+    }
+    .style5
+    {
+        width: 52px;
+        color: #000000;
+    }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
@@ -13,19 +26,27 @@
     <p>
         <table style="width:100%;">
             <tr>
-                <td class="style2">
-                    Title</td>
-                <td>
+                <td class="style5">
+                    Title:</td>
+                <td class="style3">
                     <asp:TextBox ID="txtTitle" runat="server" Width="180px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                        ControlToValidate="txtTitle" CssClass="style4" 
+                        ErrorMessage="Please enter service title!" ForeColor="Red" 
+                        ValidationGroup="ServiceRequest"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
             </tr>
             <tr>
                 <td class="style2">
-                    Details</td>
-                <td>
+                    <asp:Label ID="Label3" runat="server" ForeColor="Black" Text="Details"></asp:Label>
+                    :</td>
+                <td class="style3">
                     <asp:TextBox ID="txtDetails" runat="server" TextMode="MultiLine" Width="180px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                        ControlToValidate="txtDetails" ErrorMessage="Please enter details!" 
+                        ForeColor="Red" ValidationGroup="ServiceRequest"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -33,9 +54,11 @@
             <tr>
                 <td class="style2">
                     &nbsp;</td>
-                <td>
+                <td class="style3">
                     <asp:Button ID="btnSubmit" runat="server" onclick="btnSubmit_Click" 
-                        Text="Submit" />
+                        Text="Submit" ValidationGroup="ServiceRequest" />
+                &nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="btnBack" runat="server" Text="Back" PostBackUrl="~/Tenant/ServiceRequestMgt.aspx" />
                 </td>
                 <td>
                     &nbsp;</td>

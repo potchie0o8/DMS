@@ -48,7 +48,7 @@ public partial class Admin_TenantReg : System.Web.UI.Page
                 }
 
                 string FileExtension = Path.GetExtension(FupPhoto.FileName).ToLower();
-                string NewFileName = "Employee_" + StringCustomizers.dateStampNoID + FileExtension;
+                string NewFileName = "Tenant_" + StringCustomizers.dateStampNoID + FileExtension;
 
                 FupPhoto.SaveAs(Server.MapPath(@"~/uploads/" + NewFileName));
                 result = NewFileName;

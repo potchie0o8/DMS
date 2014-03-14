@@ -54,6 +54,7 @@
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageTenant" runat="server" PostBackUrl="~/Admin/ManageTenants.aspx">Manage Tenants</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkRoomMgt" runat="server" PostBackUrl="~/Admin/RoomMgt.aspx">Room Management</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkContractMgt" runat="server" PostBackUrl="~/Admin/ContractMgt.aspx">Tenant Contract Information</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkComplaints" runat="server" PostBackUrl="~/Admin/ComplaintMgt.aspx">Complaints</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkGenBills" runat="server" PostBackUrl="~/Admin/GenerateBilling.aspx">Generate Bills</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageAnnouncements" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="LinkButton1" runat="server" PostBackUrl="~/Admin/MessageMgt.aspx">Messages</asp:LinkButton></li>

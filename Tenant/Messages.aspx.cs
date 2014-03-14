@@ -30,6 +30,6 @@ public partial class Tenant_Messages : System.Web.UI.Page
     }
     protected void GrdMessages_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Response.Redirect("ViewMessage.aspx?ID=" + GridView2.SelectedDataKey["MessageID"].ToString());
+        Response.Redirect("ViewMessage.aspx?ID=" + grd_Messages.SelectedDataKey["MessageID"].ToString());
     }
 }

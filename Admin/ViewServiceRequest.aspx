@@ -18,7 +18,7 @@
         <table style="width:100%;">
             <tr>
                 <td class="style2">
-                    Tenant Name</td>
+                    Tenant Name:</td>
                 <td class="style3">
                     <asp:Label ID="lblTenant" runat="server"></asp:Label>
                 </td>
@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Employee Assigned</td>
+                    Employee Assigned:</td>
                 <td class="style3">
                     <asp:DropDownList ID="ddlEmp" runat="server" 
                         DataSourceID="SqlDataSource1" DataTextField="Name" 
@@ -44,7 +44,7 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Title</td>
+                    Title:</td>
                 <td class="style3">
                     <asp:Label ID="lblTitle" runat="server"></asp:Label>
                 </td>
@@ -53,7 +53,7 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Details</td>
+                    Details:</td>
                 <td class="style3">
                     <asp:Label ID="lblDetails" runat="server"></asp:Label>
                 </td>
@@ -62,13 +62,13 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Remarks</td>
+                    Remarks:</td>
                 <td class="style3">
                     <asp:DropDownList ID="ddlRemarks" runat="server">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
-                        <asp:ListItem>Pending</asp:ListItem>
-                        <asp:ListItem>On Going</asp:ListItem>
-                        <asp:ListItem>Completed</asp:ListItem>
+                        <asp:ListItem Value="Pending">Pending</asp:ListItem>
+                        <asp:ListItem Value="On Going">On Going</asp:ListItem>
+                        <asp:ListItem Value="Completed">Completed</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td>
@@ -76,7 +76,7 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Priority</td>
+                    Priority:</td>
                 <td class="style3">
                     <asp:DropDownList ID="ddlPriority" runat="server">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
@@ -90,7 +90,7 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Date Requested</td>
+                    Date Requested:</td>
                 <td class="style3">
                     <asp:Label ID="lblDateRequested" runat="server"></asp:Label>
                 </td>
@@ -99,9 +99,9 @@
             </tr>
             <tr>
                 <td class="style2">
-                    Date Completed</td>
+                    Date Completed:</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtDateCompleted" runat="server" Width="180px"></asp:TextBox>
+                    <asp:TextBox ID="txtDateCompleted" runat="server" Width="180px" Enabled="false" ></asp:TextBox>
                 </td>
                 <td>
                     &nbsp;</td>
@@ -113,6 +113,8 @@
                 <td class="style3">
                     <asp:Button ID="btnUpdate" runat="server" Text="Update" 
                         onclick="btnUpdate_Click" />
+                &nbsp;
+                    <asp:Button ID="btnBack" runat="server" Text="Back" PostBackUrl="~/Admin/ServiceRequestMgt.aspx" />
                 </td>
                 <td>
                     &nbsp;</td>

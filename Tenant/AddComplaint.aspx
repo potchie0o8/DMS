@@ -1,58 +1,52 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="AddMessage.aspx.cs" Inherits="Admin_AddMessage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/TenantMaster.master" AutoEventWireup="true" CodeFile="AddComplaint.aspx.cs" Inherits="Tenant_AddComplaint" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
     <style type="text/css">
         .style2
         {
-            width: 105px;
+            height: 23px;
         }
-    .style3
-    {
-        width: 414px;
-    }
+        .style3
+        {
+            width: 54px;
+        }
+        .style4
+        {
+            height: 23px;
+            width: 54px;
+        }
+        .style5
+        {
+            width: 182px;
+        }
+        .style6
+        {
+            height: 23px;
+            width: 182px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-    <h1>Create Message</h1>
+    <h1>Submit Complaints</h1>
     <p>
         <table style="width:100%;">
             <tr>
-                <td class="style2">
-                    Select Tenant</td>
                 <td class="style3">
-                    <asp:DropDownList ID="ddlTenant" runat="server" DataSourceID="SqlDataSource1" 
-                        DataTextField="TenantName" DataValueField="TenantID" 
-                        AppendDataBoundItems="True">
-                        <asp:ListItem Value="">- Select -</asp:ListItem>
-                    </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
-                        ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
-                        SelectCommand="SELECT TenantID, LName + ', ' + FName + '  ' + MName AS 'TenantName' FROM Tenants ORDER BY 'TenantName'">
-                    </asp:SqlDataSource>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                        ControlToValidate="ddlTenant" ErrorMessage="Please Select a Tenant!" 
-                        ForeColor="Red" ValidationGroup="Message"></asp:RequiredFieldValidator>
-                </td>
-                <td>
-                    &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="style2">
                     Subject</td>
-                <td class="style3">
+                <td class="style5">
                     <asp:TextBox ID="txtSubject" runat="server" Width="180px"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
-                        ControlToValidate="txtSubject" ErrorMessage="Please enter subject!" 
-                        ForeColor="Red" ValidationGroup="Message"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                        ErrorMessage="Please enter subject!" ForeColor="Red" 
+                        ControlToValidate="txtSubject" ValidationGroup="Complaints"></asp:RequiredFieldValidator>
                 </td>
                 <td>
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="style2">
-                    Message</td>
                 <td class="style3">
+                    Details</td>
+                <td class="style5">
                    <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Columns="50" Rows="10"></asp:TextBox>
 
                     <asp:HtmlEditorExtender ID="HtmlEditorExtender1" 
@@ -91,27 +85,28 @@
                             <asp:InsertHorizontalRule />
                             <asp:HorizontalSeparator />
                             <asp:InsertImage />
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                        ErrorMessage="Please indicate details!" ForeColor="Red" 
+                        ControlToValidate="txtMsg" ValidationGroup="Complaints"></asp:RequiredFieldValidator>
+                        <br />
                         </Toolbar>
                     </asp:HtmlEditorExtender>
                         </td>
                 <td>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
-                        ErrorMessage="Please indicate Message!" ForeColor="Red" 
-                        ControlToValidate="txtMsg" ValidationGroup="Message"></asp:RequiredFieldValidator>
-                        </td>
+                    &nbsp;</td>
             </tr>
             <tr>
-                <td class="style2">
-                    &nbsp;</td>
-                <td class="style3">
-                    <br />
-                    <asp:Button ID="btnSubmit" runat="server" Text="Send" onclick="Button1_Click" 
-                        ValidationGroup="Message" />
-                &nbsp;
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" PostBackUrl="~/Admin/MessageMgt.aspx" />
+                <td class="style4">
                 </td>
-                <td>
-                    &nbsp;</td>
+                <td class="style6">
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
+                        onclick="btnSubmit_Click" ValidationGroup="Complaints" />
+&nbsp;&nbsp;
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+                </td>
+                <td class="style2">
+                </td>
             </tr>
         </table>
     </p>
