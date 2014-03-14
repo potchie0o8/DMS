@@ -28,6 +28,7 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         TenantID = int.Parse(Request.QueryString["TID"].ToString());
         BillID = int.Parse(Request.QueryString["BID"].ToString());
         UnpaidBal = AcctFunctions.GetBalance(TenantID);
+ 
         SetDefaultItems();
     }
 
@@ -208,7 +209,7 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
         }
         DataAccess.ForceConnectionToClose();
 
-        //insert items and mark things as paid
+        //insert items and mark bill as unpaid
         try
         {
             SqlParameter[] BillParams = { 
@@ -217,6 +218,8 @@ public partial class Admin_Accounts_GenerateBill : System.Web.UI.Page
                                             new SqlParameter("@Total", totalAmt)
                                         };
             DataAccess.DataProcessExecuteNonQuery("UPDATE Bills SET IsFinalized=1, DateGenerated=@GenDate, TotalAmount=@Total, IsPaid=0 WHERE BillID=@BID", BillParams, ConnString);
+            Response.Redirect("ManageAccount.aspx?ID=" + TenantID);
+
         }
         catch (Exception ex)
         {

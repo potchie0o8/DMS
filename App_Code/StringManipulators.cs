@@ -87,6 +87,12 @@ namespace CustomStrings
             return StripHTML(_input.Trim());
         }
 
+        public static string MakeStringSafeForSQL(string _input)
+        {
+            string raw = _input.Replace("'", "''");
+            return raw.Replace("--", "");
+        }
+
     }
 
     public static class Encryption

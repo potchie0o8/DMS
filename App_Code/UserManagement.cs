@@ -263,7 +263,7 @@ namespace UserManagement
                 //if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))  -- This used MD5, code below uses BCRYPT NOWs
                 if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(_PWD), PasswordToCompare))
                 {
-                    string strGetID = "SELECT Guardians FROM Tenants WHERE UN=@UN";
+                    string strGetID = "SELECT GuardianID FROM Guardians WHERE UN=@UN";
                     SqlParameter[] GetIDParams = {
                                              new SqlParameter("@UN", strUsername),
                                          };
@@ -282,9 +282,9 @@ namespace UserManagement
 
         public static string ReturnUserName(int _GuardianID)
         {
-            string strGetUN = "SELECT UN FROM Guardians WHERE TenantID=@EID";
+            string strGetUN = "SELECT UN FROM Guardians WHERE GuardianID=@GID";
             SqlParameter[] GetUNParams = {
-                                             new SqlParameter("@EID", _GuardianID),
+                                             new SqlParameter("@GID", _GuardianID),
                                          };
             return DataAccess.ReturnData(strGetUN, GetUNParams, ConnString, "UN");
         }

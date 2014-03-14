@@ -8,19 +8,6 @@
         <asp:Button ID="btnAddTenant" runat="server" 
             PostBackUrl="~/Admin/TenantReg.aspx" Text="Add New Tenant" />
     </p>
-    <p>
-        Select Category:<asp:DropDownList ID="ddlSearch" runat="server">
-            <asp:ListItem Value="">--Select Search Category--</asp:ListItem>
-            <asp:ListItem Value="UN">Username</asp:ListItem>
-            <asp:ListItem Value="TenantID">Tenant No.</asp:ListItem>
-            <asp:ListItem Value="FName">First Name</asp:ListItem>
-            <asp:ListItem Value="MName">Middle Name</asp:ListItem>
-            <asp:ListItem Value="LName">Last Name</asp:ListItem>
-        </asp:DropDownList>
-        Search Field:<asp:TextBox ID="txtSearch" runat="server" Width="236px" placeholder="Leave blank to filter entries."></asp:TextBox>
-        <asp:Button ID="btnSearch" runat="server" Text="Search" 
-        onclick="btnSearch_Click" />
-    </p>
 <br>
     <asp:GridView ID="GrdTenants" runat="server" AllowSorting="True" 
         AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" 
@@ -36,8 +23,6 @@
                 SortExpression="MName" />
             <asp:BoundField DataField="LName" HeaderText="Last Name" 
                 SortExpression="LName" />
-            <asp:BoundField DataField="UN" HeaderText="Username" 
-            SortExpression="LName" />
            <%-- <asp:BoundField DataField="Gender" HeaderText="Gender" 
                 SortExpression="Gender" />--%>
             <asp:TemplateField HeaderText="Gender" SortExpression="Gender">

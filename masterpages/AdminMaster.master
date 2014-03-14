@@ -61,6 +61,7 @@
                      <li><asp:LinkButton CssClass="style1" ID="lnkStats" runat="server" PostBackUrl="~/Admin/Stats.aspx">Statistics</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkReports" runat="server" PostBackUrl="~/Admin/Reports.aspx">Reports</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkManualDTR" runat="server" PostBackUrl="~/Admin/VerifyUser.aspx">Verify User and Override DTR</asp:LinkButton></li>
+                     <li><asp:LinkButton CssClass="style1" ID="lnkRecExpenses" runat="server" PostBackUrl="~/Admin/Accounts/Expenses.aspx">Expenses Record</asp:LinkButton></li>
                 </ul>
 
             </div>
