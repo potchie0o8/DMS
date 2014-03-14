@@ -50,9 +50,7 @@
     </asp:ModalPopupExtender>
 
 <p>
-    &nbsp;<asp:Panel 
-        ID="pnl_payment" runat="server" BorderColor="Black" BorderStyle="Dotted" 
-        BackColor="White" Height="168px" Width="344px">
+    &nbsp;<asp:Panel ID="pnl_payment" runat="server" BorderColor="Black" BorderStyle="Dotted" BackColor="White" Height="200px" Width="344px">
         <h3>
             Record Bill Payment:</h3>
         <table class="style2">
@@ -81,11 +79,15 @@
                     <asp:TextBox ID="txtPayRemarks" runat="server" TextMode="MultiLine"></asp:TextBox>
                 </td>
             </tr>
+            <tr>
+                <td style="color: #000000" colspan="2">
+                    <asp:Button ID="btnRecPayment" runat="server" Text="Record Payment" />
+                    &nbsp;<asp:Button ID="btnCancelPay" runat="server" Height="26px" Text="Cancel" />
+                </td>
+            </tr>
         </table>
         &nbsp;<br />
-        <asp:Button ID="btnRecPayment" runat="server" Text="Record Payment" />
-        &nbsp;<asp:Button ID="btnCancelPay" runat="server" Height="26px" Text="Cancel" />
-        <br />
+        &nbsp;<br />
 
     </asp:Panel>
 </p>

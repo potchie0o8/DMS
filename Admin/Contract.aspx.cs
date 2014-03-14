@@ -9,11 +9,14 @@ using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
 using UserManagement;
+using Accounting;
 
 public partial class Admin_Contract : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
     int EmployeeID, TenantID, Gender;
+    double Fee;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -122,6 +125,29 @@ public partial class Admin_Contract : System.Web.UI.Page
                                      };
             DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
             //Response.Redirect("~/Admin/ManageTenant.aspx");
+
+            //INSERTS TWO MONTHS ADVANCE PAYMENT
+
+            if (ddlPeriod.SelectedValue == "Annually")
+            {
+                //Get Fee
+
+                string strGetFee = "SELECT UnitType.MonthlyRate FROM BedSpaces INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID INNER JOIN UnitType ON Rooms.UnitTypeID = UnitType.UnitTypeID WHERE (BedSpaces.BedSpaceID = @BSID)";
+
+                SqlParameter[] BSID = { new SqlParameter("@BSID", AntiXSSMethods.CleanString(ddlBedside.SelectedValue)) };
+                double MonthlyFee = double.Parse(DataAccess.ReturnData(strGetFee, BSID, conString, "MonthlyRate"));
+
+
+                double TotalSecurityDeposit = MonthlyFee * 2;
+
+                //Insert Bill
+                int NewBillID = AcctFunctions.GenerateNewBill(TenantID, EmployeeID);
+                AcctFunctions.InsertBillItem(NewBillID, "TWO MONTHS RENTAL FEE - SECURITY DEPOSIT", TotalSecurityDeposit);
+                AcctFunctions.TotalAndFinalizeBill(NewBillID);
+            }
+
+
+
             Response.Redirect("~/Admin/ContractMgt.aspx");
         }
         else if (validateInputs == 3)
