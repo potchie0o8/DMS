@@ -85,7 +85,7 @@ public partial class Admin_Default2 : System.Web.UI.Page
 
         if (ddlSearch.SelectedValue != "")
         {
-            string strSelect = "SELECT * FROM Employees WHERE " + ddlSearch.SelectedValue + " LIKE @entry AND EmployeeID !='" + CurrentUserID.ToString() + "'  ORDER BY EmployeeID DESC";
+            string strSelect = "SELECT * FROM Employees WHERE " + AntiXSSMethods.MakeStringSafeForSQL(ddlSearch.SelectedValue) + " LIKE @entry AND EmployeeID !='" + CurrentUserID.ToString() + "'  ORDER BY EmployeeID DESC";
             SqlParameter[] SearchVal = { new SqlParameter("@entry", "%" + AntiXSSMethods.CleanString(txtSearch.Text) + "%") };
             DataSet ds = DataAccess.DataProcessReturnData(strSelect, SearchVal, connString);
 

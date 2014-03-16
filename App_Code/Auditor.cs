@@ -7,8 +7,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using DBHelpers;
-using System.Configuration;
 using System.Data.SqlClient;
+using Globals;
 
 /// <summary>
 /// Updates Audit Trail, My Friends
@@ -17,36 +17,33 @@ namespace Auditor
 {
     public static class AuditTrailFunctions
     {
-        private static string ConnString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+        private static string ConnString = StaticVariables.ConnectionString;
  
         //ganito siya pag gagamitin
         //AuditTrailFunctions.UpdateAuditTrail("Updated UserID No. 117", EmployeeID, 1);
 
-        public static void UpdateAuditTrail(string _Action, int _UserID, int _UserType)
+        public static void UpdateTenantAuditTrail(string _Action, int _TenantID)
         {
-            //string UserType;
+            string strInsert = "INSERT INTO AuditTrail (TenantID, Action) VALUES (@tid, @action)";
+            SqlParameter[] InsertParams = {
+                                               new SqlParameter("@tid", _TenantID),
+                                               new SqlParameter("@action", _Action),
+                                           };
+            DataAccess.DataProcessExecuteNonQuery(strInsert, InsertParams, ConnString);
+        }
 
-            //if (_UserType == 1)
-            //{
-            //    UserType = "Employee";
-            //}
-            //else if (_UserType == 2)
-            //{
-            //    UserType = "Tenant";
-            //}
-            //else if (_UserType == 3)
-            //{
-            //    UserType = "Guardian";
-            //}
-
-            //string strInsert = "INSERT INTO tb_AuditTrail (UserID, Action, UserType) VALUES (@UserID, @Action, @UserType)";
-            //SqlParameter[] InsertParams = {
-            //                                   new SqlParameter("@UserID", _UserID),
-            //                                   new SqlParameter("@Action", _Action),
-            //                                   new SqlParameter("@UserType", UserType)
-            //                               };
-            //DataAccess.DataProcessExecuteNonQuery(strInsert, InsertParams, ConnString);
+        public static void UpdateEmployeeAuditTrail(string _Action, int _EmployeeID)
+        {
+            string strInsert = "INSERT INTO AuditTrail (EmployeeID, Action) VALUES (@eid, @action)";
+            SqlParameter[] InsertParams = {
+                                               new SqlParameter("@eid", _EmployeeID),
+                                               new SqlParameter("@action", _Action),
+                                           };
+            DataAccess.DataProcessExecuteNonQuery(strInsert, InsertParams, ConnString);
         }
 
     }
+
+    
+
 }

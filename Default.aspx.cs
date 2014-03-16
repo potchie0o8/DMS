@@ -43,24 +43,21 @@ public partial class _Default : System.Web.UI.Page
         {
             Session.Add("EmployeeID", EmployeeID);
             Session.Add("AccessLevel", Employees.GetAccessLevel(EmployeeID));
-            //Session.Add("KEY", Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)));
-            Session.Add("KEY", Encryption.GenerateBCryptHash(txtPassword.Text));
+            //Session.Add("KEY", Encryption.GenerateBCryptHash(txtPassword.Text));
             Response.Redirect("~/Admin/Default.aspx");
         }
 
         else if (TenantID != 0)
         {
             Session.Add("TenantID", TenantID);
-            //Session.Add("KEY", Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)));
-            Session.Add("KEY", Encryption.GenerateBCryptHash(txtPassword.Text));
+            //Session.Add("KEY", Encryption.GenerateBCryptHash(txtPassword.Text));
             Response.Redirect("~/Tenant/Default.aspx");
         }
 
         else if (GuardianID != 0)
         {
             Session.Add("GuardianID", GuardianID);
-            //Session.Add("KEY", Encryption.MD5(AntiXSSMethods.CleanString(txtPassword.Text)));
-            Session.Add("KEY", Encryption.GenerateBCryptHash(txtPassword.Text));
+            //Session.Add("KEY", Encryption.GenerateBCryptHash(txtPassword.Text));
             Response.Redirect("~/Guardian/Default.aspx");
         }
 

@@ -20,6 +20,7 @@ using BCryptEncryption;
 /// this SQL command will do. First change Pwd length in DB from 40 to 60 characters then
 /// Just change the table name of the query below accdg. to Employees, Tenants and Guardians
 /// UPDATE Employees SET Pwd='$2a$10$pGr0pdnzM2Cr2C519Vp2weifyEGKx1v8FLCWS.bT0UtMfFBXBqVOS'
+/// 3-12-2014 = Included GetKey For each row to get password, shortened some methods...
 /// </summary>
 namespace UserManagement
 {
@@ -39,28 +40,65 @@ namespace UserManagement
             SqlParameter[] checkUNParam2 = {
                                           new SqlParameter("@un", input)
                                       };
-            //SqlParameter[] checkUNParam3 = {
-            //                              new SqlParameter("@un", input)
-            //                          };
+            SqlParameter[] checkUNParam3 = {
+                                          new SqlParameter("@un", input)
+                                      };
 
 
             bool isEmployee = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam1, ConnString);
             bool isTenant = DataAccess.DetermineIfExisting("SELECT * FROM Tenants WHERE UN=@un", checkUNParam2, ConnString);
-            //bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam, ConnString);
+            bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam3, ConnString);
 
-            //if (isEmployee == false && isTenant == false && isGuardian == false)
-            if (isEmployee == false && isTenant == false)
+            if (isEmployee == false && isTenant == false && isGuardian == false)
             {
                 return false;
             }
             else
             {
-                //Username already exists in all three tables
                 return true;
             }
 
 
         }
+
+
+        public static int CheckRole(string _input)
+        {
+            string input = AntiXSSMethods.CleanString(_input);
+            SqlParameter[] checkUNParam1 = {
+                                          new SqlParameter("@un", input)
+                                      };
+            SqlParameter[] checkUNParam2 = {
+                                          new SqlParameter("@un", input)
+                                      };
+            SqlParameter[] checkUNParam3 = {
+                                          new SqlParameter("@un", input)
+                                      };
+
+            bool isEmployee = DataAccess.DetermineIfExisting("SELECT * FROM Employees WHERE UN=@un", checkUNParam1, ConnString);
+            bool isTenant = DataAccess.DetermineIfExisting("SELECT * FROM Tenants WHERE UN=@un", checkUNParam2, ConnString);
+            bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam3, ConnString);
+
+            if (isEmployee == true)
+            {
+                return 1;
+            }
+            else if (isGuardian == true)
+            {
+                return 3;
+            }
+            else if (isTenant == true)
+            {
+                return 2;
+            }
+            else
+            {
+                return 4;
+            }
+
+        }
+
+
     }
 
     public static class Employees
@@ -79,7 +117,6 @@ namespace UserManagement
                                          };
                 string PasswordToCompare = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
 
-                //if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))  -- This used MD5, code below uses BCRYPT NOWs
                 if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(_PWD), PasswordToCompare))
                 {
                     string strGetID = "SELECT EmployeeID FROM Employees WHERE UN=@UN";
@@ -115,6 +152,16 @@ namespace UserManagement
                                              new SqlParameter("@EID", _EmployeeID),
                                          };
             return DataAccess.ReturnData(strGetUN, GetUNParams, ConnString, "UN");
+        }
+
+        public static string GetKey(int _EmployeeID)
+        {
+            string strCheck = "SELECT Pwd FROM Employees WHERE EmployeeID=@EID";
+            SqlParameter[] CheckParams = {
+                                             new SqlParameter("@EID", _EmployeeID),
+                                         };
+            string Password = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
+            return Password;
         }
 
 
@@ -186,6 +233,16 @@ namespace UserManagement
             return DataAccess.ReturnData(strGetFullName, GetFullNameParams, ConnString, "FullName");
         }
 
+        public static string GetKey(int _TenantID)
+        {
+            string strCheck = "SELECT Pwd FROM Tenants WHERE TenantID=@TID";
+            SqlParameter[] CheckParams = {
+                                             new SqlParameter("@TID", _TenantID),
+                                         };
+            string Password = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
+            return Password;
+        }
+
 
     }
     public static class Guardians
@@ -206,7 +263,7 @@ namespace UserManagement
                 //if (PasswordToCompare == Encryption.MD5(AntiXSSMethods.CleanString(_PWD)))  -- This used MD5, code below uses BCRYPT NOWs
                 if (BCrypt.CheckPassword(AntiXSSMethods.CleanString(_PWD), PasswordToCompare))
                 {
-                    string strGetID = "SELECT Guardians FROM Tenants WHERE UN=@UN";
+                    string strGetID = "SELECT GuardianID FROM Guardians WHERE UN=@UN";
                     SqlParameter[] GetIDParams = {
                                              new SqlParameter("@UN", strUsername),
                                          };
@@ -225,11 +282,21 @@ namespace UserManagement
 
         public static string ReturnUserName(int _GuardianID)
         {
-            string strGetUN = "SELECT UN FROM Guardians WHERE TenantID=@EID";
+            string strGetUN = "SELECT UN FROM Guardians WHERE GuardianID=@GID";
             SqlParameter[] GetUNParams = {
-                                             new SqlParameter("@EID", _GuardianID),
+                                             new SqlParameter("@GID", _GuardianID),
                                          };
             return DataAccess.ReturnData(strGetUN, GetUNParams, ConnString, "UN");
+        }
+
+        public static string GetKey(int _GuardianID)
+        {
+            string strCheck = "SELECT Pwd FROM Guardians WHERE Guardian=@GID";
+            SqlParameter[] CheckParams = {
+                                             new SqlParameter("@GID", _GuardianID),
+                                         };
+            string Password = DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Pwd");
+            return Password;
         }
     }
 }

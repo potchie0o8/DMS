@@ -101,12 +101,11 @@
                 Birthday</td>
             <td class="style2">
                
-                <asp:TextBox ID="txtBDay" runat="server" Width="180px" ValidationGroup="BdayVal" Placeholder="-Click to Pick Date-"></asp:TextBox>
-                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtBDay">
-                </asp:CalendarExtender>
+                <asp:TextBox ID="txtBDay" runat="server" Width="180px" ValidationGroup="BdayVal" Placeholder="MM/DD/YYYY"></asp:TextBox>
+                 <%--<asp:CalendarExtender ID="CalendarExtender1" Enabled="true"  runat="server" TargetControlID="txtBDay">
+                </asp:CalendarExtender>--%>
                 <asp:MaskedEditExtender Mask="99/99/9999" TargetControlID="txtBDay" MaskType="Date" ID="MaskedEditExtender1" runat="server">
                 </asp:MaskedEditExtender>
-
 
             </td>
             <td>

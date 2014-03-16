@@ -156,7 +156,9 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
 
         string strImageFile = UploadPhoto();
 
-        if ((strImageFile == "nofile") || (strImageFile !="large" && strImageFile !="invalid"))
+        Response.Write(UploadPhoto());
+
+        if ((strImageFile == "nofile") || (strImageFile != "large" && strImageFile != "invalid"))
         {
 
             if (strImageFile == "nofile")
