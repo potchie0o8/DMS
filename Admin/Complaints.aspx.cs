@@ -7,16 +7,19 @@ using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Data.SqlClient;
 using DBHelpers;
+using Auditor;
 
 public partial class Admin_Complaints : System.Web.UI.Page
 {
     string connString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
     int ComplaintID;
+    int EmployeeID;
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
             ComplaintID = int.Parse(Request.QueryString["ID"]);
+            EmployeeID = int.Parse(Session["EmployeeID"].ToString());
             if (!IsPostBack)
             {
                 loaddata(ComplaintID);
@@ -49,6 +52,7 @@ public partial class Admin_Complaints : System.Web.UI.Page
                                          new SqlParameter("@CID", ComplaintID)
                                      };
         DataAccess.DataProcessExecuteNonQuery(strUpdate, updateParam, connString);
+        AuditTrailFunctions.UpdateEmployeeAuditTrail("Updated complaint status", EmployeeID);
         lblAlert.Text = "Complaint status updated";
     }
 }

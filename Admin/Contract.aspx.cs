@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
 using UserManagement;
+using Auditor;
 
 public partial class Admin_Contract : System.Web.UI.Page
 {
@@ -121,6 +122,7 @@ public partial class Admin_Contract : System.Web.UI.Page
                                          new SqlParameter("@IsValid", true)
                                      };
             DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+            AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new contract", EmployeeID);
             //Response.Redirect("~/Admin/ManageTenant.aspx");
             Response.Redirect("~/Admin/ContractMgt.aspx");
         }

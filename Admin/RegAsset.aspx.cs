@@ -8,13 +8,15 @@ using System.Configuration;
 using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
+using Auditor;
 
 public partial class Admin_RegAsset : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    int EmployeeID;
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        EmployeeID = int.Parse(Session["EmployeeID"].ToString());
     }
 
     private bool checkInputs()
@@ -70,6 +72,7 @@ public partial class Admin_RegAsset : System.Web.UI.Page
                                          new SqlParameter("@amount", StringCustomizers.CheckMoney(Convert.ToDouble(AntiXSSMethods.CleanString(txtAmount.Text))))
                                      };
             DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+            AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new Asset", EmployeeID);
             Response.Redirect("~/Admin/ManageAssets.aspx");
         }
         else

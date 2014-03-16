@@ -8,12 +8,12 @@ using System.Configuration;
 using System.Data.SqlClient;
 using DBHelpers;
 using CustomStrings;
+using Auditor;
 
 public partial class Admin_Announcement : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
     int EmployeeID;
-
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -34,7 +34,7 @@ public partial class Admin_Announcement : System.Web.UI.Page
                                          new SqlParameter("@eid", EmployeeID)
                                      };
         int newID = DataAccess.InsertAndGetIndex(strInsert, insertParam, conString);
-
+        AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new Announcement", EmployeeID);
         //DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
         //Response.Write("<script>alert('Success!');</script>");
         Response.Redirect("ViewAnnouncement.aspx?ID=" + newID.ToString());

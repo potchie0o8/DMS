@@ -16,7 +16,8 @@ public partial class Admin_Default2 : System.Web.UI.Page
 {
 
     string oldpass, newpass;
-    int EmployeeID;
+    int TenantID;
+
     private string ConnString = StaticVariables.ConnectionString;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -24,9 +25,9 @@ public partial class Admin_Default2 : System.Web.UI.Page
 
         try
         {
-            EmployeeID = Convert.ToInt32(Session["EmployeeID"].ToString());
+            TenantID = Convert.ToInt32(Session["TenantID"].ToString());
             string OldKey = Session["KEY"].ToString();
-            lblUsername.Text = Employees.ReturnUserName(EmployeeID);
+            lblUsername.Text = Tenants.ReturnUserName(TenantID);
         }
         catch
         {
@@ -62,14 +63,14 @@ public partial class Admin_Default2 : System.Web.UI.Page
         {
             try
             {
-                string strUpdateQuery = "UPDATE Employees SET PWD=@PWD WHERE EmployeeID=@EID";
+                string strUpdateQuery = "UPDATE Tenants SET PWD=@PWD WHERE TenantID=@TID";
                 SqlParameter[] UpdateParams = {
                                               //new SqlParameter("@PWD", Encryption.MD5(newpass)),
                                              new SqlParameter("@PWD", newpass),
-                                             new SqlParameter("@EID", EmployeeID)
+                                             new SqlParameter("@TID", TenantID)
                               };
                 DataAccess.DataProcessExecuteNonQuery(strUpdateQuery, UpdateParams, ConnString);
-                AuditTrailFunctions.UpdateEmployeeAuditTrail("Password change", EmployeeID);
+                AuditTrailFunctions.UpdateTenantAuditTrail("Changed password", TenantID);
                 //Session.Add("KEY", Encryption.MD5(newpass));
                 Session.Add("KEY", newpass);
                 lblAlert.Text = "Change password succeeded!";

@@ -28,6 +28,7 @@
                             <asp:SessionParameter Name="GID" SessionField="GuardianID" />
                         </SelectParameters>
                     </asp:SqlDataSource>
+                    <asp:Button ID="btnView" runat="server" Text="View" onclick="btnView_Click" />
                 </td>
                 <td>
                     &nbsp;</td>
@@ -36,7 +37,7 @@
     </p>
     <asp:GridView ID="grdDRT" runat="server" AutoGenerateColumns="False" 
         CellPadding="4" DataSourceID="sql_DTR" ForeColor="#333333" 
-        GridLines="None">
+        GridLines="None" EmptyDataText="-Please select a tenant.-">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="TenantName" HeaderText="Tenant Name" ReadOnly="True" 
@@ -60,12 +61,11 @@
         <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
     <asp:SqlDataSource ID="sql_DTR" runat="server" 
-        ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
-        SelectCommand="SELECT Tenants.LName + ',  ' + Tenants.FName + '  ' + Tenants.MName AS 'TenantName', DTR.EntryType, DTR.Remarks, DTR.DateTime FROM DTR INNER JOIN Tenants ON DTR.TenantID = @TID">
-        <SelectParameters>
+        ConnectionString="<%$ ConnectionStrings:CONNSTRING %>">
+        <%--<SelectParameters>
             <asp:ControlParameter ControlID="ddlTenant" Name="TID" 
                 PropertyName="SelectedValue" />
-        </SelectParameters>
+        </SelectParameters>--%>
     </asp:SqlDataSource>
     <br />
 </asp:Content>

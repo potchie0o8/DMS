@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
+using Auditor;
 
 public partial class Admin_AddMessage : System.Web.UI.Page
 {
@@ -34,6 +35,7 @@ public partial class Admin_AddMessage : System.Web.UI.Page
                                          new SqlParameter("@message", AntiXSSMethods.CleanString(txtMsg.Text))
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+        AuditTrailFunctions.UpdateEmployeeAuditTrail("Sent a message", EmployeeID);
         //Response.Write("<script>alert('Message sent!');</script>");
         Response.Redirect("~/Admin/MessageMgt.aspx");
     }

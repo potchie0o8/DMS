@@ -11,12 +11,15 @@ using DBHelpers;
 using CustomStrings;
 using ImageProcessor;
 using System.IO;
+using Auditor;
 
 public partial class Admin_EmployeeReg : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    int EmployeeID;
     protected void Page_Load(object sender, EventArgs e)
     {
+        EmployeeID = int.Parse(Session["EmployeeID"].ToString());
         if (int.Parse(Session["AccessLevel"].ToString()) != 1)
         {
             Response.Redirect("ManageEmployees.aspx");
@@ -183,6 +186,7 @@ public partial class Admin_EmployeeReg : System.Web.UI.Page
                                             new SqlParameter("@photofile", strImageFile)
                                         };
                     DataAccess.DataProcessExecuteNonQuery(strInsert, insrtParam, conString);
+                    AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new Employee", EmployeeID);
                     Response.Redirect("ManageEmployees.aspx");
 
                 }

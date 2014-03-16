@@ -75,6 +75,8 @@
                 <td class="style3">
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
                         onclick="btnSubmit_Click" ValidationGroup="TGLink" />
+                &nbsp;&nbsp;
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" PostBackUrl="~/Admin/GuardianMgt.aspx" />
                 </td>
                 <td>
                     &nbsp;</td>

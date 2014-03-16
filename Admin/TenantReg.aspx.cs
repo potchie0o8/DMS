@@ -12,13 +12,15 @@ using DBHelpers;
 using CustomStrings;
 using ImageProcessor;
 using System.IO;
+using Auditor;
 
 public partial class Admin_TenantReg : System.Web.UI.Page
 {
     string conString = ConfigurationManager.ConnectionStrings["CONNSTRING"].ToString();
+    int EmployeeID;
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        EmployeeID = int.Parse(Session["EmployeeID"].ToString());
     }
 
     public string UploadPhoto()
@@ -186,6 +188,7 @@ public partial class Admin_TenantReg : System.Web.UI.Page
                     //DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
                     //Response.Write("<script>alert('Success!');</script>");
                     int newID = DataAccess.InsertAndGetIndex(strInsert, insertParam, conString);
+                    AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new Tenant", EmployeeID);
                     Response.Redirect("Contract.aspx?ID=" + newID.ToString());
                 }
                 else

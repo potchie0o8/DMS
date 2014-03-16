@@ -13,14 +13,17 @@ using System.IO;
 using BCryptEncryption;
 using UserManagement;
 using Globals;
+using Auditor;
 
 public partial class Admin_ViewTenants : System.Web.UI.Page
 {
     string connString = StaticVariables.ConnectionString;
     int TenantID;
+    int EmployeeID;
     string photofile, username;
     protected void Page_Load(object sender, EventArgs e)
     {
+        EmployeeID = int.Parse(Session["EmployeeID"].ToString());
         try
         {
             TenantID = int.Parse(Request.QueryString["ID"]);
@@ -114,6 +117,7 @@ public partial class Admin_ViewTenants : System.Web.UI.Page
                                           new SqlParameter("@TID", TenantID)
                                        };
             DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, connString);
+            AuditTrailFunctions.UpdateEmployeeAuditTrail("Updated tenants details", EmployeeID);
             loaddata(TenantID);
             lblAlert.Text = "Tenant information saved.";
         }

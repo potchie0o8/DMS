@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterpages/AdminMaster.master" AutoEventWireup="true" CodeFile="ViewServiceRequest.aspx.cs" Inherits="Admin_ViewServiceRequest" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="Head" Runat="Server">
     <style type="text/css">
         .style2
@@ -9,6 +11,20 @@
         .style3
         {
             width: 173px;
+        }
+        .style4
+        {
+            width: 112px;
+            height: 24px;
+        }
+        .style5
+        {
+            width: 173px;
+            height: 24px;
+        }
+        .style6
+        {
+            height: 24px;
         }
     </style>
 </asp:Content>
@@ -52,19 +68,20 @@
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="style2">
+                <td class="style4">
                     Details:</td>
-                <td class="style3">
+                <td class="style5">
                     <asp:Label ID="lblDetails" runat="server"></asp:Label>
                 </td>
-                <td>
-                    &nbsp;</td>
+                <td class="style6">
+                    </td>
             </tr>
             <tr>
                 <td class="style2">
                     Remarks:</td>
                 <td class="style3">
-                    <asp:DropDownList ID="ddlRemarks" runat="server">
+                    <asp:DropDownList ID="ddlRemarks" runat="server" AutoPostBack="True" 
+                        onselectedindexchanged="ddlRemarks_SelectedIndexChanged">
                         <asp:ListItem Value="">- Select -</asp:ListItem>
                         <asp:ListItem Value="Pending">Pending</asp:ListItem>
                         <asp:ListItem Value="On Going">On Going</asp:ListItem>
@@ -101,7 +118,14 @@
                 <td class="style2">
                     Date Completed:</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtDateCompleted" runat="server" Width="180px" Enabled="false" ></asp:TextBox>
+                    <asp:TextBox ID="txtDateCompleted" runat="server" Width="180px" visible="false" 
+                        TextMode="Date" ></asp:TextBox>
+                    <asp:MaskedEditExtender ID="txtDateCompleted_MaskedEditExtender" runat="server" 
+                        CultureAMPMPlaceholder="" CultureCurrencySymbolPlaceholder="" 
+                        CultureDateFormat="" CultureDatePlaceholder="" CultureDecimalPlaceholder="" 
+                        CultureThousandsPlaceholder="" CultureTimePlaceholder="" Enabled="True" 
+                        Mask="99/99/9999" MaskType="Date" TargetControlID="txtDateCompleted">
+                    </asp:MaskedEditExtender>
                 </td>
                 <td>
                     &nbsp;</td>

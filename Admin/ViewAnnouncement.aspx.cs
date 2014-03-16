@@ -8,15 +8,17 @@ using DBHelpers;
 using Globals;
 using System.Data.SqlClient;
 using CustomStrings;
+using Auditor;
 
 public partial class Admin_ViewAnnouncements : System.Web.UI.Page
 {
 
     int AnnouncementID;
-
+    int EmployeeID;
     string conString = StaticVariables.ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {
+        EmployeeID = int.Parse(Session["EmployeeID"].ToString());
         try
         {
             AnnouncementID = int.Parse(Request.QueryString["ID"]);
@@ -72,6 +74,7 @@ public partial class Admin_ViewAnnouncements : System.Web.UI.Page
                                           new SqlParameter("@AID", AnnouncementID)
                                        };
             DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, conString);
+            AuditTrailFunctions.UpdateEmployeeAuditTrail("Updated announcement", EmployeeID);
             lblAlert.Text = "Announcement updated!";
         }
         else

@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
+using Auditor;
 
 public partial class Tenant_ServiceRequest : System.Web.UI.Page
 {
@@ -39,6 +40,7 @@ public partial class Tenant_ServiceRequest : System.Web.UI.Page
                                          new SqlParameter("@priority", priority)
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+        AuditTrailFunctions.UpdateTenantAuditTrail("Added new service request", TenantID);
         //Response.Write("<script>alert('Success!');</script>");
         Response.Redirect("~/Tenant/ServiceRequestMgt.aspx");
     }

@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
+using Auditor;
 
 public partial class Tenant_AddComplaint : System.Web.UI.Page
 {
@@ -36,7 +37,10 @@ public partial class Tenant_AddComplaint : System.Web.UI.Page
                                          new SqlParameter("@status", status)
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-        Response.Write("<script>alert('Success!');</script>");
+        AuditTrailFunctions.UpdateTenantAuditTrail("Added new complaints", TenantID);
+        //Response.Write("<script>alert('Success!');</script>");
+        Response.Redirect("AddComplaint.aspx");
+        lblAlert.Text = "Complaint submitted!";
 
         if (IsPostBack)
         {

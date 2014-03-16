@@ -30,6 +30,9 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Submit Complaints</h1>
     <p>
+        <asp:Label ID="lblAlert" runat="server" Font-Size="Medium" ForeColor="Red"></asp:Label>
+    </p>
+    <p>
         <table style="width:100%;">
             <tr>
                 <td class="style3">
@@ -48,43 +51,6 @@
                     Details</td>
                 <td class="style5">
                    <asp:TextBox ID="txtMsg" runat="server" TextMode="MultiLine" Columns="50" Rows="10"></asp:TextBox>
-
-                    <asp:HtmlEditorExtender ID="HtmlEditorExtender1" 
-                        TargetControlID="txtMsg" DisplaySourceTab="true" 
-                        runat="server"/>
-                        <Toolbar> 
-                            <asp:Undo />
-                            <asp:Redo />
-                            <asp:Bold />
-                            <asp:Italic />
-                            <asp:Underline />
-                            <asp:StrikeThrough />
-                            <asp:Subscript />
-                            <asp:Superscript />
-                            <asp:JustifyLeft />
-                            <asp:JustifyCenter />
-                            <asp:JustifyRight />
-                            <asp:JustifyFull />
-                            <asp:InsertOrderedList />
-                            <asp:InsertUnorderedList />
-                            <asp:CreateLink />
-                            <asp:UnLink />
-                            <asp:RemoveFormat />
-                            <asp:SelectAll />
-                            <asp:UnSelect />
-                            <asp:Delete />
-                            <asp:Cut />
-                            <asp:Copy />
-                            <asp:Paste />
-                            <asp:BackgroundColorSelector />
-                            <asp:ForeColorSelector />
-                            <asp:FontNameSelector />
-                            <asp:FontSizeSelector />
-                            <asp:Indent />
-                            <asp:Outdent />
-                            <asp:InsertHorizontalRule />
-                            <asp:HorizontalSeparator />
-                            <asp:InsertImage />
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
                         ErrorMessage="Please indicate details!" ForeColor="Red" 
@@ -103,7 +69,7 @@
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
                         onclick="btnSubmit_Click" ValidationGroup="Complaints" />
 &nbsp;&nbsp;
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" PostBackUrl="~/Tenant/Default.aspx" />
                 </td>
                 <td class="style2">
                 </td>

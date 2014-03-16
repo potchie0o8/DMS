@@ -9,13 +9,15 @@ using System.Data.SqlClient;
 using DBHelpers;
 using CustomStrings;
 using Globals;
+using Auditor;
 
 public partial class Admin_GuardianReg : System.Web.UI.Page
 {
     string conString = StaticVariables.ConnectionString;
+    int EmployeeID;
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        EmployeeID = int.Parse(Session["EmployeeID"].ToString());
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
@@ -33,9 +35,10 @@ public partial class Admin_GuardianReg : System.Web.UI.Page
                                              new SqlParameter("@email", AntiXSSMethods.CleanString(textEmail.Text)),
                                              new SqlParameter("@address", AntiXSSMethods.CleanString(textSaddress.Text)),
                                              new SqlParameter("@un", AntiXSSMethods.CleanString(textUname.Text)),
-                                             new SqlParameter("@pwd", AntiXSSMethods.CleanString(textPassword.Text))
+                                             new SqlParameter("@pwd", Encryption.GenerateBCryptHash(textPassword.Text))
                                          };
             DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+            AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new Guardian", EmployeeID);
             Response.Redirect("TGLink.aspx");
         }
     }

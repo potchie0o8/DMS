@@ -8,12 +8,27 @@
         <asp:Button ID="btnAddTenant" runat="server" 
             PostBackUrl="~/Admin/TenantReg.aspx" Text="Add New Tenant" />
     </p>
-<br>
+    <p>
+        Select Category:
+        <asp:DropDownList ID="ddlSearch" runat="server">
+            <asp:ListItem Value="">--Select Search Category--</asp:ListItem>
+            <asp:ListItem Value="UN">Username</asp:ListItem>
+            <asp:ListItem Value="TenantID">Tenant ID</asp:ListItem>
+            <asp:ListItem Value="FName">First Name</asp:ListItem>
+            <asp:ListItem Value="MName">Middle Name</asp:ListItem>
+            <asp:ListItem Value="LName">Last Name</asp:ListItem>
+        </asp:DropDownList>
+    &nbsp; Search Field:
+        <asp:TextBox ID="txtSearch" runat="server" Width="236px" placeholder="Leave blank to filter entries."></asp:TextBox>
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
+        onclick="btnSearch_Click" />
+    </p>
     <asp:GridView ID="GrdTenants" runat="server" AllowSorting="True" 
-        AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" 
-        BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="TenantID" 
+        AutoGenerateColumns="False" CellPadding="4" DataKeyNames="TenantID" 
         DataSourceID="SqlDS_Tenants" 
-        onselectedindexchanged="GrdTenants_SelectedIndexChanged">
+        onselectedindexchanged="GrdTenants_SelectedIndexChanged" 
+        ForeColor="#333333" GridLines="None">
+        <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:BoundField DataField="TenantID" HeaderText="TenantID" 
                 InsertVisible="False" ReadOnly="True" SortExpression="TenantID" />
@@ -36,15 +51,16 @@
             <asp:CommandField ButtonType="Button" SelectText="View/Edit" 
                 ShowSelectButton="True" />
         </Columns>
-        <FooterStyle BackColor="#99CCCC" ForeColor="#003399" />
-        <HeaderStyle BackColor="#003399" Font-Bold="True" ForeColor="#CCCCFF" />
-        <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" />
-        <RowStyle BackColor="White" ForeColor="#003399" />
-        <SelectedRowStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
-        <SortedAscendingCellStyle BackColor="#EDF6F6" />
-        <SortedAscendingHeaderStyle BackColor="#0D4AC4" />
-        <SortedDescendingCellStyle BackColor="#D6DFDF" />
-        <SortedDescendingHeaderStyle BackColor="#002876" />
+        <EditRowStyle BackColor="#2461BF" />
+        <FooterStyle BackColor="#507CD1" ForeColor="White" Font-Bold="True" />
+        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+        <RowStyle BackColor="#EFF3FB" />
+        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+        <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDS_Tenants" runat="server" 
         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 

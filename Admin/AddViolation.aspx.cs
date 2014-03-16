@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
+using Auditor;
 
 public partial class Admin_AddViolation : System.Web.UI.Page
 {
@@ -36,6 +37,7 @@ public partial class Admin_AddViolation : System.Web.UI.Page
                                          new SqlParameter("@fine", AntiXSSMethods.CleanString(txtFine.Text))
                                      };
         DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+        AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new Violation", EmployeeID);
         Response.Redirect("~/Admin/ViolationMgt.aspx");
     }
 }

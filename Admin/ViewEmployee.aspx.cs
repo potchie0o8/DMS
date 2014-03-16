@@ -11,6 +11,7 @@ using ImageProcessor;
 using System.IO;
 using BCryptEncryption;
 using Globals;
+using Auditor;
 
 public partial class Admin_ViewEmployee : System.Web.UI.Page
 {
@@ -170,6 +171,7 @@ public partial class Admin_ViewEmployee : System.Web.UI.Page
                                           new SqlParameter("@fpid", fpid)
                                        };
             DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, connString);
+            AuditTrailFunctions.UpdateEmployeeAuditTrail("Updated employee details", EmployeeID);
             loaddata(EmployeeID);
             lblAlert.Text = "Employee information saved.";
         }

@@ -36,10 +36,10 @@
           </div>
         </div><div class="Menu">
              <ul>
-             <li><asp:LinkButton ID="lnkBtnHome" runat="server" class="MenuButton" PostBackUrl="~/Admin/Default.aspx"><span>Home</span></asp:LinkButton></li>
-                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Admin/ChangeMyPassword.aspx"><span>My Profile</span></asp:LinkButton></li>
+             <li><asp:LinkButton ID="lnkBtnHome" runat="server" class="MenuButton" PostBackUrl="~/Guardian/Default.aspx"><span>Home</span></asp:LinkButton></li>
+                <li><asp:LinkButton ID="lnkBtnProfile" runat="server" class="MenuButton" PostBackUrl="~/Guardian/MyProfile.aspx"><span>My Profile</span></asp:LinkButton></li>
                  <%--<%= RenderMenu() %>--%>
-                 <li><asp:LinkButton ID="lnkBtnChangeMyPass" runat="server" class="MenuButton" PostBackUrl="~/Admin/ChangeMyPassword.aspx"><span>Change My Password</span></asp:LinkButton></li>
+                 <li><asp:LinkButton ID="lnkBtnChangeMyPass" runat="server" class="MenuButton" PostBackUrl="~/Guardian/ChangeMyPassword.aspx"><span>Change My Password</span></asp:LinkButton></li>
              <li><asp:LinkButton ID="LinkButton2" runat="server" class="MenuButton" onclick="btnLogout_Click"><span><font color="red"><b>Log-Out</b></font></span></asp:LinkButton></li>
              </ul>
         </div><div class="Columns"><div class="Column1">
@@ -52,7 +52,7 @@
                 <ul>
                     <%--<li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>--%>
                     <li><asp:LinkButton CssClass="style1" ID="lnkDTR" runat="server" PostBackUrl="~/Guardian/DTRMgt.aspx">Tenants DTR</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="">Violation</asp:LinkButton></li>
+                    <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="~/Guardian/ViolationMgt.aspx">Violation</asp:LinkButton></li>
 
                 </ul>
 

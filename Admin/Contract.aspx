@@ -176,6 +176,8 @@
                     <br />
                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" 
                         onclick="btnSubmit_Click" ValidationGroup="Contract" />
+                &nbsp;&nbsp;&nbsp;
+                    <asp:Button ID="btnSkip" runat="server" Text="Skip" PostBackUrl="~/Admin/ManageTenants.aspx" />
                 </td>
                 <td>
                     &nbsp;</td>
