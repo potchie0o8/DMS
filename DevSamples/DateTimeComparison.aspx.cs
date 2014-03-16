@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Auditor;
 
 public partial class DevSamples_DateTimeComparison : System.Web.UI.Page
 {
@@ -29,7 +30,6 @@ public partial class DevSamples_DateTimeComparison : System.Web.UI.Page
 
 
         //Response.Write(Curfew.ToString());
-
 
         //compares the datettime objects
         if (Now >= Curfew)

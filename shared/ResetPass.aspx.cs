@@ -94,10 +94,14 @@ public partial class shared_ResetPass : System.Web.UI.Page
             message.Subject = "This is the Subject line";
             message.From = new System.Net.Mail.MailAddress("noreply@egidms.com");
             message.Body = "Your password has been reset. Your new password is: " + _newpass;
-            System.Net.Mail.SmtpClient smtp = new SmtpClient("localhost", 25);
+            //System.Net.Mail.SmtpClient smtp = new SmtpClient("localhost", 25);
+
+            System.Net.Mail.SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+
             smtp.UseDefaultCredentials = false;
-            //smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("Administrator", "raksoct");
+
+            smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential("almedaaaronjohn@gmail.com", "sensitivity52767");
             //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.Send(message);
             return true;

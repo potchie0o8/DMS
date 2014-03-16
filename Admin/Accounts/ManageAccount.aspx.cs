@@ -10,6 +10,7 @@ using System.Data.Sql;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Reporting.WebForms;
+using Accounting;
 
 public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 {
@@ -41,6 +42,7 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
                 SqlParameter[] TIDParam = { new SqlParameter("@TenantID", TenantID) };
                 string strSelect = "SELECT TOP 1 BillID FROM Bills WHERE ((TenantID = @TenantID) AND (IsFinalized = 1)) ORDER BY DateGenerated DESC";
                 ChosenBillID = DataAccess.ReturnData(strSelect, TIDParam, ConnString, "BillID");
+                lblPayAmt.Text = "Php " + AcctFunctions.GetBalance(TenantID).ToString();
                 rebindReportViewer(ChosenBillID);
             }
             //else
@@ -108,4 +110,8 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 
 
 
+    protected void btnRecPayment_Click(object sender, EventArgs e)
+    {
+        //int ReceiptID = AcctFunctions.MarkBillAsPaid(
+    }
 }

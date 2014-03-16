@@ -207,4 +207,17 @@ public partial class Admin_TenantReg : System.Web.UI.Page
             lblAlert.Text = "Photo File is not valid!";
         }        
     }
+    protected void cbkEnableCurfew_CheckedChanged(object sender, EventArgs e)
+    {
+        if (cbkDisableCurfew.Checked == true)
+        {
+            DDLHR.Enabled = false;
+            DDLMIN.Enabled = false;
+        }
+        else if (cbkDisableCurfew.Checked == false)
+        {
+            DDLHR.Enabled = true;
+            DDLMIN.Enabled = true;
+        }
+    }
 }

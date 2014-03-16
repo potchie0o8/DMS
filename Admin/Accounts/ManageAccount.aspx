@@ -11,10 +11,23 @@
             width: 29%;
             height: 20px;
         }
+        .style3
+        {
+            height: 23px;
+        }
+        .style4
+        {
+            height: 23px;
+            font-weight: bold;
+        }
+        .style5
+        {
+            text-decoration: underline;
+        }
     </style>
     </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
-    <h1>Manage Tenant Bills</h1>
+    <h1>Manage Tenant Account</h1>
     <p>
         <asp:Label ID="lblAlert" runat="server" style="color: #FF0000"></asp:Label>
     </p>
@@ -51,19 +64,19 @@
 
 <p>
     &nbsp;<asp:Panel ID="pnl_payment" runat="server" BorderColor="Black" BorderStyle="Dotted" BackColor="White" Height="200px" Width="344px">
-        <h3>
+        <h3 class="style5">
             Record Bill Payment:</h3>
         <table class="style2">
             <tr>
-                <td style="color: #000000">
+                <td style="color: #000000" class="style4">
                     Amount:</td>
-                <td>
+                <td class="style3">
                     <asp:Label ID="lblPayAmt" runat="server" style="color: #000000"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td style="color: #000000">
-                    Payment Mode:</td>
+                    <b>Payment Mode:</b></td>
                 <td>
                     <asp:DropDownList ID="DDLPaymode0" runat="server">
                         <asp:ListItem>-Select-</asp:ListItem>
@@ -74,14 +87,15 @@
             </tr>
             <tr>
                 <td style="color: #000000">
-                    Additional Remarks:</td>
+                    <b>Additional Remarks:</b></td>
                 <td>
                     <asp:TextBox ID="txtPayRemarks" runat="server" TextMode="MultiLine"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td style="color: #000000" colspan="2">
-                    <asp:Button ID="btnRecPayment" runat="server" Text="Record Payment" />
+                    <asp:Button ID="btnRecPayment" runat="server" onclick="btnRecPayment_Click" 
+                        Text="Record Payment" />
                     &nbsp;<asp:Button ID="btnCancelPay" runat="server" Height="26px" Text="Cancel" />
                 </td>
             </tr>

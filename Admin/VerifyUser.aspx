@@ -18,7 +18,6 @@
         }
         .style5
         {
-            width: 143px;
         }
         .style6
         {
@@ -35,30 +34,42 @@
 <p>Use this utility when the fingerprint scanner fails to recognize a fingerprint.</p>
     <p>&nbsp;</p>
     <p>Search User:
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+        <asp:TextBox ID="txtSearchQuery" runat="server"></asp:TextBox>
 &nbsp; Category:&nbsp;&nbsp;
-        <asp:DropDownList ID="DropDownList1" runat="server">
-            <asp:ListItem>-Select-</asp:ListItem>
-            <asp:ListItem>Username</asp:ListItem>
-            <asp:ListItem>First Name</asp:ListItem>
-            <asp:ListItem>Last Name</asp:ListItem>
-            <asp:ListItem>User ID No.</asp:ListItem>
+        <asp:DropDownList ID="ddlCategory" runat="server">
+            <asp:ListItem Value="">-Select-</asp:ListItem>
+            <asp:ListItem Value="UN">Username</asp:ListItem>
+            <asp:ListItem Value="ID">User ID No.</asp:ListItem>
         </asp:DropDownList>
 &nbsp; User Type:
-        <asp:DropDownList ID="DropDownList3" runat="server">
-            <asp:ListItem>-Select-</asp:ListItem>
+        <asp:DropDownList ID="ddlUserType" runat="server">
+            <asp:ListItem Value="">-Select-</asp:ListItem>
             <asp:ListItem Value="Tenants">Tenant</asp:ListItem>
             <asp:ListItem Value="Employees">Employee</asp:ListItem>
         </asp:DropDownList>
-&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" />
+&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" />
     </p>
-    <p><strong>Results:</strong></p>
+    <p><strong>Results: </strong><asp:Label ID="lblAlert" ForeColor="Red" runat="server" Text=""></asp:Label></p>
     <p>
+
+      
         <asp:GridView ID="GRD_Results" runat="server" EmptyDataText="- No Results -" 
-            CellPadding="4" ForeColor="#333333" GridLines="None">
+            CellPadding="4" ForeColor="#333333" GridLines="None" AllowPaging="True" 
+            AutoGenerateColumns="False" DataKeyNames="ID" 
+            onselectedindexchanged="GRD_Results_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:CommandField SelectText="View" ShowSelectButton="True" />
+                <asp:CommandField ButtonType="Button" SelectText="View" 
+                    ShowSelectButton="True" />
+                <asp:BoundField DataField="ID" HeaderText="User ID" InsertVisible="False" 
+                    ReadOnly="True" SortExpression="ID" />
+                <asp:BoundField DataField="UN" HeaderText="Username" SortExpression="UN" />
+                <asp:BoundField DataField="FName" HeaderText="First Name" 
+                    SortExpression="FName" />
+                <asp:BoundField DataField="MName" HeaderText="Middle Name" 
+                    SortExpression="MName" />
+                <asp:BoundField DataField="LName" HeaderText="Last Name" 
+                    SortExpression="LName" />
             </Columns>
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -71,8 +82,11 @@
             <SortedDescendingCellStyle BackColor="#E9EBEF" />
             <SortedDescendingHeaderStyle BackColor="#4870BE" />
         </asp:GridView>
+
+
+
     </p>
-    <table class="style2" border="1">
+    <table class="style2" id="tblView" runat="server" border="1" visible="false">
         <tr>
             <td class="style3" colspan="2">
                 <strong>PLEASE CHECK IF INFO MATCHES BELOW:</strong></td>
@@ -81,7 +95,7 @@
             <td class="style3">
                 Photo:</td>
             <td class="style7">
-                <asp:Image ID="IMGPHOTO" runat="server" Width="100px" />
+                <asp:Image ID="IMGPHOTO" runat="server" Width="300px" />
             </td>
         </tr>
         <tr>
@@ -112,6 +126,13 @@
                 <asp:Label ID="lblFName" runat="server"></asp:Label>
             </td>
         </tr>
+         <tr>
+            <td class="style3">
+                Middle Name:</td>
+            <td class="style7">
+                <asp:Label ID="lblMName" runat="server"></asp:Label>
+            </td>
+        </tr>
         <tr>
             <td class="style3">
                 Last Name:</td>
@@ -134,13 +155,17 @@
             </td>
         </tr>
     </table>
-    <br />
-    Manual DTR manipulation
+    <em><br />
+    </em>
+    <table class="style4" id="tblInOut" runat="server" border="1" visible="false">
+        <tr>
+            <td class="style5" colspan="2">
+                <strong>Manual DTR manipulation
+    </strong>
     <br />
     (<em>If the entering/leaving user matches info. Currently logged in staff shall 
-    be held responsible for wrong DTR recording.)<br />
-    </em>
-    <table class="style4">
+    be held responsible for wrong DTR recording.)</em></td>
+        </tr>
         <tr>
             <td class="style5">
     Time in or out:&nbsp;
@@ -159,8 +184,8 @@
         </tr>
     </table>
     <br />
-    <asp:Button ID="btnSubmit" runat="server" 
-        Text="Confirm Verification and Record DTR" />
+    <asp:Button ID="btnSubmit" Enabled="false" runat="server" 
+        Text="Confirm Verification and Record DTR" onclick="btnSubmit_Click" />
     <asp:ConfirmButtonExtender ID="Button1_ConfirmButtonExtender" runat="server" 
         ConfirmText="Are you sure the user logging in/out is the registered user?" 
         TargetControlID="btnSubmit">
