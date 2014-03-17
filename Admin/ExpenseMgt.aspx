@@ -34,7 +34,7 @@
                 <asp:BoundField DataField="ExpenseType" HeaderText="Expense Type" 
                     SortExpression="ExpenseType" />
                 <asp:BoundField DataField="Amount" HeaderText="Amount" 
-                    SortExpression="Amount" />
+                    SortExpression="Amount" DataFormatString="{0:n}" />
                 <asp:BoundField DataField="EmpName" HeaderText="Employee" ReadOnly="True" 
                     SortExpression="EmpName" />
                 <asp:CommandField ButtonType="Button" SelectText="View" 
@@ -124,7 +124,8 @@
                 <td class="style3">
                     </td>
                 <td class="style4">
-                    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                    <asp:Button ID="btnClose" runat="server" Text="Close" 
+                        onclick="btnClose_Click" />
 &nbsp;&nbsp; </td>
                 <td class="style4">
                     </td>

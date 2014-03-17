@@ -18,7 +18,6 @@ namespace Auditor
     public static class AuditTrailFunctions
     {
         private static string ConnString = StaticVariables.ConnectionString;
- 
         //ganito siya pag gagamitin
         //AuditTrailFunctions.UpdateAuditTrail("Updated UserID No. 117", EmployeeID, 1);
 
@@ -41,9 +40,5 @@ namespace Auditor
                                            };
             DataAccess.DataProcessExecuteNonQuery(strInsert, InsertParams, ConnString);
         }
-
     }
-
-    
-
 }

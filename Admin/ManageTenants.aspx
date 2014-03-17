@@ -9,35 +9,19 @@
             PostBackUrl="~/Admin/TenantReg.aspx" Text="Add New Tenant" />
     </p>
     <p>
-<<<<<<< HEAD
-        Select Category:
-        <asp:DropDownList ID="ddlSearch" runat="server">
-            <asp:ListItem Value="">--Select Search Category--</asp:ListItem>
-            <asp:ListItem Value="UN">Username</asp:ListItem>
-            <asp:ListItem Value="TenantID">Tenant ID</asp:ListItem>
-=======
         Select Category:<asp:DropDownList ID="ddlSearch" runat="server">
             <asp:ListItem Value="">--Select Search Category--</asp:ListItem>
             <asp:ListItem Value="UN">Username</asp:ListItem>
             <asp:ListItem Value="TenantID">Tenant No.</asp:ListItem>
->>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
             <asp:ListItem Value="FName">First Name</asp:ListItem>
             <asp:ListItem Value="MName">Middle Name</asp:ListItem>
             <asp:ListItem Value="LName">Last Name</asp:ListItem>
         </asp:DropDownList>
-<<<<<<< HEAD
-    &nbsp; Search Field:
-        <asp:TextBox ID="txtSearch" runat="server" Width="236px" placeholder="Leave blank to filter entries."></asp:TextBox>
-&nbsp;<asp:Button ID="btnSearch" runat="server" Text="Search" 
-        onclick="btnSearch_Click" />
-    </p>
-=======
         Search Field:<asp:TextBox ID="txtSearch" runat="server" Width="236px" placeholder="Leave blank to filter entries."></asp:TextBox>
         <asp:Button ID="btnSearch" runat="server" Text="Search" 
         onclick="btnSearch_Click" />
     </p>
 <br>
->>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
     <asp:GridView ID="GrdTenants" runat="server" AllowSorting="True" 
         AutoGenerateColumns="False" CellPadding="4" DataKeyNames="TenantID" 
         DataSourceID="SqlDS_Tenants" 

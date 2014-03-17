@@ -55,29 +55,18 @@
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageGuardian" runat="server" PostBackUrl="~/Admin/GuardianMgt.aspx">Manage Guardian</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkRoomMgt" runat="server" PostBackUrl="~/Admin/RoomMgt.aspx">Room Management</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkContractMgt" runat="server" PostBackUrl="~/Admin/ContractMgt.aspx">Tenant Contract Information</asp:LinkButton></li>
-<<<<<<< HEAD
                     <li><asp:LinkButton CssClass="style1" ID="lnkComplaints" runat="server" PostBackUrl="~/Admin/ComplaintMgt.aspx">Complaints</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkGenBills" runat="server" PostBackUrl="~/Admin/GenerateBilling.aspx">Generate Bills</asp:LinkButton></li>
-=======
                     <li><asp:LinkButton CssClass="style1" ID="lnkGenBills" runat="server" PostBackUrl="~/Admin/GenerateBilling.aspx">Tenant Accounts</asp:LinkButton></li>
->>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageAnnouncements" runat="server" PostBackUrl="~/Admin/ManageAnnouncements.aspx">Announcements</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkExpenses" runat="server" PostBackUrl="~/Admin/ExpenseMgt.aspx">Expenses</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkMsg" runat="server" PostBackUrl="~/Admin/MessageMgt.aspx">Messages</asp:LinkButton></li>
                     <li><asp:LinkButton CssClass="style1" ID="lnkManageAssets" runat="server" PostBackUrl="~/Admin/ManageAssets.aspx">Manage Tenant Assets</asp:LinkButton></li>
-<<<<<<< HEAD
-                    <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="~/Admin/ViolationMgt.aspx">Violations</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkServiceRqst" runat="server" PostBackUrl="~/Admin/ServiceRequestMgt.aspx">Service Request</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkStats" runat="server" PostBackUrl="~/Admin/Stats.aspx">Statistics</asp:LinkButton></li>
-                    <li><asp:LinkButton CssClass="style1" ID="lnkReports" runat="server" PostBackUrl="~/Admin/Reports.aspx">Reports</asp:LinkButton></li>
-=======
                      <li><asp:LinkButton CssClass="style1" ID="lnkViolations" runat="server" PostBackUrl="~/Admin/ViolationMgt.aspx">Violations</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkServiceRqst" runat="server" PostBackUrl="~/Admin/ServiceRequestMgt.aspx">Service Request</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkStats" runat="server" PostBackUrl="~/Admin/Stats.aspx">Statistics</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkReports" runat="server" PostBackUrl="~/Admin/Reports.aspx">Reports</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkManualDTR" runat="server" PostBackUrl="~/Admin/VerifyUser.aspx">Verify User and Override DTR</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkRecExpenses" runat="server" PostBackUrl="~/Admin/Accounts/Expenses.aspx">Expenses Record</asp:LinkButton></li>
->>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
                 </ul>
 
             </div>

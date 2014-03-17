@@ -82,4 +82,12 @@ public partial class Admin_ViewAnnouncements : System.Web.UI.Page
             lblAlert.Text = "Update failed. Some fields are blank.";
         }
     }
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        string strDelete = "DELETE FROM Announcement WHERE AnnouncementID=@AID";
+        SqlParameter[] delParam = { new SqlParameter("@AID", AnnouncementID) };
+        DataAccess.DataProcessExecuteNonQuery(strDelete, delParam, conString);
+        AuditTrailFunctions.UpdateEmployeeAuditTrail("Deleted announcement", EmployeeID);
+        Response.Redirect("ManageAnnouncements.aspx");
+    }
 }

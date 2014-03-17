@@ -50,6 +50,7 @@ namespace UserManagement
             bool isGuardian = DataAccess.DetermineIfExisting("SELECT * FROM Guardians WHERE UN=@un", checkUNParam3, ConnString);
 
             if (isEmployee == false && isTenant == false && isGuardian == false)
+            //if (isEmployee == false && isTenant == false)
             {
                 return false;
             }
@@ -57,8 +58,6 @@ namespace UserManagement
             {
                 return true;
             }
-
-
         }
 
 

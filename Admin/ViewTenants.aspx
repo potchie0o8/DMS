@@ -219,7 +219,12 @@
         TargetControlID="btnUpdate">
     </asp:ConfirmButtonExtender>
 
-    <asp:Button ID="btnRegGuardian" runat="server" Text="Register Guardian" PostBackUrl="~/Admin/GuardianReg.aspx" />
+    <asp:Button ID="btnDelete" runat="server" Text="Delete" 
+        onclick="btnDelete_Click"/>
+    <asp:ConfirmButtonExtender ID="btnDelete_ConfirmButtonExtender" runat="server" 
+                        ConfirmText="Are you sure you want to delete this announcement?" 
+                        TargetControlID="btnDelete">
+                    </asp:ConfirmButtonExtender>
 &nbsp;&nbsp;
 
     <p>

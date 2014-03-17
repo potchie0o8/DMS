@@ -63,6 +63,21 @@ namespace Globals
             return bedspace;
         }
 
+        public static string getComplaintStatus(int _status)
+        {
+            string status = "";
+            switch (_status)
+            {
+                case 1:
+                    status = "Pending";
+                    break;
+                case 2:
+                    status = "Resolved";
+                    break;
+            }
+            return status;
+        }
+
     }
 
 }

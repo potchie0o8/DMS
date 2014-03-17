@@ -179,6 +179,14 @@ public partial class Admin_ViewTenants : System.Web.UI.Page
         return result;
     }
 
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        string strDelete = "DELETE FROM Tenants WHERE TenantID=@TID";
+        SqlParameter[] delParam = { new SqlParameter("@TID", TenantID) };
+        DataAccess.DataProcessExecuteNonQuery(strDelete, delParam, connString);
+        AuditTrailFunctions.UpdateEmployeeAuditTrail("Deleted tenant", EmployeeID);
+        Response.Redirect("ManageTenants.aspx");
+    }
 }
 
 

@@ -34,4 +34,8 @@ public partial class Admin_ExpenseMgt : System.Web.UI.Page
         lblEmp.Text = dr["EmpName"].ToString();
         DataAccess.ForceConnectionToClose();
     }
+    protected void btnClose_Click(object sender, EventArgs e)
+    {
+        tblExpense.Visible = false;
+    }
 }

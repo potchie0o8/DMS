@@ -96,7 +96,8 @@
                     <asp:Button ID="btnUpdate" runat="server" Text="Update Announcement" 
                         ValidationGroup="AddAnnouncement" onclick="btnUpdate_Click" />
 
-                    &nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete Announcement" />
+                    &nbsp;<asp:Button ID="btnDelete" runat="server" Text="Delete Announcement" 
+                        onclick="btnDelete_Click" />
                     <asp:ConfirmButtonExtender ID="btnDelete_ConfirmButtonExtender" runat="server" 
                         ConfirmText="Are you sure you want to delete this announcement?" 
                         TargetControlID="btnDelete">
@@ -104,7 +105,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" 
                         PostBackUrl="~/Admin/ManageAnnouncements.aspx" />
-                    <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                 </td>
                 <td>
                     &nbsp;</td>
