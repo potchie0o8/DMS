@@ -39,6 +39,20 @@ public partial class Admin_ViewTenant : System.Web.UI.Page
         }
     }
 
+    protected void cbkEnableCurfew_CheckedChanged(object sender, EventArgs e)
+    {
+        if (cbkDisableCurfew.Checked == true)
+        {
+            DDLHR.Enabled = false;
+            DDLMIN.Enabled = false;
+        }
+        else if (cbkDisableCurfew.Checked == false)
+        {
+            DDLHR.Enabled = true;
+            DDLMIN.Enabled = true;
+        }
+    }
+
     private void loaddata(int _TID)
     {
         SqlParameter[] TID = { new SqlParameter("@TID", _TID) };
@@ -122,7 +136,20 @@ public partial class Admin_ViewTenant : System.Web.UI.Page
     {
         try
         {
-            string strUpdate = "UPDATE Tenants SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, Email=@email, FName=@fname, MName=@mname, LName=@lname, Street=@street, City=@city, Region=@region, Country=@country WHERE TenantID=@TID";
+
+            string curfewTime;
+
+            if (cbkDisableCurfew.Checked)
+            {
+                curfewTime = "";
+            }
+            else
+            {
+                curfewTime = DDLHR.SelectedValue + ":" + DDLMIN.SelectedValue;
+            }
+
+
+            string strUpdate = "UPDATE Tenants SET AdminLevel=@adminlevel, Gender=@gender, Photofile=@photofile, ContactNo=@contactno, BDate=@bdate, Email=@email, FName=@fname, MName=@mname, LName=@lname, Street=@street, City=@city, Region=@region, Country=@country, CurfewTime=@curfewtime WHERE TenantID=@TID";
 
             photofile = UploadPhoto();
 
@@ -139,7 +166,8 @@ public partial class Admin_ViewTenant : System.Web.UI.Page
                                           new SqlParameter("@city", AntiXSSMethods.CleanString(txtCity.Text)),
                                           new SqlParameter("@region", AntiXSSMethods.CleanString(txtRegion.Text)),
                                           new SqlParameter("@country", AntiXSSMethods.CleanString(txtCountry.Text)),
-                                          new SqlParameter("@TID", TenantID)
+                                          new SqlParameter("@TID", TenantID),
+                                          new SqlParameter("@curfewtime", curfewTime)
                                        };
             DataAccess.DataProcessExecuteNonQuery(strUpdate, UpdateParams, connString);
             loaddata(TenantID);

@@ -286,14 +286,30 @@ public partial class Admin_VerifyUser : System.Web.UI.Page
             if (DTRTYPE == "IN")
             {
                 //Record a violation, then record DTR
+                RecordCurfewViolation(SelectedUserID, CurrentEmployeeID);
+                RecordDTR(SelectedUserType, SelectedUserID, DTRTYPE, txtRemarks.Text);
+                lblAlert.Text = DTRTYPE + " Time Recorded and Violation Filed!";
             }
             else
             {
-                // Do not allow tenant to go out
+                lblAlert.Text = "Tenat is not allowed to go out. It is already past his/her curfew time.";
             }
         }
 
 
+    }
+
+
+    private void RecordCurfewViolation(int _TenantID, int _EmployeeID)
+    {
+        string strInsertViolation = "INSERT INTO Violations (TenantID, EmployeeID, Title, Description) VALUES (@TenantID, @EmployeeID, @Title, @Description)";
+        SqlParameter[] Insertables = {
+                                                             new SqlParameter("@TenantID", _TenantID),
+                                                             new SqlParameter("@EmployeeID", _EmployeeID),
+                                                             new SqlParameter("@Title", "Curfew Violation"),
+                                                             new SqlParameter("@Description", "This tenant has entered the dormitory premises beyond his/her curfew time.")
+                                                         };
+        DataAccess.DataProcessExecuteNonQuery(strInsertViolation, Insertables, ConnString);
     }
 
 

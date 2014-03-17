@@ -17,7 +17,7 @@ namespace Accounting
 
         /// <summary>
         /// Reminders:
-        /// tenants with annual contract pay 4 months advance.
+        /// tenants with annual contract pay 2 months advance.
         /// </summary>
 
 
@@ -71,8 +71,8 @@ namespace Accounting
         {
             //Select totalamount of bill
             SqlParameter[] BID = { new SqlParameter("@BID", _BillID) };
-            string strGetTotalAmt = "SELECT TotalAmt FROM Bills WHERE BillID=@BID";
-            double TotalAmt = Convert.ToDouble(DataAccess.ReturnData(strGetTotalAmt, BID, ConnString, "TotalAmt")); 
+            string strGetTotalAmt = "SELECT TotalAmount FROM Bills WHERE BillID=@BID";
+            double TotalAmt = Convert.ToDouble(DataAccess.ReturnData(strGetTotalAmt, BID, ConnString, "TotalAmount")); 
             
             //Insert New Reciept with total amount and remarks
             SqlParameter[] InsertRParams = { 
@@ -82,14 +82,20 @@ namespace Accounting
             int NewReceiptID = DataAccess.InsertAndGetIndex("INSERT INTO Receipts (Amount, Remarks) VALUES (@AMT, @RMKS)", InsertRParams, ConnString);
             
             //Update Bill as Paid
-            SqlParameter[] ReceiptParams = { new SqlParameter("@RID", NewReceiptID) };
-            DataAccess.DataProcessExecuteNonQuery("UPDATE Bills SET IsPaid=1, ReceiptID=@RID", ReceiptParams, ConnString);
-            
+            SqlParameter[] ReceiptParams = { 
+                                               new SqlParameter("@RID", NewReceiptID),
+                                               new SqlParameter("@BID", _BillID)
+                                           };
+            DataAccess.DataProcessExecuteNonQuery("UPDATE Bills SET IsPaid=1, ReceiptID=@RID WHERE BillID=@BID", ReceiptParams, ConnString);
             //return new reciept ID
             return NewReceiptID;
         }
 
-
+        public static void ClearPreviousBills(int _TenantID)
+        {
+            int LatestBill = int.Parse(DataAccess.ReturnData("SELECT TOP 1 BillID FROM Bills WHERE TenantID='" + _TenantID.ToString() + "' ORDER BY DateGenerated DESC", ConnString, "BillID"));
+            DataAccess.DataProcessExecuteNonQuery("DELETE FROM Bills WHERE TenantID='" + _TenantID + "' AND BillID!='" + LatestBill + "'", ConnString);
+        }
         
 
 
