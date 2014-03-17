@@ -26,7 +26,7 @@ namespace RoomManager
             
             
             //Get Total of occupied bedspaces from room. check 
-            string strCountRooms2 = "SELECT COUNT(*) AS 'Count' FROM Contracts INNER JOIN BedSpaces ON Contracts.BedSpaceID = BedSpaces.BedSpaceID INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID WHERE (BedSpaces.RoomID = @RID)";
+            string strCountRooms2 = "SELECT COUNT(*) AS 'Count' FROM Contracts INNER JOIN BedSpaces ON Contracts.BedSpaceID = BedSpaces.BedSpaceID INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID WHERE (BedSpaces.RoomID = @RID AND Contracts.IsValid=1)";
             SqlParameter[] CheckParams2 = { new SqlParameter("@RID", _RoomID) };
             int TotalBedSpacesOccupied = int.Parse(DataAccess.ReturnData(strCountRooms2, CheckParams2, ConnString, "Count"));
 
@@ -44,11 +44,11 @@ namespace RoomManager
         public static bool CheckIfOccupied(int _BedSpaceID)
         {
             SqlParameter[] CheckParams = { new SqlParameter("@BID", _BedSpaceID) };
-            string strCheck = "SELECT COUNT (*) AS 'Count' FROM Contracts WHERE BedSpaceID=@BID";
+            string strCheck = "SELECT COUNT (*) AS 'Count' FROM Contracts WHERE BedSpaceID=@BID AND IsValid=1";
 
             int Count = int.Parse(DataAccess.ReturnData(strCheck, CheckParams, ConnString, "Count"));
 
-            if (Count == 0)
+            if (Count != 0)
             {
                 return false;
             }

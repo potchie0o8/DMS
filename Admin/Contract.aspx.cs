@@ -13,7 +13,11 @@ using UserManagement;
 using Auditor;
 =======
 using Accounting;
+<<<<<<< HEAD
 >>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
+=======
+using RoomManager;
+>>>>>>> 18e1112e0f685479014cd2f06d27d7bdc1ed1149
 
 public partial class Admin_Contract : System.Web.UI.Page
 {
@@ -112,8 +116,12 @@ public partial class Admin_Contract : System.Web.UI.Page
     {
 
         int validateInputs = checkInputs();
+        bool  IsOccupied = RoomManagement.CheckIfOccupied(Convert.ToInt32(AntiXSSMethods.CleanString(ddlBedside.SelectedValue))));
+
+
         if (validateInputs == 0)
         {
+<<<<<<< HEAD
             //string strInsert = "INSERT INTO Contracts (TenantID, UnitTypeID, RoomID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @utid, @rid, @bsid, @period, @startDate, @eid, @endDate)";
             string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate, IsValid) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate, @IsValid)";
             SqlParameter[] insertParam = {
@@ -132,28 +140,54 @@ public partial class Admin_Contract : System.Web.UI.Page
             //Response.Redirect("~/Admin/ManageTenant.aspx");
 
             //INSERTS TWO MONTHS ADVANCE PAYMENT
+=======
+>>>>>>> 18e1112e0f685479014cd2f06d27d7bdc1ed1149
 
-            if (ddlPeriod.SelectedValue == "Annually")
+            if(IsOccupied == false)
             {
-                //Get Fee
+                //string strInsert = "INSERT INTO Contracts (TenantID, UnitTypeID, RoomID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @utid, @rid, @bsid, @period, @startDate, @eid, @endDate)";
+                string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate, IsValid) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate, @IsValid)";
+                SqlParameter[] insertParam = {
+                                             new SqlParameter("@tid", TenantID),
+                                             //new SqlParameter("@utid", AntiXSSMethods.CleanString(ddlUnit.SelectedValue)),
+                                             //new SqlParameter("@rid", AntiXSSMethods.CleanString(ddlRoom.SelectedValue)),
+                                             new SqlParameter("@bsid", AntiXSSMethods.CleanString(ddlBedside.SelectedValue)),
+                                             new SqlParameter("@period", AntiXSSMethods.CleanString(ddlPeriod.SelectedValue)),
+                                             new SqlParameter("@startDate", AntiXSSMethods.CleanString(txtDateStart.Text)),
+                                             new SqlParameter("@eid", EmployeeID),
+                                             new SqlParameter("@endDate", AntiXSSMethods.CleanString(txtEndDate.Text)),
+                                             new SqlParameter("@IsValid", true)
+                                         };
+                DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
+                //Response.Redirect("~/Admin/ManageTenant.aspx");
 
-                string strGetFee = "SELECT UnitType.MonthlyRate FROM BedSpaces INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID INNER JOIN UnitType ON Rooms.UnitTypeID = UnitType.UnitTypeID WHERE (BedSpaces.BedSpaceID = @BSID)";
+                //INSERTS TWO MONTHS ADVANCE PAYMENT
 
-                SqlParameter[] BSID = { new SqlParameter("@BSID", AntiXSSMethods.CleanString(ddlBedside.SelectedValue)) };
-                double MonthlyFee = double.Parse(DataAccess.ReturnData(strGetFee, BSID, conString, "MonthlyRate"));
+                if (ddlPeriod.SelectedValue == "Annually")
+                {
+                    //Get Fee
+
+                    string strGetFee = "SELECT UnitType.MonthlyRate FROM BedSpaces INNER JOIN Rooms ON BedSpaces.RoomID = Rooms.RoomID INNER JOIN UnitType ON Rooms.UnitTypeID = UnitType.UnitTypeID WHERE (BedSpaces.BedSpaceID = @BSID)";
+
+                    SqlParameter[] BSID = { new SqlParameter("@BSID", AntiXSSMethods.CleanString(ddlBedside.SelectedValue)) };
+                    double MonthlyFee = double.Parse(DataAccess.ReturnData(strGetFee, BSID, conString, "MonthlyRate"));
 
 
-                double TotalSecurityDeposit = MonthlyFee * 2;
+                    double TotalSecurityDeposit = MonthlyFee * 2;
 
-                //Insert Bill
-                int NewBillID = AcctFunctions.GenerateNewBill(TenantID, EmployeeID);
-                AcctFunctions.InsertBillItem(NewBillID, "TWO MONTHS RENTAL FEE - SECURITY DEPOSIT", TotalSecurityDeposit);
-                AcctFunctions.TotalAndFinalizeBill(NewBillID);
+                    //Insert Bill
+                    int NewBillID = AcctFunctions.GenerateNewBill(TenantID, EmployeeID);
+                    AcctFunctions.InsertBillItem(NewBillID, "TWO MONTHS RENTAL FEE - SECURITY DEPOSIT", TotalSecurityDeposit);
+                    AcctFunctions.TotalAndFinalizeBill(NewBillID);
+                }
+
+                Response.Redirect("~/Admin/ContractMgt.aspx");    
             }
-
-
-
-            Response.Redirect("~/Admin/ContractMgt.aspx");
+            else if (IsOccupied == true)
+            {
+                lblAlert.Text = "Please choose another room or unit. This bedspace is alreadu occupied.";
+            }
+            
         }
         else if (validateInputs == 3)
         {
@@ -167,6 +201,7 @@ public partial class Admin_Contract : System.Web.UI.Page
         {
             lblAlert.Text = "Invalid end date";
         }
+
     }
     protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)
     {

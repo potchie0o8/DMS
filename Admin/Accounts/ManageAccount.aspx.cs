@@ -11,6 +11,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Reporting.WebForms;
 using Accounting;
+using CustomStrings;
 
 public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 {
@@ -66,6 +67,10 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
     {
         //I need bill ID... to follow
         //Response.Redirect("BillPayment.aspx?ID=");
+
+        int NewBillID = AcctFunctions.MarkBillAsPaid(int.Parse(DDLBillPeriod.SelectedValue), AntiXSSMethods.CleanString(txtPayRemarks.Text));
+        AcctFunctions.ClearPreviousBills(TenantID);
+        Response.Redirect("Receipt.aspx?ID=" + NewBillID.ToString());
     }
 
 
@@ -112,6 +117,11 @@ public partial class Admin_GenerateBilling2 : System.Web.UI.Page
 
     protected void btnRecPayment_Click(object sender, EventArgs e)
     {
-        //int ReceiptID = AcctFunctions.MarkBillAsPaid(
+        int NewBillID = AcctFunctions.MarkBillAsPaid(int.Parse(DDLBillPeriod.SelectedValue), AntiXSSMethods.CleanString(txtPayRemarks.Text));
+        
+        AcctFunctions.ClearPreviousBills(TenantID);
+
+        Response.Redirect("Receipt.aspx?ID=" + NewBillID.ToString());
+
     }
 }

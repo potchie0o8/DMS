@@ -78,11 +78,15 @@
                 <td style="color: #000000">
                     <b>Payment Mode:</b></td>
                 <td>
-                    <asp:DropDownList ID="DDLPaymode0" runat="server">
+                    <asp:DropDownList ID="DDLPaymode" runat="server">
                         <asp:ListItem>-Select-</asp:ListItem>
                         <asp:ListItem>Cash</asp:ListItem>
                         <asp:ListItem>Check</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                        ControlToValidate="DDLPaymode" Display="Dynamic" 
+                        ErrorMessage="Select Payment Mode!" style="color: #FF3300" 
+                        ValidationGroup="RecordPayment"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -95,7 +99,7 @@
             <tr>
                 <td style="color: #000000" colspan="2">
                     <asp:Button ID="btnRecPayment" runat="server" onclick="btnRecPayment_Click" 
-                        Text="Record Payment" />
+                        Text="Record Payment" ValidationGroup="RecordPayment" />
                     &nbsp;<asp:Button ID="btnCancelPay" runat="server" Height="26px" Text="Cancel" />
                 </td>
             </tr>

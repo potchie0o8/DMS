@@ -27,7 +27,8 @@
     <p>
         <asp:Button ID="btnBack" runat="server" PostBackUrl="~/Admin/ContractMgt.aspx" 
             Text="Back" />
-&nbsp;<asp:Button ID="btnVoidContract" runat="server" Text="Void this Contract" />
+&nbsp;<asp:Button ID="btnVoidContract" runat="server" Text="Void this Contract" 
+            onclick="btnVoidContract_Click" />
     </p>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" Runat="Server">

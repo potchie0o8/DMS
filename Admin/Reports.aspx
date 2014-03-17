@@ -5,8 +5,12 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" Runat="Server">
     <h1>Reports Page</h1>
     <p>
-        1. <asp:LinkButton ID="LinkButton3" runat="server" 
+        1. <asp:LinkButton ID="LinkButton1" runat="server" 
             PostBackUrl="~/Admin/Reports/TenantsList.aspx">List of Tenants</asp:LinkButton>
+    </p>
+    <p>
+        2. <asp:LinkButton ID="LinkButton2" runat="server" 
+            PostBackUrl="~/Admin/Reports/Payments.aspx">List of Payments Made</asp:LinkButton>
     </p>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" Runat="Server">
