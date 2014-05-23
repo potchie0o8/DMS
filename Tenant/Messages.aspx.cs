@@ -16,7 +16,7 @@ public partial class Tenant_Messages : System.Web.UI.Page
         {
             TenantID = int.Parse(Session["TenantID"].ToString());
 
-            SqlDS_Messages.SelectCommand = "SELECT Messages.MessageID, Messages.EmployeeID, Messages.Subject, Messages.Date, Employees.LName + ', ' + Employees.FName + '  ' + Employees.MName AS 'EmpName' FROM Messages INNER JOIN Employees ON Messages.EmployeeID = Employees.EmployeeID WHERE Messages.TenantID=@TID";
+            SqlDS_Messages.SelectCommand = "SELECT Messages.MessageID, Messages.EmployeeID, Messages.Subject, Messages.Date, Messages.IsRead, Employees.LName + ', ' + Employees.FName + '  ' + Employees.MName AS 'EmpName' FROM Messages INNER JOIN Employees ON Messages.EmployeeID = Employees.EmployeeID WHERE Messages.TenantID=@TID ORDER BY Messages.Date DESC";
             SqlDS_Messages.SelectParameters.Add(new Parameter("TID", System.Data.DbType.Int32, TenantID.ToString()));
             
             SqlDS_Messages.DataBind();
@@ -31,5 +31,17 @@ public partial class Tenant_Messages : System.Web.UI.Page
     protected void GrdMessages_SelectedIndexChanged(object sender, EventArgs e)
     {
         Response.Redirect("ViewMessage.aspx?ID=" + grd_Messages.SelectedDataKey["MessageID"].ToString());
+    }
+
+    public string IsRead(string _Value)
+    {
+        if (_Value == "1")
+        {
+            return "Read";
+        }
+        else
+        {
+            return "Unread";
+        }
     }
 }

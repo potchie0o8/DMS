@@ -38,4 +38,16 @@ public partial class Admin_MessageMgt : System.Web.UI.Page
     {
         tblMsg.Visible = false;
     }
+
+    public string IsRead(string _Value)
+    {
+        if (_Value == "1")
+        {
+            return "Read";
+        }
+        else
+        {
+            return "Unread";
+        }
+    }
 }

@@ -30,11 +30,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         try
         {
-<<<<<<< HEAD
             string Username = Guardians.ReturnUserName(int.Parse(Session["GuardianID"].ToString()));
-=======
-            string Username = Tenants.ReturnUserName(int.Parse(Session["GuardianID"].ToString()));
->>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
             lblUsername.Text = Username;
         }
         catch

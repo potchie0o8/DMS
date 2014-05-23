@@ -28,7 +28,10 @@
                     <asp:SqlDataSource ID="sql_Tenant" runat="server" 
                         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
                         
-                        SelectCommand="SELECT Tenants.TenantID, Tenants.LName + ',  ' + Tenants.FName + '  ' + Tenants.MName AS 'TenantName' FROM Tenants INNER JOIN TGLink ON Tenants.TenantID &lt;&gt; TGLink.TenantID">
+                        
+                        SelectCommand="SELECT Tenants.TenantID, Tenants.LName + ',  ' 
++ Tenants.FName + '  ' + 
+Tenants.MName AS 'TenantName' FROM Tenants LEFT JOIN TGLink on Tenants.TenantID = TGLink.TenantID WHERE TGLink.TenantID IS NULL">
                     </asp:SqlDataSource>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                         ControlToValidate="ddlTenant" ErrorMessage="Please select a tenant!" 

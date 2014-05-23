@@ -9,15 +9,9 @@ using System.Data.SqlClient;
 using CustomStrings;
 using DBHelpers;
 using UserManagement;
-<<<<<<< HEAD
 using Auditor;
-=======
 using Accounting;
-<<<<<<< HEAD
->>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
-=======
 using RoomManager;
->>>>>>> 18e1112e0f685479014cd2f06d27d7bdc1ed1149
 
 public partial class Admin_Contract : System.Web.UI.Page
 {
@@ -113,35 +107,13 @@ public partial class Admin_Contract : System.Web.UI.Page
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-
+    {        
         int validateInputs = checkInputs();
-        bool  IsOccupied = RoomManagement.CheckIfOccupied(Convert.ToInt32(AntiXSSMethods.CleanString(ddlBedside.SelectedValue))));
+        bool  IsOccupied = RoomManagement.CheckIfOccupied(Convert.ToInt32(AntiXSSMethods.CleanString(ddlBedside.SelectedValue)));
 
 
         if (validateInputs == 0)
         {
-<<<<<<< HEAD
-            //string strInsert = "INSERT INTO Contracts (TenantID, UnitTypeID, RoomID, BedSpaceID, Period, StartDate, EmployeeID, EndDate) VALUES (@tid, @utid, @rid, @bsid, @period, @startDate, @eid, @endDate)";
-            string strInsert = "INSERT INTO Contracts (TenantID, BedSpaceID, Period, StartDate, EmployeeID, EndDate, IsValid) VALUES (@tid, @bsid, @period, @startDate, @eid, @endDate, @IsValid)";
-            SqlParameter[] insertParam = {
-                                         new SqlParameter("@tid", TenantID),
-                                         //new SqlParameter("@utid", AntiXSSMethods.CleanString(ddlUnit.SelectedValue)),
-                                         //new SqlParameter("@rid", AntiXSSMethods.CleanString(ddlRoom.SelectedValue)),
-                                         new SqlParameter("@bsid", AntiXSSMethods.CleanString(ddlBedside.SelectedValue)),
-                                         new SqlParameter("@period", AntiXSSMethods.CleanString(ddlPeriod.SelectedValue)),
-                                         new SqlParameter("@startDate", AntiXSSMethods.CleanString(txtDateStart.Text)),
-                                         new SqlParameter("@eid", EmployeeID),
-                                         new SqlParameter("@endDate", AntiXSSMethods.CleanString(txtEndDate.Text)),
-                                         new SqlParameter("@IsValid", true)
-                                     };
-            DataAccess.DataProcessExecuteNonQuery(strInsert, insertParam, conString);
-            AuditTrailFunctions.UpdateEmployeeAuditTrail("Added new contract", EmployeeID);
-            //Response.Redirect("~/Admin/ManageTenant.aspx");
-
-            //INSERTS TWO MONTHS ADVANCE PAYMENT
-=======
->>>>>>> 18e1112e0f685479014cd2f06d27d7bdc1ed1149
 
             if(IsOccupied == false)
             {
@@ -185,7 +157,7 @@ public partial class Admin_Contract : System.Web.UI.Page
             }
             else if (IsOccupied == true)
             {
-                lblAlert.Text = "Please choose another room or unit. This bedspace is alreadu occupied.";
+                lblAlert.Text = "Please choose another room or unit. This bedspace is already occupied.";
             }
             
         }
@@ -201,6 +173,7 @@ public partial class Admin_Contract : System.Web.UI.Page
         {
             lblAlert.Text = "Invalid end date";
         }
+
 
     }
     protected void ddlPeriod_SelectedIndexChanged(object sender, EventArgs e)

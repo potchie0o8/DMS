@@ -118,8 +118,7 @@
                 <td class="style2">
                     Date Completed:</td>
                 <td class="style3">
-                    <asp:TextBox ID="txtDateCompleted" runat="server" Width="180px" visible="false" 
-                        TextMode="Date" ></asp:TextBox>
+                    <asp:TextBox ID="txtDateCompleted" runat="server" Width="180px" visible="false"></asp:TextBox>
                     <asp:MaskedEditExtender ID="txtDateCompleted_MaskedEditExtender" runat="server" 
                         CultureAMPMPlaceholder="" CultureCurrencySymbolPlaceholder="" 
                         CultureDateFormat="" CultureDatePlaceholder="" CultureDecimalPlaceholder="" 

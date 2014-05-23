@@ -9,9 +9,15 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using UserManagement;
+using DBHelpers;
+using Globals;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
+    string ConnString = StaticVariables.ConnectionString;
+    int CurrentUserID;
+    public int UnreadMessagesCount;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         lblDate.Text = "Date: "+ DateTime.Now.Month.ToString() + "/" + DateTime.Now.Day.ToString() + "/" + DateTime.Now.Year.ToString();
@@ -30,7 +36,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
     {
         try
         {
-            string Username = Tenants.ReturnUserName(int.Parse(Session["TenantID"].ToString()));
+            CurrentUserID = int.Parse(Session["TenantID"].ToString());
+            string Username = Tenants.ReturnUserName(CurrentUserID);
+            UnreadMessagesCount = CountUnreadMessages(CurrentUserID);
             lblUsername.Text = Username;
         }
         catch
@@ -39,5 +47,15 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Response.Redirect("~/Default.aspx");
         }
     }
+
+    public int CountUnreadMessages(int _UserID)
+    {
+        string strCount = "SELECT COUNT (*) FROM Messages WHERE TenantID=@tid AND ((IsRead != 1) OR (IsRead IS NULL))";
+        SqlParameter[] countParams = {
+                                         new SqlParameter("@tid", _UserID)
+                                     };
+        return DataAccess.DetermineEntryCount(strCount, countParams, ConnString);
+    }
+
 
 }

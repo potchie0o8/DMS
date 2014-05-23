@@ -11,14 +11,18 @@
             onselectedindexchanged="GrdMessages_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
-                <asp:BoundField DataField="Subject" HeaderText="Subject" 
-                    SortExpression="Subject" />
-                <asp:BoundField DataField="Date" DataFormatString="{0:MMMM dd,yyyy hh:mm tt}" 
-                    HeaderText="Date" SortExpression="Date" />
-                <asp:BoundField DataField="EmpName" HeaderText="Sender" ReadOnly="True" 
-                    SortExpression="EmpName" />
-                <asp:CommandField ButtonType="Button" SelectText="View" 
-                    ShowSelectButton="True" />
+
+                <asp:CommandField ButtonType="Button" SelectText="View" ShowSelectButton="True" />
+                <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
+                <asp:BoundField DataField="Date" DataFormatString="{0:MMMM dd,yyyy hh:mm tt}" HeaderText="Date" SortExpression="Date" />
+                <asp:BoundField DataField="EmpName" HeaderText="Sender" ReadOnly="True" SortExpression="EmpName" />
+                <asp:TemplateField HeaderText="Status">
+                    <ItemTemplate>
+                        <%# IsRead(Eval("IsRead").ToString()) %>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+
             </Columns>
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

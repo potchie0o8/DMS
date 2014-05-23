@@ -19,7 +19,9 @@ public partial class Tenant_ViewMessage : System.Web.UI.Page
             MessageID = int.Parse(Request.QueryString["ID"]);
             if (!IsPostBack)
             {
+
                 loaddata(MessageID);
+                MarkAsRead(MessageID);
             }
         }
         catch(Exception ex)
@@ -41,4 +43,15 @@ public partial class Tenant_ViewMessage : System.Web.UI.Page
         lblMsg.Text = Server.HtmlDecode(dr["Message"].ToString());
         DataAccess.ForceConnectionToClose();
     }
+
+
+    private void MarkAsRead(int _MessageID)
+    {
+        string strUpdate = "UPDATE Messages SET IsRead=1 WHERE MessageID=@mid";
+        SqlParameter[] param = {
+                                   new SqlParameter("@mid", _MessageID)
+                               };
+        DataAccess.DataProcessExecuteNonQuery(strUpdate, param, conString);
+    }
+
 }
