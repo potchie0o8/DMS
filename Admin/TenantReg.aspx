@@ -104,7 +104,7 @@
             <td class="style3">
                 Email</td>
             <td class="style2">
-                <asp:TextBox ID="txtEmail" runat="server" Width="180px"></asp:TextBox>
+                <asp:TextBox ID="txtEmail" runat="server" Width="180px" TextMode="Email"></asp:TextBox>
             </td>
             <td>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" 

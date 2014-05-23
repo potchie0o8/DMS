@@ -21,7 +21,7 @@ public partial class Admin_ComplaintMgt : System.Web.UI.Page
                 status = "Pending";
                 break;
             case 2:
-                status = "Resolved";
+                status = "";
                 break;
         }
         return status;

@@ -50,11 +50,11 @@ namespace RoomManager
 
             if (Count != 0)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 

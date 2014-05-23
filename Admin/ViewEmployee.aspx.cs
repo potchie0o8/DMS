@@ -11,9 +11,11 @@ using ImageProcessor;
 using System.IO;
 using BCryptEncryption;
 using Globals;
+<<<<<<< HEAD
 using Auditor;
+=======
 using UserManagement;
-
+>>>>>>> eeef0f989f9b95b8b161b5956eb59a7441d4bc8d
 
 public partial class Admin_ViewEmployee : System.Web.UI.Page
 {

@@ -24,15 +24,14 @@
         onselectedindexchanged="GridView1_SelectedIndexChanged">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
-            <asp:CommandField ButtonType="Button" SelectText="View" ShowSelectButton="True" />
-            <asp:BoundField DataField="Subject" HeaderText="Subject" SortExpression="Subject" />
-            <asp:BoundField DataField="Date" DataFormatString="{0:MMMM dd,yyyy hh:mm tt}" HeaderText="Date" SortExpression="Date" />
-            <asp:BoundField DataField="EmpName" HeaderText="Sender" ReadOnly="True" SortExpression="EmpName" />
-            <asp:TemplateField HeaderText="Status">
-                <ItemTemplate>
-                <%#  IsRead(Eval("IsRead").ToString()) %>
-                </ItemTemplate>
-            </asp:TemplateField>
+            <asp:BoundField DataField="Subject" HeaderText="Subject" 
+                SortExpression="Subject" />
+            <asp:BoundField DataField="Date" DataFormatString="{0:MMMM dd,yyyy hh:mm tt}" 
+                HeaderText="Date" SortExpression="Date" />
+            <asp:BoundField DataField="EmpName" HeaderText="Sender" ReadOnly="True" 
+                SortExpression="EmpName" />
+            <asp:CommandField ButtonType="Button" SelectText="View" 
+                ShowSelectButton="True" />
         </Columns>
         <EditRowStyle BackColor="#2461BF" />
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -47,7 +46,7 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:CONNSTRING %>" 
-        SelectCommand="SELECT Messages.MessageID, Messages.EmployeeID, Messages.Subject, Messages.IsRead, Messages.Subject, Messages.Date, Employees.LName + ', ' + Employees.FName + '  ' + Employees.MName AS 'EmpName' FROM Messages INNER JOIN Employees ON Messages.EmployeeID = Employees.EmployeeID ORDER BY Messages.Date DESC">
+        SelectCommand="SELECT Messages.MessageID, Messages.EmployeeID, Messages.Subject, Messages.Date, Employees.LName + ', ' + Employees.FName + '  ' + Employees.MName AS 'EmpName' FROM Messages INNER JOIN Employees ON Messages.EmployeeID = Employees.EmployeeID">
     </asp:SqlDataSource>
 </p>
     <p>

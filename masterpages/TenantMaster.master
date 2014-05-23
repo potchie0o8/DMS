@@ -52,7 +52,7 @@
 
                 <ul>
                     <%--<li><asp:LinkButton CssClass="style1" ID="lnkManageEmployee" runat="server" PostBackUrl="~/Admin/ManageEmployees.aspx">Manage Employees</asp:LinkButton></li>--%>
-                     <li><asp:LinkButton CssClass="style1" ID="lnkMessage" runat="server" PostBackUrl="~/Tenant/Messages.aspx">Messages(<%= UnreadMessagesCount.ToString() %>)</asp:LinkButton></li>
+                     <li><asp:LinkButton CssClass="style1" ID="lnkMessage" runat="server" PostBackUrl="~/Tenant/Messages.aspx">Messages</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkComplaints" runat="server" PostBackUrl="~/Tenant/AddComplaint.aspx">Submit Complaint</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkViewViolations" runat="server" PostBackUrl="~/Tenant/Violations.aspx">My Violations</asp:LinkButton></li>
                      <li><asp:LinkButton CssClass="style1" ID="lnkServiceRequest" runat="server" PostBackUrl="~/Tenant/ServiceRequestMgt.aspx">Service Request</asp:LinkButton></li>
